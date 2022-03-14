@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_2cp/modules/coursescreen/coursescreen.dart';
-import 'package:project_2cp/shared/components.dart';
-import 'package:project_2cp/shared/daysprefreed.dart';
+import 'package:keyofscience/components.dart';
+
 
 class ScheduleScreen extends StatefulWidget {
    ScheduleScreen({ Key? key }) : super(key: key);
