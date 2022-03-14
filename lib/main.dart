@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/pages/login.dart';
+import 'package:keyofscience/pages/signin.dart';
 import 'kdefault.dart';
 import 'components.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: KdefaultColor,
         primarySwatch: Colors.grey,
       ),
-      home:  Login()
+      home:  RegisterPage()
     );
   }
 }
