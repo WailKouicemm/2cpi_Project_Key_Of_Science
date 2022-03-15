@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: KdefaultColor,
         primarySwatch: Colors.grey,
       ),
-      home:  Login()
+      home:  RegisterPage()
     );
   }
 }
