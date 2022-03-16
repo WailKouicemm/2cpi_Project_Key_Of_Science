@@ -6,7 +6,7 @@ import 'components.dart';
 
 
 void main() {
-  runApp( MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,11 +17,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        
         primaryColor: KdefaultColor,
         primarySwatch: Colors.grey,
       ),
-      home:  Login()
+      home: const RegisterPage()
     );
   }
 }
