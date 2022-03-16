@@ -1,5 +1,3 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CourseScreen extends StatelessWidget {
@@ -10,7 +8,7 @@ class CourseScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/bar.png.png'),
               fit: BoxFit.fitWidth),
@@ -18,10 +16,10 @@ class CourseScreen extends StatelessWidget {
         backgroundColor: Colors.grey[500],
         leading: IconButton(
             onPressed: () {},
-            icon: Icon(Icons.keyboard_backspace_rounded),
-            color: Color.fromRGBO(42, 88, 244, 1)),
+            icon: const  Icon(Icons.keyboard_backspace_rounded),
+            color:  const Color.fromRGBO(42, 88, 244, 1)),
         titleSpacing: 120.0,
-        title: Text(
+        title: const  Text(
           'Course',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -37,7 +35,7 @@ class CourseScreen extends StatelessWidget {
                 height: 175.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
+                  image:  const DecorationImage(
                     image: AssetImage('assets/images/javaaa.png'),
                     fit: BoxFit.fill,
                   ),
@@ -54,16 +52,16 @@ class CourseScreen extends StatelessWidget {
                     textBaseline: TextBaseline.alphabetic,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'dr. Nazim Ahmed',
                         style: TextStyle(
                             fontWeight: FontWeight.w900, fontSize: 9.0),
                       ),
-                      SizedBox(
+                      const  SizedBox(
                         width: 210.0,
                       ),
                       Row(
-                        children: [
+                        children: const  [
                           Icon(
                             Icons.star_border,
                             size: 13.8,
@@ -81,8 +79,8 @@ class CourseScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
+                const  Padding(
+                  padding: EdgeInsets.only(
                     top: 27.0,
                     left: 45.0,
                   ),
@@ -96,7 +94,7 @@ class CourseScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 13.0, left: 45.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children:  const [
                       Text(
                         'll basics of java and syntax, oop ( object oriented',
                         style: TextStyle(
@@ -114,8 +112,8 @@ class CourseScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 38.0, left: 45.0),
+                const  Padding(
+                  padding: EdgeInsets.only(top: 38.0, left: 45.0),
                   child: Text(
                     'The Course Includes',
                     style:
@@ -129,16 +127,16 @@ class CourseScreen extends StatelessWidget {
                       CircleAvatar(
                         minRadius: 13.0,
                         backgroundColor: Colors.deepPurple[900],
-                        child: Icon(
+                        child:  const Icon(
                           Icons.article_outlined,
                           size: 20.0,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(
+                      const  SizedBox(
                         width: 4,
                       ),
-                      Text(
+                      const Text(
                         '20 Hours Video',
                         style: TextStyle(
                             color: Colors.grey,
@@ -155,16 +153,16 @@ class CourseScreen extends StatelessWidget {
                       CircleAvatar(
                         minRadius: 13.0,
                         backgroundColor: Colors.deepPurple[900],
-                        child: Icon(
+                        child: const Icon(
                           Icons.insert_drive_file_outlined,
                           size: 20.0,
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(
+                      const  SizedBox(
                         width: 4,
                       ),
-                      Text(
+                      const Text(
                         'Total 60+ Lessons',
                         style: TextStyle(
                             color: Colors.grey,
@@ -181,15 +179,15 @@ class CourseScreen extends StatelessWidget {
                       CircleAvatar(
                           minRadius: 13.0,
                           backgroundColor: Colors.deepPurple[900],
-                          child: Image(
+                          child: const  Image(
                             image: AssetImage('assets/images/2754.png'),
                             width: 15.0,
                             height: 15.0,
                           )),
-                      SizedBox(
+                      const  SizedBox(
                         width: 4,
                       ),
-                      Text(
+                      const  Text(
                         '20 Quiz',
                         style: TextStyle(
                             color: Colors.grey,
@@ -218,14 +216,14 @@ class CourseScreen extends StatelessWidget {
                       onPressed: () {},
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
-                      label: Text(
+                      label:  const Text(
                         'Start',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 14.0,
                             fontWeight: FontWeight.bold),
                       ),
-                      backgroundColor: Color.fromRGBO(42, 88, 244, 1))),
+                      backgroundColor: const Color.fromRGBO(42, 88, 244, 1))),
             ),
           ],
         ),
