@@ -1,8 +1,8 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/theme/components.dart';
+import 'package:keyofscience/theme/kdefault.dart';
 
 //import 'HomeZommDrawer.dart';
 

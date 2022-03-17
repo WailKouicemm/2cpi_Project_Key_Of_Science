@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/pages/login.dart';
 import 'package:keyofscience/pages/signin.dart';
-import 'kdefault.dart';
-import 'components.dart';
+import 'theme/kdefault.dart';
+import 'theme/components.dart';
 
 
 void main() {

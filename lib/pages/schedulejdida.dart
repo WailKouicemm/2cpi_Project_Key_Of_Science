@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
+import 'package:keyofscience/theme/components.dart';
 
 
 class ScheduleScreen extends StatefulWidget {
