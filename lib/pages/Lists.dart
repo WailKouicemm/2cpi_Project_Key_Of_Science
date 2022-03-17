@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'MainScreen.dart';
+//import 'MainScreen.dart';
 
 
-const List<post> posts=[
+/*const List<post> posts=[
   post(poster_image: "assets/images/man.jpg",
       poster_name: 'Salah Eddine Salhi',
       poster_username: "sa16",
@@ -39,4 +39,4 @@ const List<post> posts=[
           "Hello , i have a question about why we use getters and setters in Java"
           "Hello , i have a question about why we use getters and setters in Java"
   ),
-];
+];*/
