@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/theme/components.dart';
+import 'package:keyofscience/theme/kdefault.dart';
 import 'package:keyofscience/pages/preferredcourses.dart';
 import 'package:keyofscience/pages/signin.dart';
 

@@ -1,10 +1,10 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/theme/components.dart';
+import 'package:keyofscience/theme/kdefault.dart';
 
-import 'HomeZommDrawer.dart';
+//import 'HomeZommDrawer.dart';
 
 class RECOMMANDED_COURSES extends StatefulWidget {
   const RECOMMANDED_COURSES();
@@ -21,34 +21,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
     double widh = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: KbackgroundColor,
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration:  const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/backround.png") , fit: BoxFit.cover)
-          ),
-        ),
-        title: logo,
-        backgroundColor: Colors.white,
-        actions: const [
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-           child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-            child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 10,),
-        ],
-      ),
+      appBar: buildAppBar,
       body: Padding(
         padding: const  EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
@@ -89,11 +62,11 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                   ),
                 ),
                 TextButton(
-                    onPressed: ()=> Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HommePage()),
-                    ),
+                   onPressed: () {} ,   //=> Navigator.push(
+                //      context,
+                   //   MaterialPageRoute(
+                    //      builder: (context) => const HommePage()),
+               //     ),
                     child: const Text("Skip",
                     style: TextStyle(
                       color: KdefaultColor,
@@ -111,3 +84,5 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
 
   }
 }
+
+
