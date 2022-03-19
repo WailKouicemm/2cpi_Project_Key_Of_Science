@@ -10,8 +10,8 @@ class CourseScreen extends StatelessWidget {
         flexibleSpace: Container(
             decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/bar.png.png'),
-              fit: BoxFit.fitWidth),
+              image: AssetImage('assets/images/backround_appbar.png'),
+              fit: BoxFit.fill),
         )),
         backgroundColor: Colors.grey[500],
         leading: IconButton(
@@ -19,6 +19,7 @@ class CourseScreen extends StatelessWidget {
             icon: const  Icon(Icons.keyboard_backspace_rounded),
             color:  const Color.fromRGBO(42, 88, 244, 1)),
         titleSpacing: 120.0,
+        centerTitle: true,
         title: const  Text(
           'Course',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),

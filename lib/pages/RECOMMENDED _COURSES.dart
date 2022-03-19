@@ -24,10 +24,11 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
       appBar: AppBar(
         flexibleSpace: Container(
           decoration:  const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/backround.png") , fit: BoxFit.cover)
+              image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
           ),
         ),
         title: logo,
+        centerTitle: true,
         backgroundColor: Colors.white,
         actions: const [
           CircleAvatar(

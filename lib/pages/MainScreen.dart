@@ -1,7 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:keyofscience/pages/Bottom_navy_item.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../kdefault.dart';
+import '../models/Course_model.dart';
+import '../models/postModel.dart';
+import 'Course_card.dart';
 import 'Posts_page.dart';
 
 
@@ -13,6 +19,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // print('MainScreen called');
   //  const Color KdefaultCOlor= Color(0xFF2958F5);
+    int index=0;
     return  Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -27,7 +34,26 @@ class MainScreen extends StatelessWidget {
           centerTitle: true,
           flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
         ),
-        body: const theBody()
+        body: const theBody(),
+      bottomNavigationBar: StatefulBuilder(
+        builder: (context,setstate)=>BottomNavigationBar(
+          /*
+        bottomNavyItems
+         */
+          items: bottomNavyItems.map((item) => BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                item.icon_asset,
+                color: index==bottomNavyItems.indexOf(item)? KdefaultColor : Colors.grey,
+              ),
+              label: item.title
+          ),
+          ).toList(),
+          currentIndex: index,
+          selectedItemColor: KdefaultColor,
+          unselectedItemColor: Colors.grey,
+          onTap: (i)=>setstate(()=>index=i),
+        ),
+      )
     );
   }
 }
@@ -38,25 +64,25 @@ class theBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    return ListView(
-      shrinkWrap: true,
-      controller: ScrollController(),
-      physics: const AlwaysScrollableScrollPhysics(),
-      children: [
-        profilecard(height: height),
-        const Title_Text(txt:'   Keyeince features',seAll: false),
-        const Keyeince_features(),
-        const Title_Text(txt:'   Courses for you',seAll: true),
-        const CorsesListView(),
-        const  recentlyPoststitle(),
-        const Recentrly_posts()
-      ]
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+          children: [
+            profilecard(height: height),
+            const Title_Text(txt:'   Keyeince features',seAll: false),
+            const Keyeince_features(),
+            const Title_Text(txt:'   Courses for you',seAll: true),
+            const CorsesListView(),
+            const recentlyPoststitle(),
+            const Recentrly_posts()
+          ]
+      ),
     );
   }
 }
 
 class recentlyPoststitle extends StatelessWidget {
-  const recentlyPoststitle({Key? key}) : super(key: key);
+  const recentlyPoststitle();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +95,8 @@ class recentlyPoststitle extends StatelessWidget {
             const  Text('   Recently posts',
               style:  TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                 fontFamily: "Montserrat",
               ),),
              TextButton(
               onPressed: ()=> Navigator.of(context).push(
@@ -106,7 +133,8 @@ final bool seAll;
             Text(txt,
               style: const TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                 fontFamily: "Montserrat",
               ),),
 
             if(seAll)
@@ -126,12 +154,9 @@ final bool seAll;
 }
 
 class profilecard extends StatelessWidget {
-  const profilecard({
-    Key? key,
-    required this.height,
-  }) : super(key: key);
-
   final double height;
+  const profilecard({required this.height,});
+
 
   @override
   Widget build(BuildContext context) {
@@ -208,31 +233,35 @@ class Keyeince_features extends StatelessWidget {
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
-          child: Container(
-            height: 60,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            decoration:  BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image:const DecorationImage(
-                  image: AssetImage('assets/images/CARD.png'),
-                  fit: BoxFit.cover,
-                )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(tmp.name,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
-                  ),),
-                Icon(tmp.logo,
-                  color: Colors.white,),
-              ],
-            ),
-          )
-      )).toList(),
+        child: Container(
+          height: 60,
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: const Color(0xFF2958F5),
+            borderRadius: BorderRadius.circular(7),
+            // image: const DecorationImage(
+            //   image: AssetImage('assets/images/CARD.png'),
+            //   fit: BoxFit.fill,
+            // ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                tmp.name,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500
+                ),
+              ),
+              Icon(tmp.logo,
+                color: Colors.white,),
+            ],
+          ),
+        ),
+      )
+      ).toList(),
     );
   }
 }
@@ -240,14 +269,7 @@ class Keyeince_features extends StatelessWidget {
 
 
 
-class courses{
-  final String path ;
-  final String title ;
-  final String coursesnum ;
 
-  const courses({required this.path,required this.title,required this.coursesnum});
-
-}
 
 
 
@@ -272,114 +294,57 @@ class CorsesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<courses> _populaCorses = const [
-      courses(path: 'assets/images/backround_appbar.png' , title: 'introduction to Java' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'COURSES OFFRED' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'UI/UX Courses' , coursesnum: '29'),
-      courses(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
+    const  List<course> _populaCorses =  [
+      course(path: 'assets/images/backround_appbar.png' , title: 'introduction to Java' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'COURSES OFFRED' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX Courses' , coursesnum: '29'),
+      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
     ];
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    return Container(
+    return SizedBox(
       height:  height * 0.2,
       width:  width,
       child: ListView.builder(
           addAutomaticKeepAlives: true,
           shrinkWrap: true,
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           controller: ScrollController(),
           itemCount: _populaCorses.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           itemBuilder :  (context , index){
-            courses tmp = _populaCorses[index];
-            return InkWell(
-              onTap: null,
-              child: Stack(
-                children: [
-                  Container(
-                    width:  width * 0.8,
-                    margin: const EdgeInsets.only(right: 10),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(image: AssetImage("assets/images/java.jpg"),fit: BoxFit.cover),
-                      borderRadius:BorderRadius.circular(15),
-                    ),
-                  ),
-                  Container(
-                    width:  width * 0.8,
-                    margin:  const EdgeInsets.only(right: 10),
-                    alignment: Alignment.bottomLeft,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.black.withOpacity(0.4)
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 10 , bottom: 10),
-                      width:  width * 0.25,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tmp.title , style: const TextStyle(color: Colors.white),),
-                          Text(tmp.coursesnum , style: const TextStyle(color: Colors.grey , fontSize: 10),),
-                          InkWell(
-                            onTap: (){},
-                            child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.pink,
-                                ),
-                                child: const Text(' continue ' , style: TextStyle(color: Colors.white),)
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ),
-                ],
-              ),
-            );
+            course tmp = _populaCorses[index];
+            return Cours_card(cours: tmp,);
           }
       ),
     );
   }
 }
 
+const List<post> Recentrly_post=[
+  post(poster_image: "assets/images/man.jpg",
+      poster_name: 'Salah Eddine Salhi',
+      poster_username: "sa16",
+      text_of_post: "Hello , i have a question about why we use stateless and statefull widgets in flutter \n"
+          "Hello , i have a question about why we use stateless and statefull widgets in flutter"
+          "Hello , i have a question about why we use stateless and statefull widgets in flutter"
+  ),
+  post(poster_image: "assets/images/man.jpg",
+      poster_name: 'Walid kacemi',
+      poster_username: "wa8",
+      text_of_post: "Hello , i have a question about why we use getters and setters in Java"
+  ),
+];
 
-class post{
-  final String poster_image;
-  final String poster_name;
-  final String poster_username;
-  final String text_of_post;
-
-  const post({required this.poster_image,required this.poster_name,
-    required this.poster_username,required this.text_of_post});
-}
 class Recentrly_posts extends StatelessWidget {
-  const  Recentrly_posts({Key? key}) : super(key: key);
+  const  Recentrly_posts();
 
   @override
   Widget build(BuildContext context) {
-
-    const List<post> posts=[
-      post(poster_image: "assets/images/man.jpg",
-          poster_name: 'Salah Eddine Salhi',
-          poster_username: "sa16",
-          text_of_post: "Hello , i have a question about why we use stateless and statefull widgets in flutter \n"
-              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-      ),
-      post(poster_image: "assets/images/man.jpg",
-          poster_name: 'Walid kacemi',
-          poster_username: "wa8",
-          text_of_post: "Hello , i have a question about why we use getters and setters in Java"
-      ),
-    ];
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return SizedBox(
@@ -388,13 +353,13 @@ class Recentrly_posts extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
           addAutomaticKeepAlives: true,
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
-        itemCount: posts.length,
+        itemCount: Recentrly_post.length,
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 10),
         itemBuilder :  (context , index){
-          post tmp = posts[index];
+          post tmp = Recentrly_post[index];
           return Container(
             width: widh * 0.8,
             margin: const EdgeInsets.fromLTRB(10,10,10,20),

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 
+import '../models/postModel.dart';
 import 'MainScreen.dart';
 
 

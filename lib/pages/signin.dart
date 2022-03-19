@@ -1,4 +1,4 @@
-
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/components.dart';
 import 'package:keyofscience/kdefault.dart';
@@ -15,7 +15,7 @@ class RegisterPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: KbackgroundColor,
-      appBar: appBar,
+      appBar: Appbar.appbar,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -71,20 +71,25 @@ class RegisterPage extends StatelessWidget {
                 TextFormFiledC(suffixicon: true,obscured: true,text: ' Password',icon: const  Icon(null)),
                 TextFormFiledC(suffixicon: true,obscured: true,text: ' Confirm Password',icon: const  Icon(null) , padding: 20,),
                 /// privacy text
-                Wrap(
+                Row(
                   children: [
                     const  Icon(Icons.check_box , color: KdefaultColor,size: 15,),
                     const Text(
                         '  I confirmed i have read the',
                         style: TextStyle(color: Colors.black87 , fontSize: 12,fontFamily: "Montserrat")
                     ),
-                    TextButton(
-                      onPressed: (){},
-                      child:  const Text(
-                          'privacy Acknowledgent ',
-                          style: TextStyle(color: KdefaultColor , fontWeight: FontWeight.bold , fontSize: 12,fontFamily: "Montserrat")
+                    Expanded(
+                      child: TextButton(
+                        onPressed: (){},
+                        child:  const AutoSizeText(
+                            'privacy Acknowledgent ',
+                            maxLines: 1,
+                            minFontSize: 5,
+                            maxFontSize: 25,
+                            style: TextStyle(color: KdefaultColor, fontWeight: FontWeight.bold , fontSize: 12,fontFamily: "Montserrat")
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const  SizedBox(height: 20,),
