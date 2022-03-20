@@ -35,6 +35,11 @@ class PostsPage extends StatelessWidget {
                 )
             ),
           ),
+          leading: IconButton(
+            onPressed: ()=>Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back,
+            color: KdefaultColor,),
+          ),
         ),
         body: const Body_posts(),
       ),

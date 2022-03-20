@@ -84,16 +84,13 @@ class TextFormFiledC extends StatefulWidget {
   final bool suffixicon;
   final double padding;
   TextFormFiledC({
-    this.colour = KdefaultColor,
-    required this.text,
-    this.obscured = false,
+    this.colour = KdefaultColor, required this.text, this.obscured = false,
     this.icon = const Icon(
       Icons.person,
       color: KdefaultColor,
     ),
-    this.suffixicon = false,
-    this.padding = 30,
-     this.textInputType=TextInputType.name,
+    this.suffixicon = false, this.padding = 30,
+    this.textInputType=TextInputType.name,
   });
 
 

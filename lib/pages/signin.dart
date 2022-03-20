@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:keyofscience/components.dart';
 import 'package:keyofscience/kdefault.dart';
 import 'package:keyofscience/pages/login.dart';
 import 'package:keyofscience/pages/preferredcourses.dart';
+
+import 'Grey_text.dart';
 
 
 class RegisterPage extends StatelessWidget {

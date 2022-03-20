@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/postModel.dart';
@@ -102,7 +103,10 @@ class PostItem extends StatelessWidget {
                         /// comment icon
                         IconButton(
                           onPressed: ()=>setstate(()=>commentField=!commentField),
-                          icon: const Icon(Icons.mode_comment_outlined,color: Color(0xFF2958F5)),
+                          icon: SvgPicture.asset(
+                            'assets/icons/comment.svg',
+                            color: const Color(0xFF2958F5),
+                          ),
                         ),
                         const SizedBox(
                           width: 10,

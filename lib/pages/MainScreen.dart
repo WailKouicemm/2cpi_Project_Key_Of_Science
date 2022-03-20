@@ -4,6 +4,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:keyofscience/pages/Bottom_navy_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../Widgets/Add_post_Dialog.dart';
 import '../kdefault.dart';
 import '../models/Course_model.dart';
 import '../models/postModel.dart';
@@ -218,49 +219,58 @@ class profilecard extends StatelessWidget {
 class Keyeince_features_item{
   final String name;
   final IconData logo;
-  const Keyeince_features_item({required this.name,required this.logo});
+  final Function() onpressed;
+  const Keyeince_features_item({required this.onpressed,required this.name,required this.logo});
 }
 
 class Keyeince_features extends StatelessWidget {
-  const Keyeince_features({Key? key}) : super(key: key);
+  const Keyeince_features();
 
   @override
   Widget build(BuildContext context) {
-    const List<Keyeince_features_item> Keyeince_features_items = [
-      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined),
-      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats),
-      Keyeince_features_item(name: 'Add\npost', logo: Icons.add ),
+     List<Keyeince_features_item> Keyeince_features_items = [
+      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, onpressed: (){}),
+      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,onpressed: (){}),
+      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,onpressed: (){
+        showDialog(
+            context: context,
+            builder: (_)=>const Allertdialog(),
+        );
+      } ),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
-        child: Container(
-          height: 60,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: const Color(0xFF2958F5),
-            borderRadius: BorderRadius.circular(7),
-            // image: const DecorationImage(
-            //   image: AssetImage('assets/images/CARD.png'),
-            //   fit: BoxFit.fill,
-            // ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                tmp.name,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500
+        child: InkWell(
+          onTap: tmp.onpressed,
+          child: Container(
+            height: 60,
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2958F5),
+              borderRadius: BorderRadius.circular(7),
+              // image: const DecorationImage(
+              //   image: AssetImage('assets/images/CARD.png'),
+              //   fit: BoxFit.fill,
+              // ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  tmp.name,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500
+                  ),
                 ),
-              ),
-              Icon(tmp.logo,
-                color: Colors.white,),
-            ],
+                Icon(tmp.logo,
+                  color: Colors.white,),
+              ],
+            ),
           ),
         ),
-      )
+      ),
       ).toList(),
     );
   }
