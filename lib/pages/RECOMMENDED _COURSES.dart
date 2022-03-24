@@ -21,39 +21,8 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
     double widh = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: KbackgroundColor,
-<<<<<<< HEAD
       appBar: buildAppBar,
-=======
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration:  const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
-          ),
-        ),
-        title: logo,
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        actions: const [
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-           child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: KdefaultColor,
-            maxRadius: 3,
-            child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 10,),
-        ],
-      ),
->>>>>>> d5f87b8ea3f63a2836e23b926fc324aec37bad7c
+
       body: Padding(
         padding: const  EdgeInsets.symmetric(horizontal: 15),
         child: ListView(

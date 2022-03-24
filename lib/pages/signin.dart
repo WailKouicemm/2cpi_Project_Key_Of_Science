@@ -1,13 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:keyofscience/theme/components.dart';
 import 'package:keyofscience/theme/kdefault.dart';
-=======
+
 import 'package:flutter_svg/svg.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/kdefault.dart';
->>>>>>> d5f87b8ea3f63a2836e23b926fc324aec37bad7c
+
 import 'package:keyofscience/pages/login.dart';
 import 'package:keyofscience/pages/preferredcourses.dart';
 

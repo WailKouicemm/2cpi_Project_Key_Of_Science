@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/theme/kdefault.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Widgets/Post.dart';

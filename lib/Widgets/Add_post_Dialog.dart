@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:keyofscience/theme/kdefault.dart';
 
-import '../kdefault.dart';
 import '../pages/Grey_text.dart';
 
 
