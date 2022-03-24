@@ -1,36 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+ import 'package:flutter/services.dart';
 import 'kdefault.dart';
 
+
+class Appbar {
+    static AppBar appbar = AppBar(
+      flexibleSpace: Container(
+        decoration:  const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/backround_appbar.png"),
+                fit: BoxFit.cover)),
+      ),
+      title: logo,
+      centerTitle: true,
+      backgroundColor: Colors.white,
+      actions: const [
+        CircleAvatar(
+          backgroundColor: KdefaultColor,
+          maxRadius: 3,
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        CircleAvatar(
+          backgroundColor: KdefaultColor,
+          maxRadius: 3,
+          child:   CircleAvatar(
+            backgroundColor: Colors.white,
+            maxRadius: 2,
+          ),
+        ),
+        SizedBox(
+          width: 3,
+        ),
+        CircleAvatar(
+          backgroundColor: KdefaultColor,
+          maxRadius: 3,
+          child:   CircleAvatar(
+            backgroundColor: Colors.white,
+            maxRadius: 2,
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+      ],
+    );
+}
+
 class LoginButton extends StatelessWidget {
-  LoginButton(
-      {required this.text,
-      required this.onpressed,
-      this.textColor = Colors.white,
-      this.backgroundCOlor = KdefaultColor});
-
   final String text;
-
   final Function() onpressed;
-
   final Color textColor, backgroundCOlor;
+  LoginButton({required this.text, required this.onpressed, this.textColor = Colors.white, this.backgroundCOlor = KdefaultColor});
+
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
       child: MaterialButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 5.0,
           minWidth: 400.0,
           height: 45,
           color: backgroundCOlor,
           child: Text(
             text,
-            style: TextStyle(
-                fontSize: 16.0, color: textColor, fontFamily: "Montserrat"),
+            style: TextStyle(fontSize: 16.0, color: textColor, fontFamily: "Montserrat"),
           ),
           onPressed: onpressed),
     );
@@ -46,16 +84,13 @@ class TextFormFiledC extends StatefulWidget {
   final bool suffixicon;
   final double padding;
   TextFormFiledC({
-    this.colour = KdefaultColor,
-    required this.text,
-    this.obscured = false,
+    this.colour = KdefaultColor, required this.text, this.obscured = false,
     this.icon = const Icon(
       Icons.person,
       color: KdefaultColor,
     ),
-    this.suffixicon = false,
-    this.padding = 30,
-     this.textInputType=TextInputType.name,
+    this.suffixicon = false, this.padding = 30,
+    this.textInputType=TextInputType.name,
   });
 
 
@@ -187,7 +222,6 @@ class CorsesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return ListView.builder(
       shrinkWrap: true,
@@ -269,52 +303,17 @@ class CorsesListView extends StatelessWidget {
   }
 }
 
-AppBar appBar = AppBar(
-  flexibleSpace: Container(
-    decoration:  const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/images/backround_appbar.png"),
-            fit: BoxFit.cover)),
-  ),
-  title: logo,
-  backgroundColor: Colors.white,
-  actions: const [
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-    ),
-     SizedBox(
-      width: 3,
-    ),
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-      child:   CircleAvatar(
-        backgroundColor: Colors.white,
-        maxRadius: 2,
-      ),
-    ),
-       SizedBox(
-      width: 3,
-    ),
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-      child:   CircleAvatar(
-        backgroundColor: Colors.white,
-        maxRadius: 2,
-      ),
-    ),
-      SizedBox(
-      width: 10,
-    ),
-  ],
-);
 
-Widget answerfield({
-  required String text,
-}) =>
-    Padding(
+
+class answerfield extends StatelessWidget {
+  final String text;
+  const answerfield({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20.0),
       child: Container(
         height: 45.0,
@@ -334,6 +333,9 @@ Widget answerfield({
         ),
       ),
     );
+  }
+}
+
 
 class DaysPreferred extends StatefulWidget {
  final String text;

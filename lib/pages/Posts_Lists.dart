@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
 
+<<<<<<< HEAD:lib/pages/Lists.dart
 //import 'MainScreen.dart';
+=======
+import '../models/postModel.dart';
+import 'MainScreen.dart';
+>>>>>>> d5f87b8ea3f63a2836e23b926fc324aec37bad7c:lib/pages/Posts_Lists.dart
 
 
 /*const List<post> posts=[
