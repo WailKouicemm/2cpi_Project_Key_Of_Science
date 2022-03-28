@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
               child: const Text(
                 "KEYEINCE",
                 style: TextStyle(
-                    color: KdefaultColor,
+                    color: Kdefault.KdefaultColor,
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Montserrat"),
@@ -54,7 +54,7 @@ class _LoginState extends State<Login> {
                       offset: const Offset(0, 3),
                     ),
                   ],
-                  color: KdefaultColor,
+                  color: Kdefault.KdefaultColor,
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)),
@@ -65,11 +65,11 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       TextFormFiledC(
-                        icon: const Icon(Icons.email, color: KdefaultColor),
+                        icon: const Icon(Icons.email, color: Kdefault.KdefaultColor),
                         text: 'E-mail',
                       ),
                       TextFormFiledC(
-                        icon: const Icon(Icons.password, color: KdefaultColor),
+                        icon: const Icon(Icons.password, color: Kdefault.KdefaultColor),
                         text: 'Password',
                         padding: 15,
                       ),
@@ -106,7 +106,7 @@ class _LoginState extends State<Login> {
                           );
                         },
                         backgroundCOlor: Colors.white,
-                        textColor: KdefaultColor,
+                        textColor: Kdefault.KdefaultColor,
                       ),
                       const   SizedBox(
                         height: 20,

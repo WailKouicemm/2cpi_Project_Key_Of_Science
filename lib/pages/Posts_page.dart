@@ -38,7 +38,7 @@ class PostsPage extends StatelessWidget {
           leading: IconButton(
             onPressed: ()=>Navigator.pop(context),
             icon: const Icon(Icons.arrow_back,
-            color: KdefaultColor,),
+            color: Kdefault.KdefaultColor,),
           ),
         ),
         body: const Body_posts(),
@@ -46,6 +46,8 @@ class PostsPage extends StatelessWidget {
     );
   }
 }
+
+ 
 
 
 class Body_posts extends StatefulWidget {
@@ -82,7 +84,7 @@ class TextFiledComment extends StatelessWidget {
       height: 35,
       child: TextFormField(
         autofocus: false,
-        cursorColor: KdefaultColor,
+        cursorColor: Kdefault.KdefaultColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -92,7 +94,7 @@ class TextFiledComment extends StatelessWidget {
           hintText: "Add comment as salah",
           contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
           hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
-          suffixIcon: Image.asset("assets/images/navigation-2-outline.png",color: KdefaultColor,),
+          suffixIcon: Image.asset("assets/images/navigation-2-outline.png",color: Kdefault.KdefaultColor,),
         ),
       ),
     );

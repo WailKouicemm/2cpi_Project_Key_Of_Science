@@ -1,12 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:keyofscience/components.dart';
 import 'package:keyofscience/kdefault.dart';
 import 'package:keyofscience/pages/login.dart';
 import 'package:keyofscience/pages/preferredcourses.dart';
 
-import 'Grey_text.dart';
 
 
 class RegisterPage extends StatelessWidget {
@@ -17,10 +15,10 @@ class RegisterPage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: KbackgroundColor,
+      backgroundColor: Kdefault.KbackgroundColor,
       appBar: Appbar.appbar,
       body: ListView(
-        physics: const BouncingScrollPhysics(),
+        physics: const ScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: [
           Padding(
@@ -40,7 +38,7 @@ class RegisterPage extends StatelessWidget {
                           TextSpan(
                             text: "details" ,
                             style: TextStyle(color: Colors.white ,
-                                backgroundColor: KdefaultColor ,
+                                backgroundColor: Kdefault.KdefaultColor ,
                                 fontSize: 30 ,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "Montserrat"
@@ -76,7 +74,7 @@ class RegisterPage extends StatelessWidget {
                 /// privacy text
                 Row(
                   children: [
-                    const  Icon(Icons.check_box , color: KdefaultColor,size: 15,),
+                    const  Icon(Icons.check_box , color: Kdefault.KdefaultColor,size: 15,),
                     const Text(
                         '  I confirmed i have read the',
                         style: TextStyle(color: Colors.black87 , fontSize: 12,fontFamily: "Montserrat")
@@ -89,7 +87,7 @@ class RegisterPage extends StatelessWidget {
                             maxLines: 1,
                             minFontSize: 5,
                             maxFontSize: 25,
-                            style: TextStyle(color: KdefaultColor, fontWeight: FontWeight.bold , fontSize: 12,fontFamily: "Montserrat")
+                            style: TextStyle(color: Kdefault.KdefaultColor, fontWeight: FontWeight.bold , fontSize: 12,fontFamily: "Montserrat")
                         ),
                       ),
                     ),
@@ -126,7 +124,7 @@ class RegisterPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Already have account" , style: TextStyle(color: KdefaultColor , fontFamily: "Montserrat"),),
+                const Text("Already have account" , style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),),
 
 
                 TextButton(
@@ -135,7 +133,7 @@ class RegisterPage extends StatelessWidget {
                   },
                   child: const  Text(
                       '? LOGIN ',
-                      style: TextStyle(color: KdefaultColor , fontWeight: FontWeight.bold , fontSize: 12 , fontFamily: "Montserrat")
+                      style: TextStyle(color: Kdefault.KdefaultColor , fontWeight: FontWeight.bold , fontSize: 12 , fontFamily: "Montserrat")
                   ),),
               ],
             ),

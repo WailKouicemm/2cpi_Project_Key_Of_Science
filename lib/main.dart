@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/pages/MainScreen.dart';
 import 'package:keyofscience/pages/signin.dart';
 import 'kdefault.dart';
 
@@ -9,7 +11,10 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MainScreen(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primaryColor: KdefaultColor,
+        primaryColor: Kdefault.KdefaultColor,
         primarySwatch: Colors.grey,
       ),
       home: const RegisterPage(),
@@ -29,3 +34,20 @@ class MyApp extends StatelessWidget {
 }
 
 
+
+
+class testscreen extends StatelessWidget {
+  const testscreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+
+        ],
+      ),
+    );
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -5,6 +6,7 @@ import 'package:keyofscience/pages/Bottom_navy_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../Widgets/Add_post_Dialog.dart';
+import '../components.dart';
 import '../kdefault.dart';
 import '../models/Course_model.dart';
 import '../models/postModel.dart';
@@ -13,15 +15,22 @@ import 'Posts_page.dart';
 
 
 
-class MainScreen extends StatelessWidget {
+
+class MainScreen extends StatefulWidget {
   const MainScreen();
 
   @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  int _index=0;
+
   Widget build(BuildContext context) {
     // print('MainScreen called');
   //  const Color KdefaultCOlor= Color(0xFF2958F5);
-    int index=0;
-    return  Scaffold(
+     return  Scaffold(
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => ZoomDrawer.of(context)!.toggle(),
@@ -35,32 +44,40 @@ class MainScreen extends StatelessWidget {
           centerTitle: true,
           flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
         ),
-        body: const theBody(),
-      bottomNavigationBar: StatefulBuilder(
-        builder: (context,setstate)=>BottomNavigationBar(
-          /*
+       body:  PageTransitionSwitcher(
+         duration: const Duration(seconds: 1),
+         transitionBuilder: (child,primaryAnimation,secondaryAnimation)=>SharedAxisTransition(
+           animation: primaryAnimation,
+           secondaryAnimation: secondaryAnimation,
+           transitionType: SharedAxisTransitionType.horizontal,
+           child: child,
+         ),
+         child: _index==0? const theBodyOFMainScreen() : const PostsPage(),
+       ),
+      bottomNavigationBar: BottomNavigationBar(
+        /*
         bottomNavyItems
          */
-          items: bottomNavyItems.map((item) => BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                item.icon_asset,
-                color: index==bottomNavyItems.indexOf(item)? KdefaultColor : Colors.grey,
-              ),
-              label: item.title
-          ),
-          ).toList(),
-          currentIndex: index,
-          selectedItemColor: KdefaultColor,
-          unselectedItemColor: Colors.grey,
-          onTap: (i)=>setstate(()=>index=i),
+        items: bottomNavyItems.map((item) => BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              item.icon_asset,
+              color: _index==bottomNavyItems.indexOf(item)? Kdefault.KdefaultColor : Colors.grey,
+            ),
+            label: item.title
         ),
-      )
+        ).toList(),
+        currentIndex: _index,
+        selectedItemColor: Kdefault.KdefaultColor,
+        unselectedItemColor: Colors.grey,
+        onTap: (i)=>i==_index? null : setState(()=>_index=i
+        ),
+      ),
     );
   }
 }
 
-class theBody extends StatelessWidget {
-  const theBody();
+class theBodyOFMainScreen extends StatelessWidget {
+  const theBodyOFMainScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +90,7 @@ class theBody extends StatelessWidget {
             const Title_Text(txt:'   Keyeince features',seAll: false),
             const Keyeince_features(),
             const Title_Text(txt:'   Courses for you',seAll: true),
-            const CorsesListView(),
+            const CorsesListViewItems(),
             const recentlyPoststitle(),
             const Recentrly_posts()
           ]
@@ -174,6 +191,7 @@ class profilecard extends StatelessWidget {
           ),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,13 +199,11 @@ class profilecard extends StatelessWidget {
               children:  const [
                 Text('Hi , Mohamed' , style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold),),
                 SizedBox(height: 15,),
-                Text('Your reacently coursz : JAVA BASICS' , style: TextStyle(color: Colors.white , ),),
-                SizedBox(height: 15,),
-                Text('Next lesson : Monday,18 at 13:00' , style: TextStyle(color: Colors.white , ),)
-
+                Text('Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00' ,
+                  style: TextStyle(color: Colors.white , ),),
               ],
             ),
-            const Spacer(),
+            /// the percentage circularAvatar
             Container(
                 decoration: const BoxDecoration(
                   boxShadow: <BoxShadow>[
@@ -248,6 +264,13 @@ class Keyeince_features extends StatelessWidget {
             decoration: BoxDecoration(
               color: const Color(0xFF2958F5),
               borderRadius: BorderRadius.circular(7),
+              boxShadow: const <BoxShadow>[
+                BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0.0, 0.75),
+                )
+              ],
               // image: const DecorationImage(
               //   image: AssetImage('assets/images/CARD.png'),
               //   fit: BoxFit.fill,
@@ -299,8 +322,8 @@ List<courses> _webdevloppment =const [
 
 
 
-class CorsesListView extends StatelessWidget {
-  const CorsesListView();
+class CorsesListViewItems extends StatelessWidget {
+  const CorsesListViewItems();
 
   @override
   Widget build(BuildContext context) {
@@ -326,8 +349,8 @@ class CorsesListView extends StatelessWidget {
           itemCount: _populaCorses.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          itemBuilder :  (context , index){
-            course tmp = _populaCorses[index];
+          itemBuilder:  (context , index){
+           final course tmp = _populaCorses[index];
             return Cours_card(cours: tmp,);
           }
       ),
@@ -335,26 +358,27 @@ class CorsesListView extends StatelessWidget {
   }
 }
 
-const List<post> Recentrly_post=[
-  post(poster_image: "assets/images/man.jpg",
-      poster_name: 'Salah Eddine Salhi',
-      poster_username: "sa16",
-      text_of_post: "Hello , i have a question about why we use stateless and statefull widgets in flutter \n"
-          "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-          "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-  ),
-  post(poster_image: "assets/images/man.jpg",
-      poster_name: 'Walid kacemi',
-      poster_username: "wa8",
-      text_of_post: "Hello , i have a question about why we use getters and setters in Java"
-  ),
-];
+
 
 class Recentrly_posts extends StatelessWidget {
   const  Recentrly_posts();
 
   @override
   Widget build(BuildContext context) {
+    const List<post> Recentrly_post=[
+      post(poster_image: "assets/images/man.jpg",
+          poster_name: 'Salah Eddine Salhi',
+          poster_username: "sa16",
+          text_of_post: "Hello , i have a question about why we use stateless and statefull widgets in flutter \n"
+              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
+              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
+      ),
+      post(poster_image: "assets/images/man.jpg",
+          poster_name: 'Walid kacemi',
+          poster_username: "wa8",
+          text_of_post: "Hello , i have a question about why we use getters and setters in Java"
+      ),
+    ];
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return SizedBox(
@@ -362,14 +386,13 @@ class Recentrly_posts extends StatelessWidget {
       width: widh,
       child: ListView.builder(
         shrinkWrap: true,
-          addAutomaticKeepAlives: true,
-          physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         controller: ScrollController(),
         itemCount: Recentrly_post.length,
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        itemBuilder :  (context , index){
-          post tmp = Recentrly_post[index];
+        itemBuilder:  (context , index){
+         final post tmp = Recentrly_post[index];
           return Container(
             width: widh * 0.8,
             margin: const EdgeInsets.fromLTRB(10,10,10,20),
@@ -392,15 +415,7 @@ class Recentrly_posts extends StatelessWidget {
                 Row(
                   children: [
                     /// the user image
-                    const CircleAvatar(
-                      maxRadius: 27,
-                      backgroundColor: Colors.lightBlueAccent,
-                      child: CircleAvatar(
-                        maxRadius: 25,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage('assets/images/man.jpg'),
-                      ),
-                    ),
+                    const UserImage(img: 'assets/images/man.jpg'),
                     const SizedBox(
                       width: 10,
                     ),
@@ -408,15 +423,15 @@ class Recentrly_posts extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text("#"+tmp.poster_username,
+                          style: const TextStyle(
+                              color: Colors.grey
+                          ),),
                         Text(tmp.poster_name,
                           style:const TextStyle(
                               fontWeight: FontWeight.bold
                           ),
                         ),
-                        Text("#"+tmp.poster_username,
-                          style: const TextStyle(
-                              color: Colors.grey
-                          ),),
                       ],
                     ),
                   ],
@@ -424,6 +439,7 @@ class Recentrly_posts extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                /// the post's content
                 AutoSizeText(
                   tmp.text_of_post,
                   maxLines: 3,
@@ -431,8 +447,8 @@ class Recentrly_posts extends StatelessWidget {
                   minFontSize: 15,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                     // fontSize: 15
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15
                   ),
                 ),
               ],
@@ -443,3 +459,5 @@ class Recentrly_posts extends StatelessWidget {
     );
   }
 }
+
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/components.dart';
 
 import '../models/Course_model.dart';
 
@@ -49,7 +50,7 @@ class Cours_card extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.pink,
                           ),
-                          child: const Text(' continue ' , style: TextStyle(color: Colors.white),)
+                          child: const contuniueText(),
                       ),
                     )
                   ],

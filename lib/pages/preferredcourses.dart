@@ -19,7 +19,7 @@ class _PreferredCoursesState extends State<PreferredCourses> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: KbackgroundColor,
+        backgroundColor: Kdefault.KbackgroundColor,
         appBar: Appbar.appbar,
         body: Padding(
           padding: const EdgeInsets.only(
@@ -69,7 +69,7 @@ class _PreferredCoursesState extends State<PreferredCourses> {
                   bottom: 20,
                   right: 0,
                   child: FloatingActionButton(
-                    backgroundColor: Kselect,
+                    backgroundColor: Kdefault.Kselect,
                     onPressed: ()=>Navigator.push(
                       context, MaterialPageRoute(
                           builder: (_) => const RECOMMANDED_COURSES()),
@@ -107,7 +107,7 @@ class _GridListState extends State<GridList> {
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 170, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemCount: widget.list.length,
-      itemBuilder: (context, index) => GestureDetector(
+      itemBuilder: (context, index) => InkWell(
         onTap: () {
           setState(() {});
           select = index;
@@ -116,7 +116,7 @@ class _GridListState extends State<GridList> {
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: index == select ? Kselect : KdefaultColor,
+            color: index == select ? Kdefault.Kselect : Kdefault.KdefaultColor,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Text(

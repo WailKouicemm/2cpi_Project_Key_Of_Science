@@ -35,7 +35,7 @@ class Allertdialog extends StatelessWidget {
         ),),
       actions: [
         FloatingActionButton(
-          backgroundColor: KdefaultColor,
+          backgroundColor: Kdefault.KdefaultColor,
           onPressed: ()=>Navigator.pop(context),
           child: SvgPicture.asset(
             "assets/icons/post.svg",

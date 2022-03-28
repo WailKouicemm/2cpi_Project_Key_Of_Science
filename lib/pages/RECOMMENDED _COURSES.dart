@@ -1,10 +1,11 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/pages/MainScreen.dart';
 
-import 'HomeZommDrawer.dart';
+import '../components.dart';
+import '../kdefault.dart';
 
 class RECOMMANDED_COURSES extends StatefulWidget {
   const RECOMMANDED_COURSES();
@@ -17,33 +18,32 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
   
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: KbackgroundColor,
+      backgroundColor: Kdefault.KbackgroundColor,
       appBar: AppBar(
         flexibleSpace: Container(
           decoration:  const BoxDecoration(
               image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
           ),
         ),
-        title: logo,
+        title: Kdefault.logo,
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: const [
           CircleAvatar(
-            backgroundColor: KdefaultColor,
+            backgroundColor: Kdefault.KdefaultColor,
             maxRadius: 3,
           ),
            SizedBox(width: 3,),
           CircleAvatar(
-            backgroundColor: KdefaultColor,
+            backgroundColor: Kdefault.KdefaultColor,
             maxRadius: 3,
            child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
           ),
            SizedBox(width: 3,),
           CircleAvatar(
-            backgroundColor: KdefaultColor,
+            backgroundColor: Kdefault.KdefaultColor,
             maxRadius: 3,
             child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
           ),
@@ -93,17 +93,17 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                     onPressed: ()=> Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HommePage()),
+                          builder: (context) =>  const HommePage() ),
                     ),
                     child: const Text("Skip",
                     style: TextStyle(
-                      color: KdefaultColor,
+                      color: Kdefault.KdefaultColor,
                       fontSize: 14
                     ),),
                 ),
               ],
             ),
-            CorsesListView(coursess:populaCorses,ontap: (){},),
+            CorsesListView(coursess: populaCorses,ontap: (){},),
           ],
         ),
 

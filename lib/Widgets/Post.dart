@@ -3,6 +3,7 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../components.dart';
 import '../models/postModel.dart';
 import '../pages/Posts_page.dart';
 
@@ -85,7 +86,7 @@ class PostItem extends StatelessWidget {
               text: Post.text_of_post,
               linkStyle: const TextStyle(color: Colors.blueAccent ),
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 15
               ),
             ),
@@ -122,11 +123,8 @@ class PostItem extends StatelessWidget {
                       duration: const Duration(milliseconds: 200),
                       child: Row(
                         children: const [
-                          CircleAvatar(
-                            maxRadius: 18,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: AssetImage('assets/images/man.jpg'),
-                          ),
+                          UserImage(img: 'assets/images/man.jpg'),
+
                           SizedBox(
                             width: 10,
                           ),

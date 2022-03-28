@@ -5,6 +5,8 @@ import 'MainScreen.dart';
 import 'MenuScreen.dart';
 
 
+/// this page is not visible ( invisible Wisget ) , this is the widget that containe both MainPage
+/// ( you can consider it like HOMEPAGE , a,d the MENUPAGe ( the page of the drawer))
 
 class HommePage extends StatelessWidget {
    const HommePage();

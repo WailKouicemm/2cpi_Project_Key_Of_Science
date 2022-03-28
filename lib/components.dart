@@ -11,19 +11,19 @@ class Appbar {
                 image: AssetImage("assets/images/backround_appbar.png"),
                 fit: BoxFit.cover)),
       ),
-      title: logo,
+      title: Kdefault.logo,
       centerTitle: true,
       backgroundColor: Colors.white,
       actions: const [
         CircleAvatar(
-          backgroundColor: KdefaultColor,
+          backgroundColor: Kdefault.KdefaultColor,
           maxRadius: 3,
         ),
         SizedBox(
           width: 3,
         ),
         CircleAvatar(
-          backgroundColor: KdefaultColor,
+          backgroundColor: Kdefault.KdefaultColor,
           maxRadius: 3,
           child:   CircleAvatar(
             backgroundColor: Colors.white,
@@ -34,7 +34,7 @@ class Appbar {
           width: 3,
         ),
         CircleAvatar(
-          backgroundColor: KdefaultColor,
+          backgroundColor: Kdefault.KdefaultColor,
           maxRadius: 3,
           child:   CircleAvatar(
             backgroundColor: Colors.white,
@@ -52,10 +52,8 @@ class LoginButton extends StatelessWidget {
   final String text;
   final Function() onpressed;
   final Color textColor, backgroundCOlor;
-  LoginButton({required this.text, required this.onpressed, this.textColor = Colors.white, this.backgroundCOlor = KdefaultColor});
-
-
-
+  LoginButton({required this.text, required this.onpressed, this.textColor = Colors.white,
+    this.backgroundCOlor = Kdefault.KdefaultColor});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -84,10 +82,10 @@ class TextFormFiledC extends StatefulWidget {
   final bool suffixicon;
   final double padding;
   TextFormFiledC({
-    this.colour = KdefaultColor, required this.text, this.obscured = false,
+    this.colour = Kdefault.KdefaultColor, required this.text, this.obscured = false,
     this.icon = const Icon(
       Icons.person,
-      color: KdefaultColor,
+      color: Kdefault.KdefaultColor,
     ),
     this.suffixicon = false, this.padding = 30,
     this.textInputType=TextInputType.name,
@@ -109,7 +107,7 @@ class _TextFormFiledCState extends State<TextFormFiledC> {
       child: TextFormField(
         autofocus: false,
         obscureText: widget.obscured,
-        cursorColor: KdefaultColor,
+        cursorColor: Kdefault.KdefaultColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -231,7 +229,7 @@ class CorsesListView extends StatelessWidget {
       itemBuilder: (context, index) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: ontap,
             child: Stack(
               children: [
@@ -268,13 +266,7 @@ class CorsesListView extends StatelessWidget {
                                 fontFamily: "Montserrat"),
                           ),
                           Container(
-                            child: const  Text(
-                              'continue',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Montserrat"),
-                            ),
+                            child: const contuniueText(),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: const  Color(0xFFCC40B2),
@@ -388,6 +380,41 @@ class _DaysPreferredState extends State<DaysPreferred> {
           style: TextStyle(
               fontSize: 13.0, fontWeight: FontWeight.bold, color: couleur),
         )),
+      ),
+    );
+  }
+}
+
+
+/// this is the "continue" text that show on the card of every course
+class contuniueText extends StatelessWidget {
+  const contuniueText();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(' continue ' ,
+      style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Montserrat"),
+    );
+  }
+}
+
+
+
+class UserImage extends StatelessWidget {
+  final String img;
+  const UserImage({required this.img});
+
+  @override
+  Widget build(BuildContext context) {
+    return  CircleAvatar(
+      maxRadius: 27,
+      backgroundColor: Colors.lightBlueAccent,
+      child: CircleAvatar(
+        maxRadius: 25,
+        backgroundColor: Colors.transparent,
+        backgroundImage: AssetImage(img),
       ),
     );
   }
