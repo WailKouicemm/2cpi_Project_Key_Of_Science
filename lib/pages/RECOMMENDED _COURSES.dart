@@ -2,7 +2,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/pages/HomeZommDrawer.dart';
-import 'package:keyofscience/pages/MainScreen.dart';
 
 import '../components.dart';
 import '../kdefault.dart';
@@ -27,7 +26,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
               image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
           ),
         ),
-        title: Kdefault.logo,
+        title: const Text("KEYEINCE"),
         centerTitle: true,
         backgroundColor: Colors.white,
         actions: const [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/resources/ColorManager.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen();
@@ -11,13 +12,13 @@ class MenuScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 25,top: 50),
           height: double.infinity,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.blue[900]!,
-                    Colors.blue[700]!,
+                    ColorManager.defaultColor,
+                    ColorManager.defaultColor,
                   ])),
           child: SafeArea(
             child: Column(

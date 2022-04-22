@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/components.dart';
+import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
 import 'package:keyofscience/kdefault.dart';
 import 'package:keyofscience/pages/RECOMMENDED%20_COURSES.dart';
@@ -14,50 +15,36 @@ class PreferredCourses extends StatefulWidget {
 class _PreferredCoursesState extends State<PreferredCourses> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double widh = MediaQuery.of(context).size.width;
     return MaterialApp(
+      theme: getThemeData(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Kdefault.KbackgroundColor,
         appBar: Appbar.appbar,
         body: Padding(
-          padding: const EdgeInsets.only(
-            right: 20,
-            left: 20,
-          ),
-          child: Stack(
-            children: [
-              ListView(
+          padding: const EdgeInsets.only(right: 20, left: 20,),
+          child: ListView(
                 physics:  const BouncingScrollPhysics(),
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 8.0, bottom: 5, top: 20),
+                   Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 5, top: 20),
                     child: Text(
                       "lastly, searsh for courses",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w900,
-                          fontFamily: "Montserrat"),
+                      style: Theme.of(context).textTheme.headline1,
+                      // style: TextStyle(
+                      //     fontSize: 30,
+                      //     fontWeight: FontWeight.w900,
+                      //     fontFamily: "Montserrat"),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "select what do you want to ",
-                        style: TextStyle(
-                            color: Colors.grey, fontFamily: "Montserrat"),
-                      ),
-                      Text(
-                        " learn",
-                        style: TextStyle(
-                            color: Colors.grey, fontFamily: "Montserrat"),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 15, top: 5),
+                    child: Text(
+                      "select what do you want to learn",
+                      style: Theme.of(context).textTheme.caption,
+                      // style: TextStyle(
+                      //                             color: Colors.grey, fontFamily: "Montserrat"),
+                    ),
                   ),
                   GridList(
                     ontap: () {},
@@ -65,20 +52,14 @@ class _PreferredCoursesState extends State<PreferredCourses> {
                   ),
                 ],
               ),
-              Positioned(
-                  bottom: 20,
-                  right: 0,
-                  child: FloatingActionButton(
-                    backgroundColor: Kdefault.Kselect,
-                    onPressed: ()=>Navigator.push(
-                      context, MaterialPageRoute(
-                          builder: (_) => const RECOMMANDED_COURSES()),
-                    ),
-                    child: const Icon(Icons.navigate_next_rounded),
-                  ),
-              ),
-            ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Kdefault.ButtonColor,
+          onPressed: ()=>Navigator.push(
+            context, MaterialPageRoute(
+              builder: (_) => const RECOMMANDED_COURSES()),
           ),
+          child: const Icon(Icons.navigate_next_rounded),
         ),
       ),
     );
@@ -116,7 +97,7 @@ class _GridListState extends State<GridList> {
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: index == select ? Kdefault.Kselect : Kdefault.KdefaultColor,
+            color: index == select ? Kdefault.ButtonColor : Kdefault.KdefaultColor,
             borderRadius: BorderRadius.circular(30),
           ),
           child: Text(

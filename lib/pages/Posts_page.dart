@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:keyofscience/kdefault.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../Widgets/Post.dart';
 import '../models/postModel.dart';
 import 'Posts_Lists.dart';
-import 'MainScreen.dart';
 
 
 class PostsPage extends StatelessWidget {
@@ -68,7 +65,7 @@ class _Body_postsState extends State<Body_posts> {
       scrollDirection: Axis.vertical,
       padding: const EdgeInsets.symmetric(horizontal: 10),
       itemBuilder: (context,index){
-         post tmp = posts[index];
+        post tmp = posts[index];
         return  PostItem(Post: tmp);
       },
     );

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:keyofscience/pages/HomeZommDrawer.dart';
-import 'package:keyofscience/pages/MainScreen.dart';
-import 'package:keyofscience/pages/signin.dart';
-import 'kdefault.dart';
+import 'package:keyofscience/pages/RegisterPage.dart';
+import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  /// this is used to remove the status bar of the phone when the app si running
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
@@ -20,31 +19,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Kdefault.KdefaultColor,
-        primarySwatch: Colors.grey,
-      ),
+      theme: getThemeData(),
       home: const RegisterPage(),
     );
   }
 }
 
 
-
-
-class testscreen extends StatelessWidget {
-  const testscreen();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-
-        ],
-      ),
-    );
-  }
-}

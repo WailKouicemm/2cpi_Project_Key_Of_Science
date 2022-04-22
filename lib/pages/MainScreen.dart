@@ -30,21 +30,16 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     // print('MainScreen called');
   //  const Color KdefaultCOlor= Color(0xFF2958F5);
-     return  Scaffold(
+     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => ZoomDrawer.of(context)!.toggle(),
             icon: Image.asset('assets/images/options-2-outline.png',color:const Color(0xFF2958F5),),
           ),
-          title: const Text('KEYEINCE',
-            style: TextStyle(
-                color: Color(0xFF2958F5)
-            ),
-          ),
-          centerTitle: true,
+          title: const Text('KEYEINCE'),
           flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
         ),
-       body:  PageTransitionSwitcher(
+       body: PageTransitionSwitcher(
          duration: const Duration(seconds: 1),
          transitionBuilder: (child,primaryAnimation,secondaryAnimation)=>SharedAxisTransition(
            animation: primaryAnimation,
@@ -52,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
            transitionType: SharedAxisTransitionType.horizontal,
            child: child,
          ),
-         child: _index==0? const theBodyOFMainScreen() : const PostsPage(),
+         child: _index==0? const theBodyOFMainScreen() : const Body_posts(),
        ),
       bottomNavigationBar: BottomNavigationBar(
         /*
@@ -69,8 +64,7 @@ class _MainScreenState extends State<MainScreen> {
         currentIndex: _index,
         selectedItemColor: Kdefault.KdefaultColor,
         unselectedItemColor: Colors.grey,
-        onTap: (i)=>i==_index? null : setState(()=>_index=i
-        ),
+        onTap: (i)=>i==_index? null : setState(()=>_index=i),
       ),
     );
   }

@@ -11,18 +11,10 @@ class Appbar {
                 image: AssetImage("assets/images/backround_appbar.png"),
                 fit: BoxFit.cover)),
       ),
-      title: Kdefault.logo,
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      actions: const [
-        CircleAvatar(
-          backgroundColor: Kdefault.KdefaultColor,
-          maxRadius: 3,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        CircleAvatar(
+      title: const Text("KEYEINCE"),
+      actions: [1,2,3].map((e) => const Padding(
+        padding: EdgeInsets.all(2),
+        child:  CircleAvatar(
           backgroundColor: Kdefault.KdefaultColor,
           maxRadius: 3,
           child:   CircleAvatar(
@@ -30,23 +22,11 @@ class Appbar {
             maxRadius: 2,
           ),
         ),
-        SizedBox(
-          width: 3,
-        ),
-        CircleAvatar(
-          backgroundColor: Kdefault.KdefaultColor,
-          maxRadius: 3,
-          child:   CircleAvatar(
-            backgroundColor: Colors.white,
-            maxRadius: 2,
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-      ],
+      ),).toList()
     );
 }
+
+
 
 class LoginButton extends StatelessWidget {
   final String text;
@@ -109,14 +89,14 @@ class _TextFormFiledCState extends State<TextFormFiledC> {
         obscureText: widget.obscured,
         cursorColor: Kdefault.KdefaultColor,
         decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
+          // filled: true,
+          // fillColor: Colors.white,
+          // border: OutlineInputBorder(
+          //   borderRadius: BorderRadius.circular(10.0),
+          // ),
           hintText: widget.text,
-          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-          hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
+          // contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+          // hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
           prefixIcon: widget.icon,
           suffixIcon: widget.suffixicon
               ? IconButton(
@@ -133,6 +113,12 @@ class _TextFormFiledCState extends State<TextFormFiledC> {
               : const Icon(null),
         ),
         keyboardType: widget.textInputType,
+        validator: (value) {
+          if (value=="") {
+            return 'Please enter some text';
+          }
+          return null;
+        },
       ),
     );
   }
@@ -305,10 +291,9 @@ class answerfield extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Container(
+    return  Container(
         height: 45.0,
+        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
@@ -323,8 +308,7 @@ class answerfield extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -389,9 +373,9 @@ class _DaysPreferredState extends State<DaysPreferred> {
 /// this is the "continue" text that show on the card of every course
 class contuniueText extends StatelessWidget {
   const contuniueText();
-
   @override
   Widget build(BuildContext context) {
+    print("builded dsgdfgfdgdf");
     return const Text(' continue ' ,
       style: TextStyle(color: Colors.white,
           fontWeight: FontWeight.bold,

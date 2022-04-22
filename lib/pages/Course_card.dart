@@ -9,6 +9,7 @@ class Cours_card extends StatelessWidget {
   final course cours;
   const Cours_card({required this.cours});
 
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -50,7 +51,7 @@ class Cours_card extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.pink,
                           ),
-                          child: const contuniueText(),
+                          child: contuniueText(),
                       ),
                     )
                   ],
