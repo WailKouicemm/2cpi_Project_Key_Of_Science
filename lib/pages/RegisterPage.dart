@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/components.dart';
 import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/onBoearingScreen.dart';
 import 'package:keyofscience/pages/login.dart';
-import 'package:keyofscience/pages/preferredcourses.dart';
 
 import '../presentation/resources/values_manager.dart';
 
@@ -15,11 +15,19 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      backgroundColor: Kdefault.KbackgroundColor,
-      appBar: Appbar.appbar,
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return  Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration:  const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/backround_appbar.png"),
+                  fit: BoxFit.cover)),
+        ),
+        title: const Text("KEYEINCE"),
+      ),
       body: ListView(
         physics: const ScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -28,9 +36,9 @@ class RegisterPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Padding(
               padding: EdgeInsets.only(
-                  // top: height * 0.07 ,
-                  // right: width * 0.28 ,
-                  // bottom: height * 0.02 ,
+                // top: height * 0.07 ,
+                // right: width * 0.28 ,
+                // bottom: height * 0.02 ,
                   top: AppPadding.p20,
                   right: width * 0.28,
                   bottom: AppPadding.p10,
@@ -42,9 +50,9 @@ class RegisterPage extends StatelessWidget {
                     text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                            text: "Firstly, let's get your " ,
-                            style: Theme.of(context).textTheme.headline1
-                              /*
+                              text: "Firstly, let's get your " ,
+                              style: Theme.of(context).textTheme.headline1
+                            /*
                               TextStyle(color: Colors.black ,
                                 fontSize: 30 ,
                                 fontWeight: FontWeight.bold,fontFamily: "Montserrat"),
@@ -135,12 +143,12 @@ class RegisterPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: (){
                         _formKey.currentState!.validate();
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>  const  PreferredCourses()),
+                        Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) =>  const  onBoardingScreen()),
                         );
                       },
                       child: const Text(
-                          "SIGN UP",
+                        "SIGN UP",
                       ),
                     ),
                   ),
@@ -173,21 +181,20 @@ class RegisterPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Text("Already have account" ,
-                 style: Theme.of(context).textTheme.headline2,
-                 // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
+                Text("Already have account ? " ,
+                  style: Theme.of(context).textTheme.headline2,
+                  // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
                 ),
 
 
                 TextButton(
                   onPressed: ()=> Navigator.push(context,
                     MaterialPageRoute(
-                        builder: (context) =>  const   Login(),
+                      builder: (context) =>  const   Login(),
                     ),
                   ),
-                  child: const  Text(
-                      '? LOGIN ',
-                    //  style: TextStyle(color: Kdefault.KdefaultColor , fontWeight: FontWeight.bold , fontSize: 12 , fontFamily: "Montserrat")
+                  child: const Text(
+                    'LOGIN ',
                   ),),
               ],
             ),

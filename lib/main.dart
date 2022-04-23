@@ -3,14 +3,19 @@ import 'package:flutter/services.dart';
 import 'package:keyofscience/pages/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
+import 'onBoearingScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  /// this is used to remove the status bar of the phone when the app si running
+  /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
-  runApp(const  MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: getThemeData(),
+    home: const RegisterPage(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,9 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme:  getThemeData(),
-      home: const RegisterPage(),
+      home: const onBoardingScreen(),
     );
   }
 }
-
 

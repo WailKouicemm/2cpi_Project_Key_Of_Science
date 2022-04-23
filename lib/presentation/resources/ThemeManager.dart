@@ -26,9 +26,10 @@ ThemeData getThemeData()=>ThemeData(
   /// textButton theme
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
-      textStyle: lightStyle(color: ColorManager.defaultColor,fontWeight: FontWeightManager.bold)
+      textStyle: lightStyle(color: ColorManager.defaultColor,fontWeight: FontWeightManager.bold),
     )
   ),
+
   /// elevated Button Theme
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -40,7 +41,12 @@ ThemeData getThemeData()=>ThemeData(
       // ColorManager.defaultColor
     )
   ),
-
+  /// Floating Button Theme
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: ColorManager.selectColor,
+      focusColor: ColorManager.defaultColor,
+      splashColor: ColorManager.defaultColor
+    ),
   /// textFormFiled Theme
     inputDecorationTheme:  InputDecorationTheme(
       contentPadding: const EdgeInsets.only(left: AppPadding.p14, bottom: AppPadding.p8, top: AppPadding.p8),

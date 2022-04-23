@@ -20,35 +20,35 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
     double widh = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Kdefault.KbackgroundColor,
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration:  const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
-          ),
-        ),
-        title: const Text("KEYEINCE"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        actions: const [
-          CircleAvatar(
-            backgroundColor: Kdefault.KdefaultColor,
-            maxRadius: 3,
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: Kdefault.KdefaultColor,
-            maxRadius: 3,
-           child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 3,),
-          CircleAvatar(
-            backgroundColor: Kdefault.KdefaultColor,
-            maxRadius: 3,
-            child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-          ),
-           SizedBox(width: 10,),
-        ],
-      ),
+      // appBar: AppBar(
+      //   flexibleSpace: Container(
+      //     decoration:  const BoxDecoration(
+      //         image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
+      //     ),
+      //   ),
+      //   title: const Text("KEYEINCE"),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.white,
+      //   actions: const [
+      //     CircleAvatar(
+      //       backgroundColor: Kdefault.KdefaultColor,
+      //       maxRadius: 3,
+      //     ),
+      //      SizedBox(width: 3,),
+      //     CircleAvatar(
+      //       backgroundColor: Kdefault.KdefaultColor,
+      //       maxRadius: 3,
+      //      child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
+      //     ),
+      //      SizedBox(width: 3,),
+      //     CircleAvatar(
+      //       backgroundColor: Kdefault.KdefaultColor,
+      //       maxRadius: 3,
+      //       child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
+      //     ),
+      //      SizedBox(width: 10,),
+      //   ],
+      // ),
       body: Padding(
         padding: const  EdgeInsets.symmetric(horizontal: 15),
         child: ListView(
@@ -89,7 +89,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                   ),
                 ),
                 TextButton(
-                    onPressed: ()=> Navigator.push(
+                    onPressed: ()=> Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>  const HommePage() ),

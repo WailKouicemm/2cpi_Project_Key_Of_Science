@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+
 
 import 'package:keyofscience/kdefault.dart';
-import 'package:keyofscience/pages/RECOMMENDED%20_COURSES.dart';
 
 class PreferredCourses extends StatefulWidget {
   const PreferredCourses();
@@ -15,54 +13,36 @@ class PreferredCourses extends StatefulWidget {
 class _PreferredCoursesState extends State<PreferredCourses> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: getThemeData(),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Kdefault.KbackgroundColor,
-        appBar: Appbar.appbar,
-        body: Padding(
-          padding: const EdgeInsets.only(right: 20, left: 20,),
-          child: ListView(
-                physics:  const BouncingScrollPhysics(),
-                children: [
-                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0, bottom: 5, top: 20),
-                    child: Text(
-                      "lastly, searsh for courses",
-                      style: Theme.of(context).textTheme.headline1,
-                      // style: TextStyle(
-                      //     fontSize: 30,
-                      //     fontWeight: FontWeight.w900,
-                      //     fontFamily: "Montserrat"),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0, bottom: 15, top: 5),
-                    child: Text(
-                      "select what do you want to learn",
-                      style: Theme.of(context).textTheme.caption,
-                      // style: TextStyle(
-                      //                             color: Colors.grey, fontFamily: "Montserrat"),
-                    ),
-                  ),
-                  GridList(
-                    ontap: () {},
-                    list: categries,
-                  ),
-                ],
-              ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Kdefault.ButtonColor,
-          onPressed: ()=>Navigator.push(
-            context, MaterialPageRoute(
-              builder: (_) => const RECOMMANDED_COURSES()),
+    return  ListView(
+        padding: const EdgeInsets.only(right: 20, left: 20,),
+        physics:  const BouncingScrollPhysics(),
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0, bottom: 5, top: 20),
+            child: Text(
+              "lastly, searsh for courses",
+              style: Theme.of(context).textTheme.headline1,
+              // style: TextStyle(
+              //     fontSize: 30,
+              //     fontWeight: FontWeight.w900,
+              //     fontFamily: "Montserrat"),
+            ),
           ),
-          child: const Icon(Icons.navigate_next_rounded),
-        ),
-      ),
-    );
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0, bottom: 15, top: 5),
+            child: Text(
+              "select what do you want to learn",
+              style: Theme.of(context).textTheme.caption,
+              // style: TextStyle(
+              //                             color: Colors.grey, fontFamily: "Montserrat"),
+            ),
+          ),
+          GridList(
+            ontap: () {},
+            list: categries,
+          ),
+        ],
+      );
   }
 }
 
