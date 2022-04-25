@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+import 'package:keyofscience/presentation/resources/values_manager.dart';
 
 import '../Widgets/Post.dart';
-import '../models/postModel.dart';
+import '../models/Models.dart';
 import 'Posts_Lists.dart';
 
 
@@ -13,19 +15,13 @@ class PostsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: getThemeData(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('POSTS',
-            style: TextStyle(
-                color: Color(0xFF2958F5),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          centerTitle: true,
+          title: const Text('POSTS'),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-                color: Colors.green,
                 image: DecorationImage(
                     image: AssetImage('assets/images/backround_appbar.png'),
                     fit: BoxFit.cover
@@ -34,8 +30,7 @@ class PostsPage extends StatelessWidget {
           ),
           leading: IconButton(
             onPressed: ()=>Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back,
-            color: Kdefault.KdefaultColor,),
+            icon: const Icon(Icons.arrow_back),
           ),
         ),
         body: const Body_posts(),
@@ -63,7 +58,7 @@ class _Body_postsState extends State<Body_posts> {
       controller: ScrollController(),
       itemCount: posts.length,
       scrollDirection: Axis.vertical,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
       itemBuilder: (context,index){
         post tmp = posts[index];
         return  PostItem(Post: tmp);

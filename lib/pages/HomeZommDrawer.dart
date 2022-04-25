@@ -18,7 +18,6 @@ class HommePage extends StatelessWidget {
 
   //  final ZoomDrawerController _drawerController=ZoomDrawerController();
     // final Size mqs = MediaQuery.of(context).size;
-    print('HommePage called');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: getThemeData(),

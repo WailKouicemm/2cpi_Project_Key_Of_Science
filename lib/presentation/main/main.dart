@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:keyofscience/pages/RegisterPage.dart';
+import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
-import 'onBoearingScreen.dart';
+import '../OnBoarding/View/onBoearingScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,9 +13,9 @@ void main() {
     statusBarColor: Colors.transparent, // transparent status bar
   ));
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
     theme: getThemeData(),
-    home: const RegisterPage(),
+    debugShowCheckedModeBanner: false,
+    home: HommePage(),
   ));
 }
 

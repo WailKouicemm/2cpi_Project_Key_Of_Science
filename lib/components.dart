@@ -375,7 +375,6 @@ class contuniueText extends StatelessWidget {
   const contuniueText();
   @override
   Widget build(BuildContext context) {
-    print("builded dsgdfgfdgdf");
     return const Text(' continue ' ,
       style: TextStyle(color: Colors.white,
           fontWeight: FontWeight.bold,

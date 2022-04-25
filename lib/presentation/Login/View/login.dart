@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:keyofscience/components.dart';
 import 'package:keyofscience/kdefault.dart';
 import 'package:keyofscience/pages/HomeZommDrawer.dart';
-import 'package:keyofscience/pages/RegisterPage.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
-import '../presentation/resources/Styles_Manager.dart';
-import '../presentation/resources/values_manager.dart';
+import '../../resources/Styles_Manager.dart';
+import '../../resources/values_manager.dart';
 
 
 

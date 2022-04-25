@@ -3,8 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/pages/HomeZommDrawer.dart';
 
-import '../components.dart';
-import '../kdefault.dart';
+import '../../../components.dart';
+import '../../../kdefault.dart';
 
 class RECOMMANDED_COURSES extends StatefulWidget {
   const RECOMMANDED_COURSES();
@@ -19,7 +19,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
   Widget build(BuildContext context) {
     double widh = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Kdefault.KbackgroundColor,
+       backgroundColor: Kdefault.KbackgroundColor,
       // appBar: AppBar(
       //   flexibleSpace: Container(
       //     decoration:  const BoxDecoration(

@@ -1,20 +1,22 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:keyofscience/FontsManager.dart';
+import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/pages/Bottom_navy_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
+import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Widgets/Add_post_Dialog.dart';
 import '../components.dart';
-import '../kdefault.dart';
-import '../models/Course_model.dart';
-import '../models/postModel.dart';
+import '../models/Models.dart';
 import 'Course_card.dart';
 import 'Posts_page.dart';
-
-
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen();
@@ -28,13 +30,12 @@ class _MainScreenState extends State<MainScreen> {
   int _index=0;
 
   Widget build(BuildContext context) {
-    // print('MainScreen called');
-  //  const Color KdefaultCOlor= Color(0xFF2958F5);
      return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             onPressed: () => ZoomDrawer.of(context)!.toggle(),
-            icon: Image.asset('assets/images/options-2-outline.png',color:const Color(0xFF2958F5),),
+            icon: Image.asset('assets/images/options-2-outline.png',
+              color: ColorManager.defaultColor,),
           ),
           title: const Text('KEYEINCE'),
           flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
@@ -56,14 +57,12 @@ class _MainScreenState extends State<MainScreen> {
         items: bottomNavyItems.map((item) => BottomNavigationBarItem(
             icon: SvgPicture.asset(
               item.icon_asset,
-              color: _index==bottomNavyItems.indexOf(item)? Kdefault.KdefaultColor : Colors.grey,
+               color: _index==bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
             ),
             label: item.title
         ),
         ).toList(),
         currentIndex: _index,
-        selectedItemColor: Kdefault.KdefaultColor,
-        unselectedItemColor: Colors.grey,
         onTap: (i)=>i==_index? null : setState(()=>_index=i),
       ),
     );
@@ -86,7 +85,10 @@ class theBodyOFMainScreen extends StatelessWidget {
             const Title_Text(txt:'   Courses for you',seAll: true),
             const CorsesListViewItems(),
             const recentlyPoststitle(),
-            const Recentrly_posts()
+            const Recentrly_posts(),
+            const SizedBox(
+              height: AppMargin.m10,
+            )
           ]
       ),
     );
@@ -98,30 +100,21 @@ class recentlyPoststitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color KdefaultCOlor= Color(0xFF2958F5);
     return Padding(
-        padding: const EdgeInsets.only(top: 10,left: 10),
+        padding: const EdgeInsets.only(top: AppPadding.p10,left: AppPadding.p10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:  [
-            const  Text('   Recently posts',
-              style:  TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                 fontFamily: "Montserrat",
-              ),),
+               Text('   Recently posts',
+              style: Theme.of(context).textTheme.headline4,
+               ),
              TextButton(
               onPressed: ()=> Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (_)=>const PostsPage()
                   ),
               ),
-              child: const Text('SEE ALL',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: KdefaultCOlor,
-                ),
-              ),
+              child: const Text('SEE ALL'),
             ),
           ],
         )
@@ -143,21 +136,11 @@ final bool seAll;
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(txt,
-              style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                 fontFamily: "Montserrat",
-              ),),
-
+              style: Theme.of(context).textTheme.headline4),
             if(seAll)
-              const  TextButton(
+               const TextButton(
                 onPressed: null,
-                child:  Text('SEE ALL',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF2958F5),
-                  ),
-                ),
+                child: Text('SEE ALL'),
               ),
           ],
         )
@@ -174,8 +157,8 @@ class profilecard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-        padding: const EdgeInsets.only(left: 25 , top: 25 , bottom: 25,right: 25),
-        margin: const EdgeInsets.only(top:10),
+        padding: const EdgeInsets.all(AppPadding.p25),
+        margin: const EdgeInsets.only(top:AppMargin.m10),
         height: height * 0.2,
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -187,39 +170,43 @@ class profilecard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:  const [
-                Text('Hi , Mohamed' , style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold),),
-                SizedBox(height: 15,),
-                Text('Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00' ,
-                  style: TextStyle(color: Colors.white , ),),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:   [
+                  Text('Hi , Mohamed' ,
+                      style: boldStyle(color: ColorManager.white)
+                  ),
+                  const SizedBox(height: AppHeight.h14,),
+                  AutoSizeText(
+                    'Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00',
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                ],
+              ),
             ),
             /// the percentage circularAvatar
             Container(
                 decoration: const BoxDecoration(
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                        color: Colors.white,
-                        blurRadius: 70.0,
-                        offset: Offset(0.0, 0.75)
+                        color: ColorManager.white,
+                        blurRadius: AppRadius.r70,
+                        offset: Offset(AppOffset.off0_0,AppOffset.off0_75)
                     )
                   ],
                 ),
-                child: const CircleAvatar(
-                  backgroundColor: Colors.white,
-                  maxRadius: 30,
+                child:  CircleAvatar(
+                  backgroundColor: ColorManager.white,
+                  maxRadius: AppRadius.r30,
                   child: Center(
                     child: Text('50%',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold
-                      ),),
+                      style: boldStyle(color: ColorManager.black,fontSize: FontSizeManager.s17)
+                    ),
                   ),
                 )
-            )
+            ),
           ],
         )
     );
@@ -256,13 +243,13 @@ class Keyeince_features extends StatelessWidget {
             height: 60,
             margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
-              color: const Color(0xFF2958F5),
+              color: ColorManager.defaultColor,
               borderRadius: BorderRadius.circular(7),
               boxShadow: const <BoxShadow>[
                 BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 10,
-                    offset: Offset(0.0, 0.75),
+                    color: ColorManager.black26,
+                    blurRadius: AppRadius.r10,
+                    offset: Offset(AppOffset.off0_0, AppOffset.off0_75),
                 )
               ],
               // image: const DecorationImage(
@@ -275,14 +262,10 @@ class Keyeince_features extends StatelessWidget {
               children: [
                 Text(
                   tmp.name,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500
-                  ),
+                  style: Theme.of(context).textTheme.subtitle1
                 ),
                 Icon(tmp.logo,
-                  color: Colors.white,),
+                  color: ColorManager.white,),
               ],
             ),
           ),
@@ -363,7 +346,7 @@ class Recentrly_posts extends StatelessWidget {
       post(poster_image: "assets/images/man.jpg",
           poster_name: 'Salah Eddine Salhi',
           poster_username: "sa16",
-          text_of_post: "Hello , i have a question about why we use stateless and statefull widgets in flutter \n"
+          text_of_post: "Hello , i have a www.facebook.com pub.dev about why we use stateless and statefull widgets in flutter \n"
               "Hello , i have a question about why we use stateless and statefull widgets in flutter"
               "Hello , i have a question about why we use stateless and statefull widgets in flutter"
       ),
@@ -376,7 +359,7 @@ class Recentrly_posts extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return SizedBox(
-      height: height * 0.25,
+       height: height * 0.35,
       width: widh,
       child: ListView.builder(
         shrinkWrap: true,
@@ -384,67 +367,82 @@ class Recentrly_posts extends StatelessWidget {
         controller: ScrollController(),
         itemCount: Recentrly_post.length,
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
         itemBuilder:  (context , index){
          final post tmp = Recentrly_post[index];
           return Container(
             width: widh * 0.8,
-            margin: const EdgeInsets.fromLTRB(10,10,10,20),
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 20),
+            margin: const EdgeInsets.fromLTRB(AppMargin.m10,AppMargin.m10,AppMargin.m10,AppMargin.m20),
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15,vertical: AppPadding.p20),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppRadius.r15),
+              color: ColorManager.white,
               boxShadow:  <BoxShadow>[
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
+                  spreadRadius: AppRadius.r5,
+                  blurRadius: AppRadius.r7,
+                  offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
                 ),
               ],
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  children: [
-                    /// the user image
-                    const UserImage(img: 'assets/images/man.jpg'),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    /// the name ad the username
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("#"+tmp.poster_username,
-                          style: const TextStyle(
-                              color: Colors.grey
-                          ),),
-                        Text(tmp.poster_name,
-                          style:const TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                PosterNameAndImage(tmp.poster_name, tmp.poster_username),
+                // Row(
+                //   children: [
+                //     /// the user image
+                //     const UserImage(img: 'assets/images/man.jpg'),
+                //     const SizedBox(
+                //       width: AppWidth.w10,
+                //     ),
+                //     /// the name ad the username
+                //     Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text("#"+tmp.poster_username,
+                //           style: Theme.of(context).textTheme.caption,
+                //         ),
+                //         Text(tmp.poster_name,
+                //           style: Theme.of(context).textTheme.headline4!.copyWith(
+                //             fontSize: FontSizeManager.s15
+                //           )
+                //         ),
+                //       ],
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(
-                  height: 10,
+                  height: AppHeight.h10,
                 ),
                 /// the post's content
-                AutoSizeText(
-                  tmp.text_of_post,
-                  maxLines: 3,
-                  maxFontSize: 25,
-                  minFontSize: 15,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15
-                  ),
-                ),
+                Expanded(
+                  child: postContent(tmp.text_of_post),
+                )
+                // Expanded(
+                //   child: Linkify(
+                //     onOpen: (link) async {
+                //       if (await canLaunch(link.url)) {
+                //         await launch(link.url);
+                //       } else {
+                //         throw 'Could not launch $link';
+                //       }
+                //     },
+                //     text: tmp.text_of_post,
+                //     linkStyle: const TextStyle(color: ColorManager.LinkColor ),
+                //     style: Theme.of(context).textTheme.bodyText1,
+                //     overflow: TextOverflow.fade,
+                //   ),
+                // ),
+                // AutoSizeText(
+                //   tmp.text_of_post,
+                //   maxLines: 3,
+                //   maxFontSize: FontSizeManager.s24,
+                //   minFontSize: FontSizeManager.s15,
+                //   overflow: TextOverflow.ellipsis,
+                //   style: Theme.of(context).textTheme.bodyText1
+                // ),
               ],
             ),
           );

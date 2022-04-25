@@ -11,17 +11,26 @@ ThemeData getThemeData()=>ThemeData(
   splashColor: ColorManager.lightDefaultColor,
   /// apBar theme
   appBarTheme: AppBarTheme(
+    iconTheme: const IconThemeData(
+      color: ColorManager.defaultColor
+    ),
     titleTextStyle: boldStyle(
         color: ColorManager.defaultColor,
         fontSize: FontSizeManager.s24,
         fontWeight: FontWeightManager.bold),
     centerTitle: true,
   ),
+
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    selectedItemColor: ColorManager.defaultColor,
+    unselectedItemColor: ColorManager.grey
+  ),
   /// button theme
     buttonTheme: const ButtonThemeData(
       splashColor: ColorManager.lightDefaultColor,
+     disabledColor: ColorManager.grey,
+     focusColor: ColorManager.lightDefaultColor
      // buttonColor: ColorManager.defaultColor,
-      buttonColor: Colors.red,
     ),
   /// textButton theme
   textButtonTheme: TextButtonThemeData(
@@ -56,15 +65,21 @@ ThemeData getThemeData()=>ThemeData(
       filled: true,
       fillColor: ColorManager.white,
       hintStyle: lightStyle(color: ColorManager.grey),
-      errorStyle: RegularStyle(color: ColorManager.error),
+      errorStyle: regularStyle(color: ColorManager.error),
       errorMaxLines: 1,
+      iconColor: ColorManager.defaultColor,
     ),
   /// Text Theme
   textTheme: TextTheme(
   //  labelSmall: lightStyle(color: ColorManager.defaultColor),
    // titleLarge: boldStyle(color: ColorManager.black,fontSize: FontSizeManager.s30),
     headline1: boldStyle(color: ColorManager.black,fontSize: FontSizeManager.s30),
-    caption: RegularStyle(color: ColorManager.grey1),
+    caption: regularStyle(color: ColorManager.grey1),
     headline2: lightStyle(color: ColorManager.defaultColor),
+    headline3: boldStyleBackgrounded(ColorManager.white, FontSizeManager.s30,ColorManager.defaultColor),
+    headline4: boldStyle(color: ColorManager.black),
+    subtitle1: mediumStyle(color: ColorManager.white,fontSize: FontSizeManager.s15),
+    subtitle2: lightStyle(color: ColorManager.white,fontSize: FontSizeManager.s13),
+    bodyText1: mediumStyle(color: ColorManager.black,fontSize: FontSizeManager.s15),
   )
 );
