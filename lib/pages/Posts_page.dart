@@ -61,7 +61,7 @@ class _Body_postsState extends State<Body_posts> {
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
       itemBuilder: (context,index){
         post tmp = posts[index];
-        return  PostItem(Post: tmp);
+        return PostItem(Post: tmp);
       },
     );
   }

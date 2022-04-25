@@ -31,6 +31,7 @@ class AppPadding{
     static const double p22 = 22.0;
     static const double p25 = 25.0;
     static const double p30 = 30.0;
+    static const double p40 = 40.0;
 }
 
 class AppElevation{
@@ -45,8 +46,9 @@ class AppElevation{
 }
 
 class AppRadius{
-  static const double r7 = 7.0;
   static const double r5 = 5.0;
+  static const double r6 = 6.0;
+  static const double r7 = 7.0;
   static const double r8 = 8.0;
   static const double r10 = 10.0;
   static const double r12 = 12.0;
@@ -98,6 +100,7 @@ class AppWidth{
 }
 
 class AppOffset{
+  static const double off1_0 = 1.0;
   static const double off3_0 = 3.0;
   static const double off0_0 = 0.0;
   static const double off0_75 = 0.75;

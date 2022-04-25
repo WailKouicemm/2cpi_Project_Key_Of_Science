@@ -7,6 +7,7 @@ import 'package:keyofscience/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/pages/Bottom_navy_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
             icon: Image.asset('assets/images/options-2-outline.png',
               color: ColorManager.defaultColor,),
           ),
-          title: const Text('KEYEINCE'),
+          title: const Text(app.appName),
           flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
         ),
        body: PageTransitionSwitcher(
@@ -346,7 +347,10 @@ class Recentrly_posts extends StatelessWidget {
       post(poster_image: "assets/images/man.jpg",
           poster_name: 'Salah Eddine Salhi',
           poster_username: "sa16",
-          text_of_post: "Hello , i have a www.facebook.com pub.dev about why we use stateless and statefull widgets in flutter \n"
+          text_of_post: "Hello , i have a www.facebook.com pub.dev about wh"
+              "y we use statebook.com pub.dev about why we use statebook"
+              ".com pub.dev about why we use statebook.com pub.dev about"
+              " why we use stateless and statefull widgets in flutter \n"
               "Hello , i have a question about why we use stateless and statefull widgets in flutter"
               "Hello , i have a question about why we use stateless and statefull widgets in flutter"
       ),
@@ -359,7 +363,7 @@ class Recentrly_posts extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return SizedBox(
-       height: height * 0.35,
+       height: height * 0.25,
       width: widh,
       child: ListView.builder(
         shrinkWrap: true,
@@ -370,6 +374,12 @@ class Recentrly_posts extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
         itemBuilder:  (context , index){
          final post tmp = Recentrly_post[index];
+         // return   SizedBox(
+         //   height: height * 0.25,
+         //   width: widh,
+         //   child: PostItem(Post: tmp,),
+         // );
+
           return Container(
             width: widh * 0.8,
             margin: const EdgeInsets.fromLTRB(AppMargin.m10,AppMargin.m10,AppMargin.m10,AppMargin.m20),
@@ -418,7 +428,7 @@ class Recentrly_posts extends StatelessWidget {
                 ),
                 /// the post's content
                 Expanded(
-                  child: postContent(tmp.text_of_post),
+                  child: postContent(tmp.text_of_post,maxlines: 3,),
                 )
                 // Expanded(
                 //   child: Linkify(

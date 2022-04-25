@@ -50,7 +50,7 @@ class PostItem extends StatelessWidget {
               height: AppHeight.h10,
             ),
             /// the icons of like and comment
-            const LikeAndComment()
+            const LikeAndComment(),
           ],
         ),
       ),
@@ -102,11 +102,12 @@ class PosterNameAndImage extends StatelessWidget {
 
 class postContent extends StatelessWidget {
   final String text;
-  const postContent(this.text);
+  final int? maxlines;
+  const postContent(this.text,{this.maxlines});
 
   @override
   Widget build(BuildContext context) {
-    return Linkify(
+    return  Linkify(
       onOpen: (link) async {
         if (await canLaunch(link.url)) {
           await launch(link.url);
@@ -117,9 +118,9 @@ class postContent extends StatelessWidget {
       text: text,
       linkStyle: const TextStyle(color: ColorManager.LinkColor ),
       style: Theme.of(context).textTheme.bodyText1,
-      maxLines: 6,
+      maxLines: maxlines ?? 4,
       overflow: TextOverflow.ellipsis,
-    );
+    ) ;
   }
 }
 
@@ -144,16 +145,16 @@ class _LikeAndCommentState extends State<LikeAndComment> {
               onPressed: ()=>setState(()=>commentField=!commentField),
               icon: SvgPicture.asset(
                 'assets/icons/comment.svg',
-                color: const Color(0xFF2958F5),
+                color: ColorManager.defaultColor,
               ),
             ),
             const SizedBox(
-              width: 10,
+              width: AppWidth.w10,
             ),
             /// like icon
             IconButton(
               onPressed: (){},
-              icon: const Icon(Icons.favorite_border,color: Color(0xFF2958F5)),
+              icon: const Icon(Icons.favorite_border),
             )
           ],
         ),
@@ -164,7 +165,7 @@ class _LikeAndCommentState extends State<LikeAndComment> {
               UserImage(img: 'assets/images/man.jpg'),
 
               SizedBox(
-                width: 10,
+                width: AppWidth.w10,
               ),
               /*
                   TextField(
@@ -184,7 +185,7 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                     ),
                    */
               Expanded(
-                child:  TextFiledComment(),
+                child: TextFiledComment(),
               ),
             ],
           ),

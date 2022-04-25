@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
+import 'package:keyofscience/presentation/OnBoarding/ViewModel/OnBoarding_ViewModel.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+import 'package:provider/provider.dart';
 
-import '../OnBoarding/View/onBoearingScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,11 +14,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // transparent status bar
   ));
-  runApp(MaterialApp(
-    theme: getThemeData(),
-    debugShowCheckedModeBanner: false,
-    home: HommePage(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -24,9 +22,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: getThemeData(),
       debugShowCheckedModeBanner: false,
-      theme:  getThemeData(),
-      home: const onBoardingScreen(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<pageIndexProvider>(create: (_) => pageIndexProvider()),
+          ChangeNotifierProvider<selectedItemProvier>(create: (_) => selectedItemProvier()),
+        ],
+        child: const onBoardingScreen(),
+      ) ,
     );
   }
 }

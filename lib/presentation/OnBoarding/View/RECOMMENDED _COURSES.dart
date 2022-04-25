@@ -92,7 +92,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                     onPressed: ()=> Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  const HommePage() ),
+                          builder: (context) =>  const HomePage() ),
                     ),
                     child: const Text("Skip",
                     style: TextStyle(

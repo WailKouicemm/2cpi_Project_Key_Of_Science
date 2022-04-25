@@ -24,3 +24,9 @@ class VideoModel{
     required this.title,
   });
 }
+
+
+class categories {
+  final String title;
+  categories({required this.title});
+}

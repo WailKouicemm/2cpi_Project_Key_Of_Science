@@ -12,7 +12,7 @@ ThemeData getThemeData()=>ThemeData(
   /// apBar theme
   appBarTheme: AppBarTheme(
     iconTheme: const IconThemeData(
-      color: ColorManager.defaultColor
+      color: ColorManager.defaultColor,
     ),
     titleTextStyle: boldStyle(
         color: ColorManager.defaultColor,
@@ -20,7 +20,11 @@ ThemeData getThemeData()=>ThemeData(
         fontWeight: FontWeightManager.bold),
     centerTitle: true,
   ),
-
+  /// icon button theme
+    iconTheme: const IconThemeData(
+      color: ColorManager.defaultColor,
+    ),
+  /// bottmNavy theme
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: ColorManager.defaultColor,
     unselectedItemColor: ColorManager.grey
@@ -81,5 +85,6 @@ ThemeData getThemeData()=>ThemeData(
     subtitle1: mediumStyle(color: ColorManager.white,fontSize: FontSizeManager.s15),
     subtitle2: lightStyle(color: ColorManager.white,fontSize: FontSizeManager.s13),
     bodyText1: mediumStyle(color: ColorManager.black,fontSize: FontSizeManager.s15),
+    headline5: boldStyle(color: ColorManager.defaultColor,fontSize: FontSizeManager.s30),
   )
 );
