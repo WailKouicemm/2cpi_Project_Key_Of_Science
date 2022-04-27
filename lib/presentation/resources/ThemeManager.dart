@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/FontsManager.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
@@ -81,10 +81,13 @@ ThemeData getThemeData()=>ThemeData(
     caption: regularStyle(color: ColorManager.grey1),
     headline2: lightStyle(color: ColorManager.defaultColor),
     headline3: boldStyleBackgrounded(ColorManager.white, FontSizeManager.s30,ColorManager.defaultColor),
-    headline4: boldStyle(color: ColorManager.black),
+    headline4: boldStyle(color: ColorManager.black,fontWeight: FontWeightManager.boldPlus),
+    headline6: mediumStyle(color: ColorManager.defaultColor),
     subtitle1: mediumStyle(color: ColorManager.white,fontSize: FontSizeManager.s15),
     subtitle2: lightStyle(color: ColorManager.white,fontSize: FontSizeManager.s13),
+    bodyText2: regularStyle(color: ColorManager.grey),
     bodyText1: mediumStyle(color: ColorManager.black,fontSize: FontSizeManager.s15),
     headline5: boldStyle(color: ColorManager.defaultColor,fontSize: FontSizeManager.s30),
+    overline: regularStyle(color: ColorManager.black,fontWeight: FontWeightManager.medium)
   )
 );

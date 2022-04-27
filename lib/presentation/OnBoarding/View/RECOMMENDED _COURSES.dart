@@ -1,10 +1,12 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/main/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/resources/appStrings.dart';
 
+import '../../resources/FontsManager.dart';
 import '../../../components.dart';
-import '../../../kdefault.dart';
+import '../../resources/values_manager.dart';
 
 class RECOMMANDED_COURSES extends StatefulWidget {
   const RECOMMANDED_COURSES();
@@ -18,96 +20,53 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
   @override
   Widget build(BuildContext context) {
     double widh = MediaQuery.of(context).size.width;
-    return Scaffold(
-       backgroundColor: Kdefault.KbackgroundColor,
-      // appBar: AppBar(
-      //   flexibleSpace: Container(
-      //     decoration:  const BoxDecoration(
-      //         image: DecorationImage(image: AssetImage("assets/images/backround_appbar.png") , fit: BoxFit.cover)
-      //     ),
-      //   ),
-      //   title: const Text("KEYEINCE"),
-      //   centerTitle: true,
-      //   backgroundColor: Colors.white,
-      //   actions: const [
-      //     CircleAvatar(
-      //       backgroundColor: Kdefault.KdefaultColor,
-      //       maxRadius: 3,
-      //     ),
-      //      SizedBox(width: 3,),
-      //     CircleAvatar(
-      //       backgroundColor: Kdefault.KdefaultColor,
-      //       maxRadius: 3,
-      //      child:   CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-      //     ),
-      //      SizedBox(width: 3,),
-      //     CircleAvatar(
-      //       backgroundColor: Kdefault.KdefaultColor,
-      //       maxRadius: 3,
-      //       child: CircleAvatar(backgroundColor: Colors.white, maxRadius: 2,),
-      //     ),
-      //      SizedBox(width: 10,),
-      //   ],
-      // ),
-      body: Padding(
-        padding: const  EdgeInsets.symmetric(horizontal: 15),
+    return Padding(
+        padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p15),
         child: ListView(
           shrinkWrap: true,
-     //     crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// the old recommeneted text
-            /*
-             Container(
-                  height: 60 ,
-                  width: widh*0.5,
-                  margin: const  EdgeInsets.symmetric(vertical: 20,),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const  [
-                      Text("Recommended " , style: TextStyle(fontSize: 23 , fontWeight: FontWeight.bold , fontFamily: "Montserrat"),),
-                      Text(" courses" , style: TextStyle(fontSize: 23 , fontWeight: FontWeight.bold , fontFamily: "Montserrat"),),
-                    ],
-                  ) ,
-                ),
-             */
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  height: 60 ,
-                  width: widh*0.5,
-                  margin: const  EdgeInsets.symmetric(vertical: 20,),
-                  child: const AutoSizeText(
-                    "Recommanded courses" ,
-                    maxLines: 2,
-                    minFontSize: 20,
-                    maxFontSize: 50,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontFamily: "Montserrat",
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: widh*0.5,
+                      margin: const  EdgeInsets.symmetric(vertical: AppMargin.m20,),
+                      child: AutoSizeText(
+                          appStrings.recommanded_courses ,
+                          maxLines: 2,
+                          minFontSize: FontSizeManager.s30,
+                          maxFontSize: FontSizeManager.s50,
+                          style: Theme.of(context).textTheme.headline1
+                        // TextStyle(
+                        //     fontWeight: FontWeight.w900,
+                        //     fontFamily: "Montserrat",
+                        // ),
+                      ),
                     ),
                   ),
-                ),
-                TextButton(
+                  TextButton(
                     onPressed: ()=> Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>  const HomePage() ),
                     ),
-                    child: const Text("Skip",
-                    style: TextStyle(
-                      color: Kdefault.KdefaultColor,
-                      fontSize: 14
-                    ),),
-                ),
-              ],
-            ),
+                    child: Text(appStrings.skip,
+                      style: Theme.of(context).textTheme.headline6,
+                      // style: TextStyle(
+                      //   color: Kdefault.KdefaultColor,
+                      //   fontSize: 14
+                      // ),
+                    ),
+                  ),
+                ],
+              ),
+
             CorsesListView(coursess: populaCorses,ontap: (){},),
           ],
         ),
 
-      ),
-    );
+      );
 
   }
 }

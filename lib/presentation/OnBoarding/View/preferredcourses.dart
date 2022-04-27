@@ -23,13 +23,19 @@ class PreferredCourses extends StatelessWidget {
                 right: AppPadding.p8,
                 bottom: AppPadding.p5
                 ,top: AppPadding.p20),
-            child: Text(
-              appStrings.onBoardingTitle,
-              style: Theme.of(context).textTheme.headline1,
-              // style: TextStyle(
-              //     fontSize: 30,
-              //     fontWeight: FontWeight.w900,
-              //     fontFamily: "Montserrat"),
+            child:                   RichText(
+              text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: appStrings.onBoardingTitle1,
+                        style: Theme.of(context).textTheme.headline3
+                    ),
+                    TextSpan(
+                        text: appStrings.onBoardingTitle2,
+                        style: Theme.of(context).textTheme.headline1
+                    ),
+                  ]
+              ),
             ),
           ),
           Padding(

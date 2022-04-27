@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
 import '../models/Models.dart';
-import '../pages/Posts_page.dart';
+import '../presentation/main/Posts_page.dart';
 
 
 class PostItem extends StatelessWidget {

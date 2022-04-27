@@ -1,9 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:keyofscience/FontsManager.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/pages/Bottom_navy_item.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,12 +10,11 @@ import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../Widgets/Add_post_Dialog.dart';
-import '../components.dart';
-import '../models/Models.dart';
-import 'Course_card.dart';
+import '../../Widgets/Add_post_Dialog.dart';
+import '../../components.dart';
+import '../../models/Models.dart';
+import '../../pages/Course_card.dart';
 import 'Posts_page.dart';
 
 class MainScreen extends StatefulWidget {
@@ -326,10 +324,13 @@ class CorsesListViewItems extends StatelessWidget {
           controller: ScrollController(),
           itemCount: _populaCorses.length,
           scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
           itemBuilder:  (context , index){
            final course tmp = _populaCorses[index];
-            return Cours_card(cours: tmp,);
+            return Padding(
+              padding: const EdgeInsets.only(right: AppPadding.p10),
+              child: cours_card(cours: tmp,),
+            );
           }
       ),
     );

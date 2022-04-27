@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/FontsManager.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
 
 TextStyle _textStyle(Color color, double fontSize, FontWeight fontWeight) =>
     TextStyle(color: color, fontWeight: fontWeight, fontSize: fontSize,fontFamily: FontFamilyManager.defaultFamily);

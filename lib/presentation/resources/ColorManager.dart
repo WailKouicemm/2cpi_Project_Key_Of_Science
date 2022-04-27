@@ -14,6 +14,6 @@ class ColorManager{
   static const Color grey1 =  Colors.black87;
   static const Color error = Colors.red;
   static const Color transparent = Colors.transparent;
-  static const Color pink = Colors.pink;
+  static const Color pink = Color(0xFFCC40B2);
 }
 

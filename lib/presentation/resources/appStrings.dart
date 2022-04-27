@@ -12,6 +12,9 @@ static const String privacy1 = '  I confirmed i have read the';
 static const String privacy2 =  'privacy Acknowledgent ';
 
 /// onBoarding texts
-static const String onBoardingTitle = "lastly, searsh for courses";
+static const String onBoardingTitle1 = "lastly";
+static const String onBoardingTitle2 = " searsh for courses";
 static const String onBoardingSubTitle = "select what do you want to learn";
+static const String skip = "Skip";
+static const String recommanded_courses = "Recommanded courses";
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/kdefault.dart';
-import 'package:keyofscience/pages/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/main/HomeZommDrawer.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 
-import '../../../FontsManager.dart';
+import '../../resources/FontsManager.dart';
 import '../../../main.dart';
 import '../../Register/viewModel/RegisterViewModel.dart';
 import '../../resources/Styles_Manager.dart';
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
                           offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
                         ),
                       ],
-                      color: Kdefault.KdefaultColor,
+                      color: ColorManager.defaultColor,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(AppRadius.r30),
                         topRight: Radius.circular(AppRadius.r30),

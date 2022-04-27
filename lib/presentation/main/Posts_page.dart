@@ -4,9 +4,10 @@ import 'package:keyofscience/kdefault.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
-import '../Widgets/Post.dart';
-import '../models/Models.dart';
-import 'Posts_Lists.dart';
+import '../../Widgets/Post.dart';
+import '../../models/Models.dart';
+import '../resources/ColorManager.dart';
+import '../../pages/Posts_Lists.dart';
 
 
 class PostsPage extends StatelessWidget {
@@ -76,7 +77,7 @@ class TextFiledComment extends StatelessWidget {
       height: 35,
       child: TextFormField(
         autofocus: false,
-        cursorColor: Kdefault.KdefaultColor,
+        cursorColor: ColorManager.defaultColor,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -86,7 +87,7 @@ class TextFiledComment extends StatelessWidget {
           hintText: "Add comment as salah",
           contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
           hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
-          suffixIcon: Image.asset("assets/images/navigation-2-outline.png",color: Kdefault.KdefaultColor,),
+          suffixIcon: Image.asset("assets/images/navigation-2-outline.png",color: ColorManager.defaultColor,),
         ),
       ),
     );

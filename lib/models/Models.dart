@@ -30,3 +30,7 @@ class categories {
   final String title;
   categories({required this.title});
 }
+class courses {
+  final String path, title, coursesnum;
+  courses({required this.title,required this.path,required this.coursesnum});
+}
