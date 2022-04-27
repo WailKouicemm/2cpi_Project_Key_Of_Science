@@ -187,7 +187,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
               child: TextFormField(
                 controller: nameTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
-                decoration: const InputDecoration(
+                 decoration: const InputDecoration(
                   hintText: " Full name",
                 ),
                 validator: (value)=>validator.nameValidator(value?? ""),
