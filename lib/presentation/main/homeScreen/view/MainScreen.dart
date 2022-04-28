@@ -1,75 +1,20 @@
-import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
-import 'package:keyofscience/pages/Bottom_navy_item.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
+import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
-import '../../Widgets/Add_post_Dialog.dart';
-import '../../components.dart';
-import '../../models/Models.dart';
-import '../../pages/Course_card.dart';
-import 'Posts_page.dart';
+import '../../../../Widgets/Add_post_Dialog.dart';
+import '../../../../models/Models.dart';
+import '../../../../Widgets/Course_card.dart';
+import '../../postsScreen/view/Posts_page.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen();
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  int _index=0;
-
-  Widget build(BuildContext context) {
-     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => ZoomDrawer.of(context)!.toggle(),
-            icon: Image.asset('assets/images/options-2-outline.png',
-              color: ColorManager.defaultColor,),
-          ),
-          title: const Text(app.appName),
-          flexibleSpace: Image.asset('assets/images/backround_appbar.png',fit: BoxFit.cover,),
-        ),
-       body: PageTransitionSwitcher(
-         duration: const Duration(seconds: 1),
-         transitionBuilder: (child,primaryAnimation,secondaryAnimation)=>SharedAxisTransition(
-           animation: primaryAnimation,
-           secondaryAnimation: secondaryAnimation,
-           transitionType: SharedAxisTransitionType.horizontal,
-           child: child,
-         ),
-         child: _index==0? const theBodyOFMainScreen() : const Body_posts(),
-       ),
-      bottomNavigationBar: BottomNavigationBar(
-        /*
-        bottomNavyItems
-         */
-        items: bottomNavyItems.map((item) => BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              item.icon_asset,
-               color: _index==bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
-            ),
-            label: item.title
-        ),
-        ).toList(),
-        currentIndex: _index,
-        onTap: (i)=>i==_index? null : setState(()=>_index=i),
-      ),
-    );
-  }
-}
-
-class theBodyOFMainScreen extends StatelessWidget {
-  const theBodyOFMainScreen();
+class homeScreen extends StatelessWidget {
+  const homeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +50,7 @@ class recentlyPoststitle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:  [
                Text('   Recently posts',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeightManager.bold),
                ),
              TextButton(
               onPressed: ()=> Navigator.of(context).push(
@@ -130,12 +75,11 @@ final bool seAll;
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(AppPadding.p10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(txt,
-              style: Theme.of(context).textTheme.headline4),
+            Text(txt, style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeightManager.bold)),
             if(seAll)
                const TextButton(
                 onPressed: null,
@@ -162,7 +106,7 @@ class profilecard extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
           image:  DecorationImage(
-              image: AssetImage('assets/images/CARD.png'),
+              image: AssetImage(images.card),
               fit: BoxFit.fill
           ),
         ),
@@ -304,13 +248,46 @@ class CorsesListViewItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const  List<course> _populaCorses =  [
-      course(path: 'assets/images/backround_appbar.png' , title: 'introduction to Java' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'COURSES OFFRED' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX Courses' , coursesnum: '29'),
-      course(path: 'assets/images/backround_appbar.png' , title: 'UI/UX COURSES' , coursesnum: '29'),
+      course(
+          image: 'assets/images/photoshop.jpg',
+          title: 'complet photoshop course',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/illustrator.jpeg',
+          title: 'Illustrator CC Full Course',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/ae.jpg',
+          title: 'intoduction to ui utilization of after Effects',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/java.jpg',
+          title: 'introduction to Java',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course2.png',
+          title: 'UI/UX COURSES',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course.jpg',
+          title: 'COURSES OFFRED',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course2.png',
+          title: 'UI/UX COURSES',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course2.png',
+          title: 'UI/UX COURSES',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course.jpg',
+          title: 'UI/UX Courses',
+          coursesnum: '29 lesson'),
+      course(
+          image: 'assets/images/course2.png',
+          title: 'UI/UX COURSES',
+          coursesnum: '29 lesson'),
     ];
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;

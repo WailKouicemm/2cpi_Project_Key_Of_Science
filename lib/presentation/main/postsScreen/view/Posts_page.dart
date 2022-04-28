@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:keyofscience/kdefault.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
-import '../../Widgets/Post.dart';
-import '../../models/Models.dart';
-import '../resources/ColorManager.dart';
-import '../../pages/Posts_Lists.dart';
+import '../../../../Widgets/Post.dart';
+import '../../../../models/Models.dart';
+import '../../../resources/ColorManager.dart';
+import '../../../../pages/Posts_Lists.dart';
 
 
 class PostsPage extends StatelessWidget {
@@ -20,11 +22,11 @@ class PostsPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('POSTS'),
+          title: const Text('Posts'),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/backround_appbar.png'),
+                    image: AssetImage(images.appBarImage),
                     fit: BoxFit.cover
                 )
             ),
@@ -34,7 +36,7 @@ class PostsPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
           ),
         ),
-        body: const Body_posts(),
+        body: const Posts_Body(),
       ),
     );
   }
@@ -43,14 +45,14 @@ class PostsPage extends StatelessWidget {
  
 
 
-class Body_posts extends StatefulWidget {
-  const Body_posts();
+class Posts_Body extends StatefulWidget {
+  const Posts_Body();
 
   @override
-  State<Body_posts> createState() => _Body_postsState();
+  State<Posts_Body> createState() => _Posts_BodyState();
 }
 
-class _Body_postsState extends State<Body_posts> {
+class _Posts_BodyState extends State<Posts_Body> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -85,9 +87,12 @@ class TextFiledComment extends StatelessWidget {
             borderRadius: BorderRadius.circular(25.0),
           ),
           hintText: "Add comment as salah",
-          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-          hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
-          suffixIcon: Image.asset("assets/images/navigation-2-outline.png",color: ColorManager.defaultColor,),
+          contentPadding: const EdgeInsets.only(
+              left: AppPadding.p14,
+              bottom: AppPadding.p8,
+              top: AppPadding.p8),
+          hintStyle: const TextStyle(fontSize: FontSizeManager.s11, color: Colors.grey),
+          suffixIcon: Image.asset(images.send,color: ColorManager.defaultColor,),
         ),
       ),
     );

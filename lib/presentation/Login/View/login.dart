@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/kdefault.dart';
-import 'package:keyofscience/presentation/main/HomeZommDrawer.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 
+import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';
 import '../../../main.dart';
 import '../../Register/viewModel/RegisterViewModel.dart';

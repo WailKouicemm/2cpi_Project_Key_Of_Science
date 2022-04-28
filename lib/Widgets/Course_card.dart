@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
+import '../presentation/main/CoursePage/view/CoursePage.dart';
 import '../presentation/resources/FontsManager.dart';
 import '../models/Models.dart';
 import '../presentation/resources/Styles_Manager.dart';
+import '../presentation/main/CoursePage/view/CoursePage.dart';
 
 
 
@@ -22,7 +24,11 @@ class cours_card extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: onBoarding? AppPadding.p8 : 0),
       alignment: Alignment.center,
       child: InkWell(
-        onTap: null,
+        onTap: (){
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_)=>CourseScreen(cours: cours),)
+          );
+        },
         child: Stack(
           children: [
             Container(
@@ -30,7 +36,7 @@ class cours_card extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 image:   DecorationImage(
-                  image: AssetImage(cours.path),
+                  image: AssetImage(cours.image),
                   fit: BoxFit.cover,
                 ),
                 borderRadius:BorderRadius.circular(AppRadius.r15),

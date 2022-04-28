@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 
-class MenuScreen extends StatelessWidget {
-  const MenuScreen();
+class drawerScreen extends StatelessWidget {
+  const drawerScreen();
   @override
   Widget build(BuildContext context) {
     print("MenuScreen called");

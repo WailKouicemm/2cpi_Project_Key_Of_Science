@@ -4,6 +4,7 @@ class AppDuration{
      static const int d250 = 250;
   }
 class AppMargin{
+  static const double m4 = 4.0;
   static const double m8 = 8.0;
   static const double m10 = 10.0;
   static const double m12 = 12.0;
@@ -12,6 +13,7 @@ class AppMargin{
   static const double m18 = 18.0;
   static const double m20 = 20.0;
   static const double m22 = 22.0;
+  static const double m40 = 40.0;
 }
 
 class AppPadding{
@@ -20,6 +22,7 @@ class AppPadding{
     static const double p4 = 4.0;
     static const double p5 = 5.0;
     static const double p6 = 6.0;
+    static const double p7 = 7.0;
     static const double p8 = 8.0;
     static const double p10 = 10.0;
     static const double p12 = 12.0;
@@ -32,6 +35,7 @@ class AppPadding{
     static const double p25 = 25.0;
     static const double p30 = 30.0;
     static const double p40 = 40.0;
+    static const double p45 = 45.0;
 }
 
 class AppElevation{
@@ -58,6 +62,7 @@ class AppRadius{
   static const double r18 = 18.0;
   static const double r20 = 20.0;
   static const double r22 = 22.0;
+  static const double r24 = 24.0;
   static const double r30 = 30.0;
   static const double r70 = 70.0;
 }

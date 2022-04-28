@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
-import 'package:keyofscience/presentation/main/HomeZommDrawer.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
+import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: getThemeData(),
       debugShowCheckedModeBanner: false,
-      home: const onBoardingScreen(),
+      home: const RegisterPage()
     );
   }
 }

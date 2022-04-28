@@ -1,9 +1,9 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/presentation/main/HomeZommDrawer.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 
+import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';
 import '../../../components.dart';
 import '../../resources/values_manager.dart';

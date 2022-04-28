@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ColorManager{
   static const Color selectColor = Color(0xff051855);
+  static const Color selectColor2 = Color(0xff432f9b);
   static const Color defaultColor =  Color(0xFF2958F5);
   static const Color lightDefaultColor =  Color(0xff5B80FA);
   static const Color LinkColor =  Colors.blueAccent;
@@ -15,5 +16,6 @@ class ColorManager{
   static const Color error = Colors.red;
   static const Color transparent = Colors.transparent;
   static const Color pink = Color(0xFFCC40B2);
+  static const Color blue = Colors.blue;
 }
 

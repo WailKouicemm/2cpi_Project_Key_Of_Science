@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class course{
-  final String path ;
+  final String image ;
   final String title ;
   final String coursesnum ;
-  const course({required this.path,required this.title,required this.coursesnum});
+  final String creator;
+  const course({required this.image,required this.title,required this.coursesnum,this.creator="Salah eddine"});
 }
 
 class post{
@@ -33,4 +34,11 @@ class categories {
 class courses {
   final String path, title, coursesnum;
   courses({required this.title,required this.path,required this.coursesnum});
+}
+
+class bottomNavyItem{
+  final String title;
+  final String icon_asset;
+  final Widget page;
+  const bottomNavyItem({required this.title,required this.icon_asset,required this.page});
 }

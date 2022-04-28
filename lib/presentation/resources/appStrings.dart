@@ -17,4 +17,7 @@ static const String onBoardingTitle2 = " searsh for courses";
 static const String onBoardingSubTitle = "select what do you want to learn";
 static const String skip = "Skip";
 static const String recommanded_courses = "Recommanded courses";
+
+static const String showMore = "Show more";
+static const String showLess= "Show less";
 }

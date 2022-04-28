@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
  import 'package:flutter/services.dart';
-import 'package:keyofscience/pages/Course_card.dart';
+import 'package:keyofscience/Widgets/Course_card.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
@@ -18,68 +18,68 @@ import 'models/Models.dart';
 
   const List<course> populaCorses = [
   course(
-      path: 'assets/images/photoshop.jpg',
+      image: 'assets/images/photoshop.jpg',
       title: 'complet photoshop course',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/illustrator.jpeg',
+      image: 'assets/images/illustrator.jpeg',
       title: 'Illustrator CC Full Course',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/ae.jpg',
+      image: 'assets/images/ae.jpg',
       title: 'intoduction to ui utilization of after Effects',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/java.jpg',
+      image: 'assets/images/java.jpg',
       title: 'introduction to Java',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course.jpg',
+      image: 'assets/images/course.jpg',
       title: 'COURSES OFFRED',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course.jpg',
+      image: 'assets/images/course.jpg',
       title: 'UI/UX Courses',
       coursesnum: '29 lesson'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
 ];
 
 const List<course> webdevloppment = [
   course(
-      path: 'assets/images/web1.png', title: 'Full stack', coursesnum: '29'),
+      image: 'assets/images/web1.png', title: 'Full stack', coursesnum: '29'),
   course(
-      path: 'assets/images/web2.jpeg',
+      image: 'assets/images/web2.jpeg',
       title: 'Frontend Course',
       coursesnum: '29'),
   course(
-      path: 'assets/images/web3.jpeg',
+      image: 'assets/images/web3.jpeg',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
   course(
-      path: 'assets/images/course.jpg',
+      image: 'assets/images/course.jpg',
       title: 'UI/UX Courses',
       coursesnum: '29'),
   course(
-      path: 'assets/images/course2.png',
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
 ];

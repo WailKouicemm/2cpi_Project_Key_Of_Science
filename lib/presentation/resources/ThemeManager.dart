@@ -15,7 +15,7 @@ ThemeData getThemeData()=>ThemeData(
       color: ColorManager.defaultColor,
     ),
     titleTextStyle: boldStyle(
-        color: ColorManager.defaultColor,
+        color: ColorManager.black,
         fontSize: FontSizeManager.s24,
         fontWeight: FontWeightManager.bold),
     centerTitle: true,
