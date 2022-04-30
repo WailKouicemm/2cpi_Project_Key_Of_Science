@@ -1,180 +1,85 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'kdefault.dart';
+ import 'package:flutter/services.dart';
+import 'package:keyofscience/Widgets/Course_card.dart';
+import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:keyofscience/presentation/resources/values_manager.dart';
 
-class LoginButton extends StatelessWidget {
-  LoginButton(
-      {required this.text,
-      required this.onpressed,
-      this.textColor = Colors.white,
-      this.backgroundCOlor = KdefaultColor});
-
-  final String text;
-
-  final Function() onpressed;
-
-  final Color textColor, backgroundCOlor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 0.0),
-      child: MaterialButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: 5.0,
-          minWidth: 400.0,
-          height: 45,
-          color: backgroundCOlor,
-          child: Text(
-            text,
-            style: TextStyle(
-                fontSize: 16.0, color: textColor, fontFamily: "Montserrat"),
-          ),
-          onPressed: onpressed),
-    );
-  }
-}
-
-class TextFormFiledC extends StatefulWidget {
-  final Color colour;
-  final String text;
-  final Icon icon;
-  bool obscured;
-  final TextInputType textInputType;
-  final bool suffixicon;
-  final double padding;
-  TextFormFiledC({
-    this.colour = KdefaultColor,
-    required this.text,
-    this.obscured = false,
-    this.icon = const Icon(
-      Icons.person,
-      color: KdefaultColor,
-    ),
-    this.suffixicon = false,
-    this.padding = 30,
-     this.textInputType=TextInputType.name,
-  });
+import 'models/Models.dart';
 
 
 
-  @override
-  State<TextFormFiledC> createState() => _TextFormFiledCState();
-}
 
-class _TextFormFiledCState extends State<TextFormFiledC> {
-  bool visibal = true;
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: widget.padding),
-      child: TextFormField(
-        autofocus: false,
-        obscureText: widget.obscured,
-        cursorColor: KdefaultColor,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          hintText: widget.text,
-          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-          hintStyle: const TextStyle(fontSize: 11, color: Colors.grey),
-          prefixIcon: widget.icon,
-          suffixIcon: widget.suffixicon
-              ? IconButton(
-              onPressed: () {
-                setState(() {
-                  widget.obscured
-                      ? widget.obscured = false
-                      : widget.obscured = true;
-                });
-              },
-              icon: Icon(widget.obscured
-                  ? Icons.visibility
-                  : Icons.visibility_off))
-              : const Icon(null),
-        ),
-        keyboardType: widget.textInputType,
-      ),
-    );
-  }
-}
 
-class courses {
-  courses({this.title = "", this.path = "", this.coursesnum = ""});
 
-  final String path, title, coursesnum;
-}
 
-List<courses> populaCorses = [
-  courses(
-      path: 'assets/images/photoshop.jpg',
+
+
+
+  const List<course> populaCorses = [
+  course(
+      image: 'assets/images/photoshop.jpg',
       title: 'complet photoshop course',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/illustrator.jpeg',
+  course(
+      image: 'assets/images/illustrator.jpeg',
       title: 'Illustrator CC Full Course',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/ae.jpg',
+  course(
+      image: 'assets/images/ae.jpg',
       title: 'intoduction to ui utilization of after Effects',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/java.jpg',
+  course(
+      image: 'assets/images/java.jpg',
       title: 'introduction to Java',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course.jpg',
+  course(
+      image: 'assets/images/course.jpg',
       title: 'COURSES OFFRED',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course.jpg',
+  course(
+      image: 'assets/images/course.jpg',
       title: 'UI/UX Courses',
       coursesnum: '29 lesson'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29 lesson'),
 ];
 
-List<courses> webdevloppment = [
-  courses(
-      path: 'assets/images/web1.png', title: 'Full stack', coursesnum: '29'),
-  courses(
-      path: 'assets/images/web2.jpeg',
+const List<course> webdevloppment = [
+  course(
+      image: 'assets/images/web1.png', title: 'Full stack', coursesnum: '29'),
+  course(
+      image: 'assets/images/web2.jpeg',
       title: 'Frontend Course',
       coursesnum: '29'),
-  courses(
-      path: 'assets/images/web3.jpeg',
+  course(
+      image: 'assets/images/web3.jpeg',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
-  courses(
-      path: 'assets/images/course.jpg',
+  course(
+      image: 'assets/images/course.jpg',
       title: 'UI/UX Courses',
       coursesnum: '29'),
-  courses(
-      path: 'assets/images/course2.png',
+  course(
+      image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
       coursesnum: '29'),
 ];
@@ -182,142 +87,104 @@ List<courses> webdevloppment = [
 class CorsesListView extends StatelessWidget {
   CorsesListView({required this.coursess, required this.ontap});
 
-  final List<courses> coursess;
+  final List<course> coursess;
   final Function() ontap;
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double widh = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
     return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: coursess.length,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (context, index) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: ontap,
-            child: Stack(
-              children: [
-                Container(
-                  width: widh * 0.9,
-                  height: 175,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(coursess[index].path),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10, bottom: 10),
-                    child: SizedBox(
-                      width: widh * 0.25,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            coursess[index].title,
-                            style:  const TextStyle(
-                                color: Colors.white, fontFamily: "Montserrat"),
-                          ),
-                          Text(
-                            coursess[index].coursesnum,
-                            style: const  TextStyle(
-                                color: Colors.grey,
-                                fontSize: 10,
-                                fontFamily: "Montserrat"),
-                          ),
-                          Container(
-                            child: const  Text(
-                              'continue',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "Montserrat"),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: const  Color(0xFFCC40B2),
-                            ),
-                            padding: const  EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 2),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  width: widh * 0.9,
-                  height: 175,
-                  margin: const  EdgeInsets.only(bottom: 20),
-                  alignment: Alignment.bottomLeft,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.black.withOpacity(0.7)),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: populaCorses.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) => SizedBox(
+          height:  height * 0.22,
+          child:  cours_card(cours: populaCorses[index],onBoarding: true,),
+        )
+        //     Column(
+        //   crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     InkWell(
+        //       onTap: ontap,
+        //       child: Stack(
+        //         children: [
+        //           Container(
+        //             width: widh * 0.9,
+        //             height: 175,
+        //             alignment: Alignment.center,
+        //             decoration: BoxDecoration(
+        //               image: DecorationImage(
+        //                   image: AssetImage(coursess[index].path),
+        //                   fit: BoxFit.cover),
+        //               borderRadius: BorderRadius.circular(15),
+        //             ),
+        //           ),
+        //           Container(
+        //             padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
+        //             width: widh * 0.9,
+        //             height: 175,
+        //             margin: const  EdgeInsets.only(bottom: AppPadding.p20),
+        //             alignment: Alignment.bottomLeft,
+        //             decoration: BoxDecoration(
+        //                 borderRadius: BorderRadius.circular(AppRadius.r15),
+        //                 color: Colors.black.withOpacity(0.7)),
+        //             child: SizedBox(
+        //               width: widh * 0.25,
+        //               child: Column(
+        //                 mainAxisAlignment: MainAxisAlignment.end,
+        //                 crossAxisAlignment: CrossAxisAlignment.start,
+        //                 children: [
+        //                   Text(
+        //                       coursess[index].title,
+        //                       style: Theme.of(context).textTheme.subtitle2
+        //                     // const TextStyle(
+        //                     //     color: Colors.white, fontFamily: "Montserrat"),
+        //                   ),
+        //                   Text(
+        //                     coursess[index].coursesnum,
+        //                     style: Theme.of(context).textTheme.bodyText2,
+        //                     // style: const  TextStyle(
+        //                     //     color: Colors.grey,
+        //                     //     fontSize: 10,
+        //                     //     fontFamily: "Montserrat"),
+        //                   ),
+        //                   Container(
+        //                     child: const contuniueText(),
+        //                     decoration: BoxDecoration(
+        //                         borderRadius: BorderRadius.circular(20),
+        //                         color: ColorManager.pink
+        //                     ),
+        //                     alignment: Alignment.center,
+        //                     padding: const  EdgeInsets.symmetric(
+        //                         horizontal: 8, vertical: 2),
+        //                   )
+        //                 ],
+        //               ),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ],
+        // ),
+      );
   }
 }
 
-AppBar appBar = AppBar(
-  flexibleSpace: Container(
-    decoration:  const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("assets/images/backround_appbar.png"),
-            fit: BoxFit.cover)),
-  ),
-  title: logo,
-  backgroundColor: Colors.white,
-  actions: const [
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-    ),
-     SizedBox(
-      width: 3,
-    ),
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-      child:   CircleAvatar(
-        backgroundColor: Colors.white,
-        maxRadius: 2,
-      ),
-    ),
-       SizedBox(
-      width: 3,
-    ),
-    CircleAvatar(
-      backgroundColor: KdefaultColor,
-      maxRadius: 3,
-      child:   CircleAvatar(
-        backgroundColor: Colors.white,
-        maxRadius: 2,
-      ),
-    ),
-      SizedBox(
-      width: 10,
-    ),
-  ],
-);
 
-Widget answerfield({
-  required String text,
-}) =>
-    Padding(
-      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-      child: Container(
+
+class answerfield extends StatelessWidget {
+  final String text;
+  const answerfield({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return  Container(
         height: 45.0,
+        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
@@ -332,8 +199,10 @@ Widget answerfield({
             ),
           ),
         ),
-      ),
-    );
+      );
+  }
+}
+
 
 class DaysPreferred extends StatefulWidget {
  final String text;
@@ -386,6 +255,40 @@ class _DaysPreferredState extends State<DaysPreferred> {
           style: TextStyle(
               fontSize: 13.0, fontWeight: FontWeight.bold, color: couleur),
         )),
+      ),
+    );
+  }
+}
+
+
+/// this is the "continue" text that show on the card of every course
+class contuniueText extends StatelessWidget {
+  const contuniueText();
+  @override
+  Widget build(BuildContext context) {
+    return const Text(' continue ' ,
+      style: TextStyle(color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Montserrat"),
+    );
+  }
+}
+
+
+
+class UserImage extends StatelessWidget {
+  final String img;
+  const UserImage({required this.img});
+
+  @override
+  Widget build(BuildContext context) {
+    return  CircleAvatar(
+      maxRadius: 27,
+      backgroundColor: Colors.lightBlueAccent,
+      child: CircleAvatar(
+        maxRadius: 25,
+        backgroundColor: Colors.transparent,
+        backgroundImage: AssetImage(img),
       ),
     );
   }
