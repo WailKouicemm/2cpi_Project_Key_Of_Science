@@ -7,9 +7,9 @@ class AuthService{
 
   userr? _userFromFirebase(auth.User? user){
   if(user==null){
-    return null ;
+     return null;
   }
-  return userr(user.uid, user.email);
+   return userr(user.uid, user.email);
   }
 
 
