@@ -3,7 +3,9 @@ import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
+import 'package:provider/provider.dart';
 
+import '../../../services/Authenctication.dart';
 import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';
 import '../../../main.dart';
@@ -134,6 +136,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
   }
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     final double widh = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
@@ -204,11 +207,13 @@ class _TextFormFieldsState extends State<TextFormFields> {
             SizedBox(
               width: widh,
               child: ElevatedButton(
-                onPressed: (){
-                  _formKey.currentState!.validate();
-                  Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+                onPressed: ()async{
+                  if(_formKey.currentState!.validate()){
+                   await authService.SignInWithEmailPasssword(emailTextEdetingController.text, passwordTextEdetingController.text);
+                    Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }
                 },
                 child: Text(
                   'LOG IN',

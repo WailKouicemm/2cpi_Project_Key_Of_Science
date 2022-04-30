@@ -6,9 +6,13 @@ import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Register/viewModel/RegisterViewModel.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
+import 'package:keyofscience/services/Authenctication.dart';
 
 import '../../resources/ColorManager.dart';
 import '../../resources/values_manager.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -96,41 +100,42 @@ class RegisterPage extends StatelessWidget {
 
           /// Login button
           Container(
-            decoration:  const  BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorManager.grey,
-                    offset: Offset(AppOffset.off0_0, AppOffset.off1_0),
-                    blurRadius: AppRadius.r6,
-                  ),
-                ],
-                color: ColorManager.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(AppRadius.r30) ,
-                  topRight: Radius.circular(AppRadius.r30),
-                )
-            ),
-            width:double.infinity,
-            alignment: Alignment.center,
-            height: height * 0.08,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(appStrings.haveAccount ,
-                  style: Theme.of(context).textTheme.headline2,
-                  // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
+                decoration:  const  BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.grey,
+                        offset: Offset(AppOffset.off0_0, AppOffset.off1_0),
+                        blurRadius: AppRadius.r6,
+                      ),
+                    ],
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(AppRadius.r30) ,
+                      topRight: Radius.circular(AppRadius.r30),
+                    )
                 ),
-                TextButton(
-                  onPressed: ()=> Navigator.pushReplacement(context,
-                    MaterialPageRoute(
-                      builder: (context) => const Login(),
+                width:double.infinity,
+                alignment: Alignment.center,
+                height :   height * 0.08,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(appStrings.haveAccount ,
+                      style: Theme.of(context).textTheme.headline2,
+                      // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
                     ),
-                  ),
-                  child: const Text(appStrings.login),
+                    TextButton(
+                      onPressed: ()=> Navigator.pushReplacement(context,
+                        MaterialPageRoute(
+                          builder: (context) => const Login(),
+                        ),
+                      ),
+                      child: const Text(appStrings.login),
+                    ),
+                  ],
                 ),
-              ],
+
             ),
-          ),
         ],
       ),
     );
@@ -152,6 +157,8 @@ class _TextFormFieldsState extends State<TextFormFields> {
  late TextEditingController passwordTextEdetingController;
  late TextEditingController confirmPasswordTextEdetingController;
  bool inVisible=true;
+  final auth = FirebaseAuth.instance;
+
   @override
   void initState() {
      nameTextEdetingController = TextEditingController();
@@ -174,6 +181,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final authService = Provider.of<AuthService>(context);
     return Padding(
       padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p20) ,
       child: Form(
@@ -185,10 +193,12 @@ class _TextFormFieldsState extends State<TextFormFields> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: TextFormField(
+                style: TextStyle(color: Colors.black),
                 controller: nameTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                  decoration: const InputDecoration(
-                  hintText: " Full name",
+
+                  hintText: " Full name"
                 ),
                 validator: (value)=>validator.nameValidator(value?? ""),
               ),
@@ -197,6 +207,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: TextFormField(
+                style: TextStyle(color: Colors.black),
                 controller: emailTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                 decoration: const InputDecoration(
@@ -215,15 +226,16 @@ class _TextFormFieldsState extends State<TextFormFields> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: AppPadding.p30),
                         child: TextFormField(
+                          style: TextStyle(color: Colors.black),
                           controller: passwordTextEdetingController,
                           cursorColor: ColorManager.defaultColor,
                           decoration:  InputDecoration(
                             hintText: ' Password',
-                            suffixIcon: IconButton(
-                                onPressed: () {
+                            suffixIcon: GestureDetector(
+                                onTap: () {
                                   setstate(()=>inVisible=!inVisible);
                                 },
-                                icon: Icon(inVisible
+                                child: Icon(inVisible
                                     ? Icons.visibility_off
                                     : Icons.visibility)),
                           ),
@@ -236,21 +248,22 @@ class _TextFormFieldsState extends State<TextFormFields> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: AppPadding.p20),
                         child: TextFormField(
+                          style: TextStyle(color: Colors.black),
                           controller: confirmPasswordTextEdetingController,
                           cursorColor: ColorManager.defaultColor,
                           decoration:  InputDecoration(
                             hintText: ' Confirm Password',
-                            suffixIcon: IconButton(
-                              onPressed: () {
+                            suffixIcon: GestureDetector(
+                              onTap: () {
                                   setstate(()=>inVisible=!inVisible);
                                 },
-                                icon: Icon(inVisible
+                                child : Icon(inVisible
                                     ? Icons.visibility_off
                                     : Icons.visibility),
                               ),
 
                           ),
-                          validator: (value)=>validator.passwordlValidator(value?? ""),
+                          validator: (value)=>validator.confirm_pass_Validator(value?? "" , passwordTextEdetingController.text),
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: inVisible,
                         ),
@@ -274,7 +287,8 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 ),
                 Expanded(
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                    },
                     child: const AutoSizeText(
                       appStrings.privacy2,
                       maxLines: 1,
@@ -289,11 +303,12 @@ class _TextFormFieldsState extends State<TextFormFields> {
             SizedBox(
               width: width,
               child: ElevatedButton(
-                onPressed: (){
-                  _formKey.currentState!.validate();
+                onPressed: ()async{
+                 if( _formKey.currentState!.validate()){
+                  await authService.SignUpWithEmailPasssword(emailTextEdetingController.text, passwordTextEdetingController.text);
                   Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) =>  const  onBoardingScreen()),
-                  );
+                  );}
                 },
                 child: const Text(
                   appStrings.signUp,
