@@ -23,7 +23,7 @@ class PreferredCourses extends StatelessWidget {
                 right: AppPadding.p8,
                 bottom: AppPadding.p5
                 ,top: AppPadding.p20),
-            child:                   RichText(
+            child: RichText(
               text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(

@@ -27,7 +27,7 @@ ThemeData getThemeData()=>ThemeData(
   /// bottmNavy theme
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     selectedItemColor: ColorManager.defaultColor,
-    unselectedItemColor: ColorManager.grey
+    unselectedItemColor: ColorManager.grey,
   ),
   /// button theme
     buttonTheme: const ButtonThemeData(
@@ -88,6 +88,6 @@ ThemeData getThemeData()=>ThemeData(
     bodyText2: regularStyle(color: ColorManager.grey),
     bodyText1: mediumStyle(color: ColorManager.black,fontSize: FontSizeManager.s15),
     headline5: boldStyle(color: ColorManager.defaultColor,fontSize: FontSizeManager.s30),
-    overline: regularStyle(color: ColorManager.black,fontWeight: FontWeightManager.medium)
+    overline: regularStyle(color: ColorManager.black,fontWeight: FontWeightManager.medium),
   )
 );

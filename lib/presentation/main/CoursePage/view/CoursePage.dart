@@ -17,7 +17,6 @@ class CourseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
     return MaterialApp(
       theme: getThemeData().copyWith(
         appBarTheme: AppBarTheme(
@@ -46,14 +45,14 @@ class CourseScreen extends StatelessWidget {
             children: [
               /// this is the course image
               Padding(
-                padding: const EdgeInsets.only(top: AppPadding.p40, left: AppPadding.p12, right: AppPadding.p12),
+                padding: const EdgeInsets.only(top: AppPadding.p25, left: AppPadding.p12, right: AppPadding.p12),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       /// cours image
                       Container(
-                        height: height/4.6,
+                        height: height/4,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(AppRadius.r15),
                           image: DecorationImage(
