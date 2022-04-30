@@ -51,3 +51,10 @@ class bottomNavyItem{
   final Widget page;
   const bottomNavyItem({required this.title,required this.icon_asset,required this.page});
 }
+
+class userr{
+  final String uid ;
+  final String? email ;
+  userr(this.uid, this.email);
+}
+
