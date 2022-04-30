@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
-import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
