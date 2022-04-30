@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../services/Authenctication.dart';
 
 class drawerScreen extends StatelessWidget {
   const drawerScreen();
@@ -7,6 +11,7 @@ class drawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("MenuScreen called");
     const String name='Salah Eddine Salhi';
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.only(left: 25,top: 50),
@@ -59,7 +64,14 @@ class drawerScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50),
                   child: OutlineButton(
-                    onPressed: () {},
+                    onPressed: ()async {
+                      await authService.SignOut();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const RegisterPage()),
+                      );
+
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

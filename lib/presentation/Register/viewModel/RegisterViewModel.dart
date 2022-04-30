@@ -16,7 +16,7 @@ class validator{
   }
 
  static String? passwordlValidator(String value){
-    if (!value.contains("@") || value.isEmpty || !value.contains(".")) {
+    if (value.length < 6) {
       return 'Please enter valid E-mail';
     }
     return null;
