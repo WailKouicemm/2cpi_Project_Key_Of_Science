@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
  import 'package:flutter/services.dart';
 import 'package:keyofscience/Widgets/Course_card.dart';
-import 'package:keyofscience/presentation/resources/ColorManager.dart';
-import 'package:keyofscience/presentation/resources/values_manager.dart';
 
 import 'models/Models.dart';
 
@@ -261,18 +259,6 @@ class _DaysPreferredState extends State<DaysPreferred> {
 }
 
 
-/// this is the "continue" text that show on the card of every course
-class contuniueText extends StatelessWidget {
-  const contuniueText();
-  @override
-  Widget build(BuildContext context) {
-    return const Text(' continue ' ,
-      style: TextStyle(color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Montserrat"),
-    );
-  }
-}
 
 
 

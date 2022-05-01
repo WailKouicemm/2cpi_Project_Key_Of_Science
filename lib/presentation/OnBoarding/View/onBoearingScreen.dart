@@ -34,7 +34,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
   }
   final List _onBoardingPages =  const [
      PreferredCourses(),
-     RECOMMANDED_COURSES()
+     RECOMMANDED_COURSES(),
   ];
   @override
   Widget build(BuildContext context) {

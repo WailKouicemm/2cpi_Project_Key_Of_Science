@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
@@ -12,7 +13,6 @@ import '../../VerifyEmail/VerifyEmail.dart';
 import '../../resources/ColorManager.dart';
 import '../../resources/values_manager.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 

@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
-import 'package:keyofscience/presentation/VerifyEmail/VerifyEmail.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,16 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: getThemeData(),
         debugShowCheckedModeBanner: false,
-        home:  StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-           builder: (ctx,snapshot){
-              if(snapshot.hasData){
-                return const VerifyEmail();
-              }else {
-                return const RegisterPage();
-              }
-           },
-        )
+        home: const RegisterPage()
       ),
     );
   }

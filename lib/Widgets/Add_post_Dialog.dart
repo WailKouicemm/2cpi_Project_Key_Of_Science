@@ -4,8 +4,6 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
-import '../kdefault.dart';
-import '../pages/Grey_text.dart';
 import '../presentation/resources/Styles_Manager.dart';
 
 

@@ -15,6 +15,15 @@ class post{
   final String text_of_post;
   const post({required this.poster_image,required this.poster_name,
     required this.poster_username,required this.text_of_post});
+
+   factory post.fromJson(Map<String,dynamic> json){
+    return post(
+        poster_image: json['image'],
+        poster_name: json['name'],
+        poster_username: json['username'],
+        text_of_post: json['text'],
+    );
+  }
 }
 
 class VideoModel{
@@ -42,3 +51,10 @@ class bottomNavyItem{
   final Widget page;
   const bottomNavyItem({required this.title,required this.icon_asset,required this.page});
 }
+
+class userr{
+  final String uid ;
+  final String? email ;
+  userr(this.uid, this.email);
+}
+
