@@ -30,7 +30,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
+
 class AuthService{
+  String username = "";
   final _firebaseAuth = auth.FirebaseAuth.instance;
 
   User? _userFromFirebase(auth.User? user){
@@ -63,6 +65,13 @@ Stream<User?>? get user {
   Future<void> SignOut() async{
   return await _firebaseAuth.signOut();
   }
+
+
+
+
+
+
+
 }
 
 

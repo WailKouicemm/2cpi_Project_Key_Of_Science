@@ -6,10 +6,12 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../Widgets/Add_post_Dialog.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
+import '../../../../services/Authenctication.dart';
 import '../../postsScreen/view/Posts_page.dart';
 
 
@@ -19,11 +21,13 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
+    final authService = Provider.of<AuthService>(context);
+    String name= authService.username;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
           children: [
-            profilecard(height: height),
+            profilecard(height: height , name: name,),
             const Title_Text(txt:'   Keyeince features',seAll: false),
             const Keyeince_features(),
             const Title_Text(txt:'   Courses for you',seAll: true),
@@ -93,7 +97,8 @@ final bool seAll;
 
 class profilecard extends StatelessWidget {
   final double height;
-  const profilecard({required this.height,});
+  final String name;
+  const profilecard({required this.height,required this.name,});
 
 
   @override
@@ -118,7 +123,7 @@ class profilecard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:   [
-                  Text('Hi , Mohamed' ,
+                  Text('Hi , ' + name ,
                       style: boldStyle(color: ColorManager.white)
                   ),
                   const SizedBox(height: AppHeight.h14,),

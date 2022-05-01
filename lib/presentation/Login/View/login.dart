@@ -149,6 +149,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: TextFormField(
+                style: TextStyle(color: Colors.black),
                 controller: emailTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                 keyboardType: TextInputType.emailAddress,
@@ -166,6 +167,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 return  Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p30),
                   child: TextFormField(
+                    style: TextStyle(color: Colors.black),
                     controller: passwordTextEdetingController,
                     cursorColor: ColorManager.defaultColor,
                     decoration:  InputDecoration(
@@ -209,7 +211,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
               child: ElevatedButton(
                 onPressed: ()async{
                   if(_formKey.currentState!.validate()){
-                   await authService.SignInWithEmailPasssword(emailTextEdetingController.text, passwordTextEdetingController.text);
+                   await authService.SignInWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim());
                     Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => const HomePage()),
                     );

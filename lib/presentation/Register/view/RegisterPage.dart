@@ -8,6 +8,7 @@ import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/services/Authenctication.dart';
 
+import '../../VerifyEmail/VerifyEmail.dart';
 import '../../resources/ColorManager.dart';
 import '../../resources/values_manager.dart';
 
@@ -263,7 +264,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                               ),
 
                           ),
-                          validator: (value)=>validator.confirm_pass_Validator(value?? "" , passwordTextEdetingController.text),
+                          validator: (value)=>validator.confirm_pass_Validator(value?? "" , passwordTextEdetingController.text.trim()),
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: inVisible,
                         ),
@@ -305,10 +306,15 @@ class _TextFormFieldsState extends State<TextFormFields> {
               child: ElevatedButton(
                 onPressed: ()async{
                  if( _formKey.currentState!.validate()){
-                  await authService.SignUpWithEmailPasssword(emailTextEdetingController.text, passwordTextEdetingController.text);
-                  Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) =>  const  onBoardingScreen()),
-                  );}
+                  await{
+                    authService.SignUpWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim()),
+                    authService.username = nameTextEdetingController.text.trim()
+                  };
+
+                //  Navigator.pushReplacement(context,
+                  //  MaterialPageRoute(builder: (context) =>  const  VerifyEmail()),
+                 // );
+                 }
                 },
                 child: const Text(
                   appStrings.signUp,
