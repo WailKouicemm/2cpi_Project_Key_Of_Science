@@ -27,11 +27,11 @@ class PreferredCourses extends StatelessWidget {
               text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                        text: appStrings.onBoardingTitle1,
+                        text: AppStrings.onBoardingTitle1,
                         style: Theme.of(context).textTheme.headline3
                     ),
                     TextSpan(
-                        text: appStrings.onBoardingTitle2,
+                        text: AppStrings.onBoardingTitle2,
                         style: Theme.of(context).textTheme.headline1
                     ),
                   ]
@@ -41,7 +41,7 @@ class PreferredCourses extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8.0, bottom: 15, top: 5),
             child: Text(
-              appStrings.onBoardingSubTitle,
+              AppStrings.onBoardingSubTitle,
               style: Theme.of(context).textTheme.caption,
               // style: TextStyle(
               //                             color: Colors.grey, fontFamily: "Montserrat"),

@@ -3,13 +3,12 @@ import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
-import 'package:provider/provider.dart';
+import 'package:keyofscience/commun/Validator.dart';
 
 import '../../../services/Authenctication.dart';
 import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';
 import '../../../main.dart';
-import '../../Register/viewModel/RegisterViewModel.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
 
@@ -136,7 +135,6 @@ class _TextFormFieldsState extends State<TextFormFields> {
   }
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
     final double widh = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
@@ -149,7 +147,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
             Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p30),
               child: TextFormField(
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: ColorManager.black),
                 controller: emailTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                 keyboardType: TextInputType.emailAddress,
@@ -167,7 +165,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 return  Padding(
                   padding: const EdgeInsets.only(bottom: AppPadding.p30),
                   child: TextFormField(
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: ColorManager.black),
                     controller: passwordTextEdetingController,
                     cursorColor: ColorManager.defaultColor,
                     decoration:  InputDecoration(
@@ -211,7 +209,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
               child: ElevatedButton(
                 onPressed: ()async{
                   if(_formKey.currentState!.validate()){
-                   await authService.SignInWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim());
+                   await AuthService.SignInWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim());
                     Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => const HomePage()),
                     );

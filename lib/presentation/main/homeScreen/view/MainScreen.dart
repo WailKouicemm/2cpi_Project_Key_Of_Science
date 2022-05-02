@@ -21,13 +21,12 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    final authService = Provider.of<AuthService>(context);
-    String name= authService.username;
+
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
           children: [
-            profilecard(height: height , name: name,),
+            profilecard(height: height , name: AuthService.username,),
             const Title_Text(txt:'   Keyeince features',seAll: false),
             const Keyeince_features(),
             const Title_Text(txt:'   Courses for you',seAll: true),

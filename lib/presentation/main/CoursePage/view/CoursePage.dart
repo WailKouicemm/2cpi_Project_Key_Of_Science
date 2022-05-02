@@ -133,8 +133,8 @@ class CourseScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.caption,
                         colorClickableText: ColorManager.defaultColor,
                         trimMode: TrimMode.Line,
-                        trimCollapsedText: appStrings.showMore,
-                        trimExpandedText: appStrings.showLess,
+                        trimCollapsedText: AppStrings.showMore,
+                        trimExpandedText: AppStrings.showLess,
                         moreStyle: Theme.of(context).textTheme.bodyText1
                     ),
                     const SizedBox(

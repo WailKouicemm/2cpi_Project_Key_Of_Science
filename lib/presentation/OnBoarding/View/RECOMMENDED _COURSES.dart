@@ -33,7 +33,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                       width: widh*0.5,
                       margin: const  EdgeInsets.symmetric(vertical: AppMargin.m20,),
                       child: AutoSizeText(
-                          appStrings.recommanded_courses ,
+                          AppStrings.recommanded_courses ,
                           maxLines: 2,
                           minFontSize: FontSizeManager.s30,
                           maxFontSize: FontSizeManager.s50,
@@ -51,7 +51,7 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                       MaterialPageRoute(
                           builder: (context) =>  const HomePage() ),
                     ),
-                    child: Text(appStrings.skip,
+                    child: Text(AppStrings.skip,
                       style: Theme.of(context).textTheme.headline6,
                       // style: TextStyle(
                       //   color: Kdefault.KdefaultColor,

@@ -52,9 +52,11 @@ class bottomNavyItem{
   const bottomNavyItem({required this.title,required this.icon_asset,required this.page});
 }
 
-class userr{
+class Userr{
   final String uid ;
   final String? email ;
-  userr(this.uid, this.email);
+  Userr(  this.uid,this.email);
 }
+
+
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "230484540778",
+    "project_id": "cpiproject-7d813",
+    "storage_bucket": "cpiproject-7d813.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230484540778:android:4a0f205134a341072c3913",
+        "android_client_info": {
+          "package_name": "com.example.keyofscience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230484540778-r2opv32mirc0711e8s36f2gbft58jq41.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzry_ra0A5zGo-iZ6VpuNng1aerpqDtR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230484540778-r2opv32mirc0711e8s36f2gbft58jq41.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

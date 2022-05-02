@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
@@ -24,15 +25,18 @@ class MyApp extends StatelessWidget {
   const MyApp();
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<AuthService>(create: (_) =>AuthService(),)
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         theme: getThemeData(),
         debugShowCheckedModeBanner: false,
-        home: const RegisterPage()
-      ),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (_,snapshot){
+            if(snapshot.hasData){
+              return const HomePage();
+            }
+            return const RegisterPage();
+          },
+        ),
     );
   }
 }
