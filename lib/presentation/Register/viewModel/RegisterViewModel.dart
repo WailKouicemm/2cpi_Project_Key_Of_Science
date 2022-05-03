@@ -1,28 +1,24 @@
-
-
-import 'package:ai_awesome_message/ai_awesome_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/services/Authenctication.dart';
 
 import '../../../Widgets/AwesomeMessag.dart';
 
 
-class RegisterUser extends ChangeNotifier{
-   RegisterUser();
+class RegisterUser_viewModel extends ChangeNotifier{
   bool isLoading = false;
   Future<void> registerUser(
       {required String email,required String password,
-        required String Username, required BuildContext context})async{
+        required String username, required BuildContext context})async{
     isLoading = true;
     notifyListeners();
 
    try{
-     await  AuthService.SignUpWithEmailPasssword(email, password);
-     AuthService.setUsername(Username);
+     await AuthService.setUsername(username);
+     await  AuthService.SignUpWithEmailPasssword(email, password,username);
    } on FirebaseAuthException catch (error){
+     print(error);
      isLoading = false;
      notifyListeners();
      String message = AppStrings.unknownError;
@@ -37,10 +33,15 @@ class RegisterUser extends ChangeNotifier{
      }
      else if (error.toString().contains( "auth/weak-password")) {
        message = AppStrings.operationNotAllowed ;
+     }else if(error.toString().contains("network-request-failed")){
+       message = AppStrings.networdFailed;
      }
 
      AwesomeMessag(context: context, title: AppStrings.errorTitle, message: message);
    } catch (e){
+     isLoading = false;
+     notifyListeners();
+     print(e);
      AwesomeMessag(context: context, title: AppStrings.errorTitle, message:  AppStrings.unknownError);
    }
 

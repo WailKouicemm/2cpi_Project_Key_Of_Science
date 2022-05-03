@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
+import 'package:keyofscience/services/Authenctication.dart';
 
 import '../../../../models/Models.dart';
 import '../../models/Models.dart';
@@ -59,6 +60,11 @@ class _homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<_homePage> {
+  @override
+  void initState() {
+    AuthService.fetchUsername();
+    super.initState();
+  }
   static const List<bottomNavyItem> _bottomNavyItems = [
     bottomNavyItem(title: "Home", icon_asset: AppIcons.home,page: homeScreen()),
     bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: scheduleScreen()),

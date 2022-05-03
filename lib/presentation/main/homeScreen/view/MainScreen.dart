@@ -7,6 +7,7 @@ import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Widgets/Add_post_Dialog.dart';
 import '../../../../models/Models.dart';
@@ -26,7 +27,7 @@ class homeScreen extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
           children: [
-            profilecard(height: height , name: AuthService.username,),
+            profilecard(height: height,),
             const Title_Text(txt:'   Keyeince features',seAll: false),
             const Keyeince_features(),
             const Title_Text(txt:'   Courses for you',seAll: true),
@@ -96,8 +97,7 @@ final bool seAll;
 
 class profilecard extends StatelessWidget {
   final double height;
-  final String name;
-  const profilecard({required this.height,required this.name,});
+  const profilecard({required this.height,});
 
 
   @override
@@ -122,9 +122,17 @@ class profilecard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:   [
-                  Text('Hi , ' + name ,
+                  // FutureBuilder<String?>(
+                  //   future: AuthService.fetchUsername(),
+                  //   builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? "user"),
+                  //       style: boldStyle(color: ColorManager.white)
+                  //   ),
+                  // ),
+
+                  Text('Hi , ' + AuthService.getUsername,
                       style: boldStyle(color: ColorManager.white)
                   ),
+
                   const SizedBox(height: AppHeight.h14,),
                   AutoSizeText(
                     'Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00',

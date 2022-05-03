@@ -21,11 +21,16 @@ static const String recommanded_courses = "Recommanded courses";
 static const String showMore = "Show more";
 static const String showLess= "Show less";
 
-/// errors String
+/// errors register
 static const String errorTitle = "Error";
 static const String unknownError = "Unknown error";
 static const String emailUsedBefore = "The email address is already in use";
 static const String invalidEmail = "The email address is not valid";
 static const String operationNotAllowed = "Operation not allowed";
 static const String passwordWeak = "The password is too weak";
+static const String networdFailed = "network request failed";
+
+/// errors log in
+static const String userNotFound = "user not found";
+static const String wrongPassword = "wrong password";
 }

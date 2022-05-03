@@ -1,38 +1,24 @@
-//
-//
-//  void signIn() async{
-//    final _auth = FirebaseAuth.instance;
-//    final   UserCredential res;
-//      await _auth
-//     .signInWithEmailAndPassword(
-//     email: _emailtxt.trim(),
-//     password: _paswordtxt)
-// }
-//
-// void signUp()async{
-//   ///sign up
-//   res = await _auth.createUserWithEmailAndPassword(
-//       email: _emailtxt.trim(),
-//       password: _paswordtxt);
-//
-//   await FirebaseFirestore.instance
-//       .collection('users')
-//       .doc(res.user!.uid)
-//       .set({
-//     'email': _emailtxt,
-//     'PassWord': _paswordtxt,
-//     'UserName': _usrname
-//   });
-// }
-
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/Models.dart';
 
 class AuthService {
- static String username = "";
- static void setUsername(String usernam){
-   username=usernam;
+ static String _username = "-";
+    static String get getUsername => _username;
+
+ static Future<void> setUsername(String usernam)async{
+   final prefs = await SharedPreferences.getInstance();
+   await prefs.setString("usernam",usernam);
+   _username=usernam;
+ }
+
+ static Future<void> fetchUsername() async{
+
+     final prefs = await SharedPreferences.getInstance();
+     String  usernam = await prefs.getString("usernam") ?? "";
+     _username=usernam;
  }
 
   static final _firebaseAuth = auth.FirebaseAuth.instance;
@@ -48,25 +34,50 @@ class AuthService {
     return _firebaseAuth.authStateChanges().map(_userFromFirebase);
   }
 
-  static Future<Userr?> SignUpWithEmailPasssword(String email, String password) async {
+  static Future<Userr?> SignUpWithEmailPasssword(String email, String password,String username) async {
     // final credencial =
     try{
-      await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+     final auth.UserCredential res =  await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    await _sendUsertoFirestore(
+      email: email,
+      password: password,
+      username: username,
+      uid: res.user!.uid
+    );
     }catch(e){
       throw e;
     }
-   // return _userFromFirebase(credencial.user);
   }
 
-  static Future<Userr?> SignInWithEmailPasssword(String email, String password) async {
-    final credencial = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
-    return _userFromFirebase(credencial.user);
+  static Future<void> SignInWithEmailPasssword(String email, String password) async {
+    try{
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } catch (error){
+      throw error;
+    }
   }
 
   static Future<void> SignOut() async {
      await _firebaseAuth.signOut();
   }
 
+
+ static Future<void> _sendUsertoFirestore({required String email, password, username,uid})async{
+  try{
+    print("_sendUsertoFirestore called");
+     await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .set({
+      'email': email,
+      'password': password,
+      'username': username
+    }).then((value) => print("finished dsfhsdufhsdfsdf"));
+  } catch (e){
+    print("error rezefjdsifjidfuhcivx $e");
+    throw e;}
+
+  }
 
 }

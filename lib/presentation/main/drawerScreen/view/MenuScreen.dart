@@ -8,9 +8,6 @@ class drawerScreen extends StatelessWidget {
   const drawerScreen();
   @override
   Widget build(BuildContext context) {
-    print("MenuScreen called");
-
-
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.only(left: 25,top: 50),
@@ -38,7 +35,7 @@ class drawerScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
-                 Text(AuthService.username,
+                 Text(AuthService.getUsername,
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,

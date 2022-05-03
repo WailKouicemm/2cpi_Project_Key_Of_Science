@@ -1,16 +1,18 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/commun/Validator.dart';
+import 'package:provider/provider.dart';
 
-import '../../../services/Authenctication.dart';
-import '../../main/main_view.dart';
+
 import '../../resources/FontsManager.dart';
 import '../../../main.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
+import '../ViewModel/login_viewModel.dart';
 
 
 
@@ -27,78 +29,83 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getThemeData().copyWith(
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              elevation: AppElevation.e5,
-              padding: const EdgeInsets.all(AppPadding.p12),
-              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
-              primary: ColorManager.white,
-              // ColorManager.defaultColor
-            )
-        ),
-        textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              textStyle: boldStyle(
-                  color: ColorManager.white,
-                  fontWeight: FontWeightManager.bold,
-                  fontSize: 12.0
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: getThemeData().copyWith(
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                    elevation: AppElevation.e5,
+                    padding: const EdgeInsets.all(AppPadding.p12),
+                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+                    primary: ColorManager.white,
+                    // ColorManager.defaultColor
+                  )
               ),
-            )
-        )
-      ),
-      home: Scaffold(
-        body: SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: Stack(
-            children: [
-              /// the background
-              Container(
-                height: height * 0.5,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: Text(
-                    app.appName,
-                    style: Theme.of(context).textTheme.headline5
-                ),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(images.backgroundLogin),
-                      fit: BoxFit.cover),
-                ),
-              ),
-              /// the textfields and buttons
-              Positioned(
-                bottom: 0,
-                child: Container(
-                    height: height * 0.52,
-                    width: widh,
-                    padding: const EdgeInsets.only(
-                        right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: AppRadius.r8,
-                          blurRadius: AppRadius.r14,
-                          offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
-                        ),
-                      ],
-                      color: ColorManager.defaultColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(AppRadius.r30),
-                        topRight: Radius.circular(AppRadius.r30),
-                      ),
+              textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    textStyle: boldStyle(
+                        color: ColorManager.white,
+                        fontWeight: FontWeightManager.bold,
+                        fontSize: 12.0
                     ),
-                    child: const TextFormFields()
-                ),
-              ),
-            ],
+                  )
+              )
           ),
-        ),
+          home: Scaffold(
+            body: SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: Stack(
+                children: [
+                  /// the background
+                  Container(
+                    height: height * 0.5,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text(
+                        app.appName,
+                        style: Theme.of(context).textTheme.headline5
+                    ),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(images.backgroundLogin),
+                          fit: BoxFit.cover),
+                    ),
+                  ),
+                  /// the textfields and buttons
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                        height: height * 0.52,
+                        width: widh,
+                        padding: const EdgeInsets.only(
+                            right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: AppRadius.r8,
+                              blurRadius: AppRadius.r14,
+                              offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
+                            ),
+                          ],
+                          color: ColorManager.defaultColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(AppRadius.r30),
+                            topRight: Radius.circular(AppRadius.r30),
+                          ),
+                        ),
+                        child: const TextFormFields()
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
       )
     );
   }
@@ -119,7 +126,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
   late TextEditingController emailTextEdetingController;
   late TextEditingController passwordTextEdetingController;
 
-  bool inVisible=true;
+
   @override
   void initState() {
     emailTextEdetingController = TextEditingController();
@@ -133,6 +140,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
     passwordTextEdetingController.dispose();
     super.dispose();
   }
+  bool inVisible=true;
   @override
   Widget build(BuildContext context) {
     final double widh = MediaQuery.of(context).size.width;
@@ -186,10 +194,11 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 );
               },
             ),
+            /// reset Password
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                  Text(
+                Text(
                   "don't remmember password ?",
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
@@ -204,40 +213,39 @@ class _TextFormFieldsState extends State<TextFormFields> {
             const SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: widh,
-              child: ElevatedButton(
-                onPressed: ()async{
-                  if(_formKey.currentState!.validate()){
-                   await AuthService.SignInWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim());
-                    Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
-                  }
-                },
-                child: Text(
-                  'LOG IN',
-                  style: semiBoldStyle(color: ColorManager.defaultColor),
-                ),
-              ),
-            ),
-            // LoginButton(
-            //   text: 'LOG IN',
-            //   onpressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) => const PreferredCourses()),
-            //     );
-            //   },
-            //   backgroundCOlor: Colors.white,
-            //   textColor: Kdefault.KdefaultColor,
-            // ),
 
-            const   SizedBox(
+            /// log in button
+            SizedBox(
+                width: widh,
+                child: Selector<loginUser_viewModel , bool>(
+                  selector: (_,provider)=>provider.isLoading,
+                  builder: (_,isLoading,__)=> isLoading? const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.white,
+                    ),
+                  ) :
+                  ElevatedButton(
+                    onPressed: ()async{
+                      if(_formKey.currentState!.validate()){
+                        await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                            email: emailTextEdetingController.text.trim(),
+                            password: passwordTextEdetingController.text.trim(),
+                            context: context);
+                      }
+                    },
+                    child: Text(
+                      'LOG IN',
+                      style: semiBoldStyle(color: ColorManager.defaultColor),
+                    ),
+                  ),
+                )
+            ),
+
+            const SizedBox(
               height: 20,
             ),
-            //  const Spacer(),
+
+            /// register now
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -251,11 +259,11 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (_)=>const MyApp()),
+                      MaterialPageRoute(builder: (_)=>const MyApp()),
                     );
                   },
                   child: const Text(' register now ',
-                  style: TextStyle(color: ColorManager.white),),
+                    style: TextStyle(color: ColorManager.white),),
                 )
               ],
             ),

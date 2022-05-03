@@ -25,7 +25,7 @@ class RegisterPage extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<RegisterUser>(create: (_) => RegisterUser()),
+        ChangeNotifierProvider<RegisterUser_viewModel>(create: (_) => RegisterUser_viewModel()),
       ],
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
@@ -103,6 +103,7 @@ class RegisterPage extends StatelessWidget {
             const TextFormFields(),
 
             /// Login button
+
             Container(
               decoration:  const  BoxDecoration(
                   boxShadow: [
@@ -118,13 +119,13 @@ class RegisterPage extends StatelessWidget {
                     topRight: Radius.circular(AppRadius.r30),
                   )
               ),
-              width:double.infinity,
+              width: double.infinity,
               alignment: Alignment.center,
-              height :   height * 0.08,
+              height: height * 0.08,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(AppStrings.haveAccount ,
+                  Text(AppStrings.haveAccount,
                     style: Theme.of(context).textTheme.headline2,
                     // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
                   ),
@@ -138,7 +139,6 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ],
               ),
-
             ),
           ],
         ),
@@ -294,8 +294,8 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     },
                     child: const AutoSizeText(
                       AppStrings.privacy2,
-                      maxLines: 1,
-                      minFontSize: 5,
+                      maxLines: 2,
+                      minFontSize: 10,
                       maxFontSize: 25,
                     ),
                   ),
@@ -305,22 +305,24 @@ class _TextFormFieldsState extends State<TextFormFields> {
             const  SizedBox(height: AppHeight.h20,),
             SizedBox(
               width: width,
-              child: Selector<RegisterUser, bool>(
+              child: Selector<RegisterUser_viewModel, bool>(
                 selector: (context, provider) => provider.isLoading,
                 builder: (_,isLoading,child) {
-                 return isLoading ? Center(
+                 return isLoading ? const Center(
                     child: CircularProgressIndicator(),
                   ) :
                   ElevatedButton(
                     onPressed: () async {
-                      if( _formKey.currentState!.validate()){
-                        Provider.of<RegisterUser>(context,listen: false).registerUser(
-                            email: emailTextEdetingController.text.trim(),
-                            password: passwordTextEdetingController.text.trim(),
-                            Username: nameTextEdetingController.text.trim(),
+                      if(! _formKey.currentState!.validate()){
+                        Provider.of<RegisterUser_viewModel>(context,listen: false).registerUser(
+                            email: 'salaheddinesalhidf@gmail.com',
+                            password: 'passwordTextEdetingController.text.trim(),',
+                            username: "Mohammed",
+
+                            //                    email: emailTextEdetingController.text.trim(),
+                            //                             password: passwordTextEdetingController.text.trim(),
+                            //                             username: nameTextEdetingController.text.trim(),
                             context : context);
-                        // await AuthService.SignUpWithEmailPasssword(emailTextEdetingController.text.trim(), passwordTextEdetingController.text.trim());
-                        // AuthService.setUsername(nameTextEdetingController.text.trim());
                       }
                     },
                     child: const Text(
@@ -336,8 +338,6 @@ class _TextFormFieldsState extends State<TextFormFields> {
             //     MaterialPageRoute(builder: (context) =>  const  PreferredCourses()),
             //   );
             // },),
-            SizedBox(height: height * 0.065,),
-
           ],
         ),
       ),
