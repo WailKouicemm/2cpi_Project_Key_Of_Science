@@ -313,7 +313,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                   ) :
                   ElevatedButton(
                     onPressed: () async {
-                      if(! _formKey.currentState!.validate()){
+                      if(_formKey.currentState!.validate()){
                         Provider.of<RegisterUser_viewModel>(context,listen: false).registerUser(
                             // email: 'salaheddinesalhidf@gmail.com',
                             // password: 'passwordTextEdetingController.text.trim(),',
