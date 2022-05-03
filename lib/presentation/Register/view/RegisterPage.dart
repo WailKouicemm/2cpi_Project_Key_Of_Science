@@ -315,13 +315,13 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     onPressed: () async {
                       if(! _formKey.currentState!.validate()){
                         Provider.of<RegisterUser_viewModel>(context,listen: false).registerUser(
-                            email: 'salaheddinesalhidf@gmail.com',
-                            password: 'passwordTextEdetingController.text.trim(),',
-                            username: "Mohammed",
+                            // email: 'salaheddinesalhidf@gmail.com',
+                            // password: 'passwordTextEdetingController.text.trim(),',
+                            // username: "Mohammed",
 
-                            //                    email: emailTextEdetingController.text.trim(),
-                            //                             password: passwordTextEdetingController.text.trim(),
-                            //                             username: nameTextEdetingController.text.trim(),
+                            email: emailTextEdetingController.text.trim(),
+                           password: passwordTextEdetingController.text.trim(),
+                            username: nameTextEdetingController.text.trim(),
                             context : context);
                       }
                     },
