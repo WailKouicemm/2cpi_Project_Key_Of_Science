@@ -320,7 +320,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                             // username: "Mohammed",
 
                             email: emailTextEdetingController.text.trim(),
-                           password: passwordTextEdetingController.text.trim(),
+                            password: passwordTextEdetingController.text.trim(),
                             username: nameTextEdetingController.text.trim(),
                             context : context);
                       }
