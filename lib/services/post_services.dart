@@ -31,5 +31,5 @@ class postSevices {
     }catch (error){
       throw error;
     }
-  }
+   }
 }
