@@ -33,4 +33,29 @@ static const String networdFailed = "network request failed";
 /// errors log in
 static const String userNotFound = "user not found";
 static const String wrongPassword = "wrong password";
+
+/// Add post
+static const String addPost = "Add Post";
+static const String title = "Title";
+static const String content = "Content";
+static const String pictures = "Pictures";
+static const String post = "Post";
+static const String post_content = "post content";
+static const String post_title = "post title";
+static const String add_images = "Add Images";
+static const String selectImages = "Select Images";
+static const String done = "Done";
+static const String post_succeffuly = "Your post complete succefully";
+static const String newPosts = "New Posts";
+
+
+///add post error
+static const String unexpectedError_tryLater = "Unexpected Error , please try again later";
+
 }
+
+
+
+
+
+

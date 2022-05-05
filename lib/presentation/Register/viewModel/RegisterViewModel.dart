@@ -15,7 +15,6 @@ class RegisterUser_viewModel extends ChangeNotifier{
     notifyListeners();
 
    try{
-     await AuthService.setUsername(username);
      await  AuthService.SignUpWithEmailPasssword(email, password,username);
    } on FirebaseAuthException catch (error){
      print(error);
@@ -44,6 +43,5 @@ class RegisterUser_viewModel extends ChangeNotifier{
      print(e);
      AwesomeMessag(context: context, title: AppStrings.errorTitle, message:  AppStrings.unknownError);
    }
-
   }
 }

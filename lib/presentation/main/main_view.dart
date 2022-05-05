@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
-import 'package:keyofscience/presentation/main/postsScreen/view/Posts_page.dart';
+import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/Posts_view.dart';
 import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
-import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
-import 'package:keyofscience/services/Authenctication.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../models/Models.dart';
 import '../../models/Models.dart';
@@ -30,23 +31,20 @@ class HomePage extends StatelessWidget {
   //  final ZoomDrawerController _drawerController=ZoomDrawerController();
     // final Size mqs = MediaQuery.of(context).size;
     final double width = MediaQuery.of(context).size.width;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: getThemeData(),
-      home: ZoomDrawer(
-        controller: ZoomDrawerController(),
-        style: DrawerStyle.Style1,
-        menuScreen: const drawerScreen(),
-        mainScreen: const _homePage(),
-        borderRadius: AppRadius.r24,
-        angle: 0.0,
-        showShadow: true,
-        mainScreenTapClose: true,
-        backgroundColor: Colors.grey[300]!,
-        slideWidth: width * 0.65,
-        openCurve: Curves.easeInQuint,
-        closeCurve: Curves.easeInQuint,
-      ),
+
+    return ZoomDrawer(
+      controller: ZoomDrawerController(),
+      style: DrawerStyle.Style1,
+      menuScreen: const drawerScreen(),
+      mainScreen: const _homePage(),
+      borderRadius: AppRadius.r24,
+      angle: 0.0,
+      showShadow: true,
+      mainScreenTapClose: true,
+      backgroundColor: Colors.grey[300]!,
+      slideWidth: width * 0.65,
+      openCurve: Curves.easeInQuint,
+      closeCurve: Curves.easeInQuint,
     );
   }
 }
@@ -62,7 +60,9 @@ class _homePage extends StatefulWidget {
 class _homePageState extends State<_homePage> {
   @override
   void initState() {
-    AuthService.fetchUsername();
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<usernameManage>(context,listen: false).fetchUsername();
+    });
     super.initState();
   }
   static const List<bottomNavyItem> _bottomNavyItems = [
@@ -97,11 +97,11 @@ class _homePageState extends State<_homePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavyItems.map((item) => BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              item.icon_asset,
-              color: _index==_bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
-            ),
-            label: item.title,
+          icon: SvgPicture.asset(
+            item.icon_asset,
+            color: _index==_bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
+          ),
+          label: item.title,
         ),
         ).toList(),
         currentIndex: _index,

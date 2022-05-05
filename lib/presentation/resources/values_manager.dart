@@ -39,6 +39,7 @@ class AppPadding{
 }
 
 class AppElevation{
+  static const double e0 = 0.0;
   static const double e1 = 1.0;
   static const double e2 = 2.0;
   static const double e3 = 3.0;
@@ -82,7 +83,7 @@ class AppHeight{
   static const double h35 = 22.0;
   static const double h40 = 22.0;
   static const double h50 = 22.0;
-  static const double h60 = 22.0;
+  static const double h60 = 60.0;
 }
 
 

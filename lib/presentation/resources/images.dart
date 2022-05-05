@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 
+import 'ColorManager.dart';
 
 class images {
   static const String diractory = "assets/images";
@@ -15,4 +17,5 @@ class AppIcons {
   static const String schedule = "assets/icons/schedule.svg";
   static const String post = "assets/icons/post.svg";
   static const String courses = "assets/icons/monitor-outline.svg";
+  static const  Icon back = Icon(Icons.arrow_back, color: ColorManager.black,);
 }

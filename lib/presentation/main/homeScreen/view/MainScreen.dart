@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -7,13 +8,11 @@ import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../Widgets/Add_post_Dialog.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
-import '../../../../services/Authenctication.dart';
-import '../../postsScreen/view/Posts_page.dart';
+import '../../postsPages/view/Posts_view.dart';
+import '../../postsPages/view/addPost_view.dart';
 
 
 class homeScreen extends StatelessWidget {
@@ -22,24 +21,23 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-          children: [
-            profilecard(height: height,),
-            const Title_Text(txt:'   Keyeince features',seAll: false),
-            const Keyeince_features(),
-            const Title_Text(txt:'   Courses for you',seAll: true),
-            const CorsesListViewItems(),
-            const recentlyPoststitle(),
-            const Recentrly_posts(),
-            const SizedBox(
-              height: AppMargin.m10,
-            )
-          ]
-      ),
-    );
+    return  SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+            children: [
+              profilecard(height: height,),
+              const Title_Text(txt:'   Keyeince features',seAll: false),
+              const Keyeince_features(),
+              const Title_Text(txt:'   Courses for you',seAll: true),
+              const CorsesListViewItems(),
+              const recentlyPoststitle(),
+              const Recentrly_posts(),
+              const SizedBox(
+                height: AppMargin.m10,
+              )
+            ]
+        ),
+      );
   }
 }
 
@@ -129,8 +127,11 @@ class profilecard extends StatelessWidget {
                   //   ),
                   // ),
 
-                  Text('Hi , ' + AuthService.getUsername,
-                      style: boldStyle(color: ColorManager.white)
+                  Selector<usernameManage,String>(
+                    selector: (_,provider)=>provider.username,
+                    builder: (_,username,__)=>Text('Hi , ' + username,
+                        style: boldStyle(color: ColorManager.white)
+                    ),
                   ),
 
                   const SizedBox(height: AppHeight.h14,),
@@ -168,43 +169,35 @@ class profilecard extends StatelessWidget {
   }
 }
 
-class Keyeince_features_item{
-  final String name;
-  final IconData logo;
-  final Function() onpressed;
-  const Keyeince_features_item({required this.onpressed,required this.name,required this.logo});
-}
+
 
 class Keyeince_features extends StatelessWidget {
   const Keyeince_features();
 
   @override
   Widget build(BuildContext context) {
-     List<Keyeince_features_item> Keyeince_features_items = [
-      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, onpressed: (){}),
-      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,onpressed: (){}),
-      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,onpressed: (){
-        showDialog(
-            context: context,
-            builder: (_)=>const Allertdialog(),
-        );
-      } ),
+    const List<Keyeince_features_item> Keyeince_features_items = [
+      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page:  AddPostPage()),
+      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,page:  AddPostPage()),
+      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page:  AddPostPage()),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
         child: InkWell(
-          onTap: tmp.onpressed,
+          onTap: ()=> Navigator.of(context).push(
+              MaterialPageRoute(builder: (context)=>tmp.page)
+          ),
           child: Container(
-            height: 60,
+            height: AppHeight.h60,
             margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: ColorManager.defaultColor,
               borderRadius: BorderRadius.circular(7),
               boxShadow: const <BoxShadow>[
                 BoxShadow(
-                    color: ColorManager.black26,
-                    blurRadius: AppRadius.r10,
-                    offset: Offset(AppOffset.off0_0, AppOffset.off0_75),
+                  color: ColorManager.black26,
+                  blurRadius: AppRadius.r10,
+                  offset: Offset(AppOffset.off0_0, AppOffset.off0_75),
                 )
               ],
               // image: const DecorationImage(
@@ -216,8 +209,8 @@ class Keyeince_features extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  tmp.name,
-                  style: Theme.of(context).textTheme.subtitle1
+                    tmp.name,
+                    style: Theme.of(context).textTheme.subtitle1
                 ),
                 Icon(tmp.logo,
                   color: ColorManager.white,),

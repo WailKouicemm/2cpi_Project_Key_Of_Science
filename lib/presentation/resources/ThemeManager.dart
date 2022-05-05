@@ -32,8 +32,8 @@ ThemeData getThemeData()=>ThemeData(
   /// button theme
     buttonTheme: const ButtonThemeData(
       splashColor: ColorManager.lightDefaultColor,
-     disabledColor: ColorManager.grey,
-     focusColor: ColorManager.lightDefaultColor
+      disabledColor: ColorManager.grey,
+      focusColor: ColorManager.lightDefaultColor
      // buttonColor: ColorManager.defaultColor,
     ),
   /// textButton theme
@@ -62,15 +62,20 @@ ThemeData getThemeData()=>ThemeData(
     ),
   /// textFormFiled Theme
     inputDecorationTheme:  InputDecorationTheme(
+      hoverColor: Colors.red,
       contentPadding: const EdgeInsets.only(left: AppPadding.p14, bottom: AppPadding.p8, top: AppPadding.p8),
-      border: OutlineInputBorder(
+      border:  OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.r8),
-),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: ColorManager.grey, width: 1),
+        borderRadius: BorderRadius.circular(AppRadius.r8),
+      ),
       filled: true,
       fillColor: ColorManager.white,
       hintStyle: lightStyle(color: ColorManager.grey),
       errorStyle: regularStyle(color: ColorManager.error),
-      errorMaxLines: 1,
+      errorMaxLines: 2,
       iconColor: ColorManager.defaultColor,
     ),
   /// Text Theme

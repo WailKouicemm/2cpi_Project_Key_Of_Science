@@ -2,41 +2,35 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/Models.dart';
 
 class AuthService {
- static String _username = "-";
-    static String get getUsername => _username;
+  static String _username = "***";
 
- static Future<void> setUsername(String usernam)async{
+ static Future<void> _setUsername(String usernam)async{
+   _username=usernam;
    final prefs = await SharedPreferences.getInstance();
    await prefs.setString("usernam",usernam);
-   _username=usernam;
  }
 
- static Future<void> fetchUsername() async{
+ static Future<String> fetchUsername() async{
+   final prefs = await SharedPreferences.getInstance();
+   String  username = await prefs.getString("usernam") ?? "-";
+   return username;
+ }
 
-     final prefs = await SharedPreferences.getInstance();
-     String  usernam = await prefs.getString("usernam") ?? "";
-     _username=usernam;
+ static Future<void> _removeUsername() async{
+   final prefs = await SharedPreferences.getInstance();
+   await prefs.remove("usernam");
  }
 
   static final _firebaseAuth = auth.FirebaseAuth.instance;
 
- static Userr? _userFromFirebase(auth.User? user) {
-    if (user == null) {
-      return null;
-    }
-    return Userr(user.uid, user.email);
-  }
 
-  static Stream<Userr?>? get user {
-    return _firebaseAuth.authStateChanges().map(_userFromFirebase);
-  }
 
-  static Future<Userr?> SignUpWithEmailPasssword(String email, String password,String username) async {
+  static Future<void> SignUpWithEmailPasssword(String email, String password,String username) async {
     // final credencial =
     try{
+      await _setUsername(username);
      final auth.UserCredential res =  await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
     await _sendUsertoFirestore(
       email: email,
@@ -51,8 +45,8 @@ class AuthService {
 
   static Future<void> SignInWithEmailPasssword(String email, String password) async {
     try{
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
+     await AuthService._getUsernameFromFirebase(email);
+     await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
     } catch (error){
       throw error;
     }
@@ -60,14 +54,14 @@ class AuthService {
 
   static Future<void> SignOut() async {
      await _firebaseAuth.signOut();
+     await _removeUsername();
   }
 
-
+ static final _instance =  FirebaseFirestore.instance.collection('users');
  static Future<void> _sendUsertoFirestore({required String email, password, username,uid})async{
   try{
     print("_sendUsertoFirestore called");
-     await FirebaseFirestore.instance
-        .collection('users')
+    await _instance
         .doc(uid)
         .set({
       'email': email,
@@ -77,7 +71,16 @@ class AuthService {
   } catch (e){
     print("error rezefjdsifjidfuhcivx $e");
     throw e;}
+  }
 
+  static Future<void> _getUsernameFromFirebase(String email)async{
+   try{
+     final res  =  await _instance.where("email",isEqualTo: email).get();
+     _setUsername(res.docs[0]["username"]);
+   }catch (e){
+     throw e;
+   }
   }
 
 }
+

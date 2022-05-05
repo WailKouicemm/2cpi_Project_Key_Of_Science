@@ -35,7 +35,7 @@ class drawerScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
-                 Text(AuthService.getUsername,
+                 Text("AuthService.getUsername",
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
@@ -62,11 +62,6 @@ class drawerScreen extends StatelessWidget {
                   child: OutlineButton(
                     onPressed: ()async {
                       await AuthService.SignOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const RegisterPage()),
-                      );
-
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,

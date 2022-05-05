@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
 import '../models/Models.dart';
-import '../presentation/main/postsScreen/view/Posts_page.dart';
+import '../presentation/main/postsPages/view/Posts_view.dart';
 
 
 class PostItem extends StatelessWidget {
@@ -20,11 +21,10 @@ class PostItem extends StatelessWidget {
       duration: const Duration(milliseconds: AppDuration.d250),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height/4,
-        margin: const EdgeInsets.fromLTRB(4,10,4,10),
-        padding: const EdgeInsets.fromLTRB(15,10,15,5),
+        margin: const EdgeInsets.symmetric(horizontal: AppMargin.m4,vertical: AppMargin.m10),
+        padding: const EdgeInsets.fromLTRB(AppPadding.p15,AppPadding.p10,AppPadding.p15,AppPadding.p5),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(AppRadius.r15),
           color: ColorManager.white,
           boxShadow:  <BoxShadow>[
             BoxShadow(
@@ -46,8 +46,16 @@ class PostItem extends StatelessWidget {
             ),
             /// the post text
             postContent(Post.text_of_post),
-            const SizedBox(
-              height: AppHeight.h10,
+            Container(
+              height: MediaQuery.of(context).size.height/5,
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(vertical: AppMargin.m10),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/add.jpg"),
+                  fit: BoxFit.fill
+                )
+              ),
             ),
             /// the icons of like and comment
             const LikeAndComment(),
@@ -69,16 +77,12 @@ class PosterNameAndImage extends StatelessWidget {
       children: [
         /// the user image
         const CircleAvatar(
-          maxRadius: 27,
-          backgroundColor: Colors.lightBlueAccent,
-          child: CircleAvatar(
-            maxRadius: 25,
-            backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage('assets/images/man.jpg'),
-          ),
+          maxRadius: 25,
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage('assets/images/man.jpg'),
         ),
         const SizedBox(
-          width: 10,
+          width: AppWidth.w10,
         ),
         /// the name ad the username
         Column(
@@ -142,7 +146,10 @@ class _LikeAndCommentState extends State<LikeAndComment> {
           children: [
             /// comment icon
             IconButton(
-              onPressed: ()=>setState(()=>commentField=!commentField),
+              // ()=>setState(()=>commentField=!commentField)
+              onPressed: (){
+                FirebaseAuth.instance.currentUser!.uid;
+              },
               icon: SvgPicture.asset(
                 'assets/icons/comment.svg',
                 color: ColorManager.defaultColor,
@@ -190,7 +197,6 @@ class _LikeAndCommentState extends State<LikeAndComment> {
             ],
           ),
         )
-
       ],
     );
   }

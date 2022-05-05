@@ -31,10 +31,15 @@ class loginUser_viewModel extends ChangeNotifier {
       }
       AwesomeMessag(context: context, title: AppStrings.errorTitle, message: message);
     } catch (e){
-      isLoading = false;
-      notifyListeners();
       print("catch error $e");
       AwesomeMessag(context: context, title: AppStrings.errorTitle, message: AppStrings.unknownError);
     }
+    isLoading = false;
+    notifyListeners();
   }
 }
+
+
+
+
+

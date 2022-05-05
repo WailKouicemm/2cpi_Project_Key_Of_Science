@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
@@ -20,7 +22,7 @@ class PostsPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Posts'),
+          title: const Text(AppStrings.post),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -53,17 +55,43 @@ class Posts_Body extends StatefulWidget {
 class _Posts_BodyState extends State<Posts_Body> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
+    return ListView(
       physics: const BouncingScrollPhysics(),
-      controller: ScrollController(),
-      itemCount: posts.length,
-      scrollDirection: Axis.vertical,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-      itemBuilder: (context,index){
-        post tmp = posts[index];
-        return PostItem(Post: tmp);
-      },
+      shrinkWrap: true,
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10,horizontal: AppPadding.p15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                AppStrings.newPosts,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4!
+                  .copyWith(fontSize: FontSizeManager.s24),
+              //  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),
+              ),
+              ElevatedButton(
+                  onPressed: ()=>Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_)=>const AddPostPage())
+                  ), 
+                  child: Text(AppStrings.addPost)
+              ),
+            ],
+          ),
+        ),
+        ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: posts.length,
+            itemBuilder: (context,index){
+              post tmp = posts[index];
+              return PostItem(Post: tmp);
+            },
+          ),
+      ],
     );
   }
 }
