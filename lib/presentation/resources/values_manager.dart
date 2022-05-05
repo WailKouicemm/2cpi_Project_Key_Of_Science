@@ -4,6 +4,7 @@ class AppDuration{
      static const int d250 = 250;
   }
 class AppMargin{
+  static const double m1 = 1.0;
   static const double m4 = 4.0;
   static const double m8 = 8.0;
   static const double m10 = 10.0;

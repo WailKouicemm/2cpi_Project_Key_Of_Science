@@ -146,7 +146,7 @@ class _AddPostPageState extends State<AddPostPage> {
                                 child: ElevatedButton(
                                   onPressed: (){
                                      if(_formKey.currentState!.validate()){
-                                       FocusScope.of(context).unfocus();
+
                                     Provider.of<addpost_viewModel>(ctx,listen: false)
                                         .uploadPost(
                                       title: _titleController.text.trim(),

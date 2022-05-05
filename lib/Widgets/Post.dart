@@ -1,28 +1,34 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
 import '../models/Models.dart';
 import '../presentation/main/postsPages/view/Posts_view.dart';
+import '../presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 
 
 class PostItem extends StatelessWidget {
-  final post Post;
-  const PostItem({required this.Post});
+  final Post post;
+  const PostItem({required this.post});
 
   @override
   Widget build(BuildContext context) {
+
     return AnimatedSize(
       duration: const Duration(milliseconds: AppDuration.d250),
       child: Container(
         width: MediaQuery.of(context).size.width,
         margin: const EdgeInsets.symmetric(horizontal: AppMargin.m4,vertical: AppMargin.m10),
-        padding: const EdgeInsets.fromLTRB(AppPadding.p15,AppPadding.p10,AppPadding.p15,AppPadding.p5),
+        padding: const EdgeInsets.fromLTRB(AppPadding.p10,AppPadding.p10,AppPadding.p10,AppPadding.p5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.r15),
           color: ColorManager.white,
@@ -39,24 +45,21 @@ class PostItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// the image of the poster and his name
-             PosterNameAndImage(Post.poster_name,Post.poster_username),
+            /// the image of the poster and his name and the date
+             PosterNameAndImage(post.uid,post.date),
             const SizedBox(
               height: AppHeight.h10,
             ),
-            /// the post text
-            postContent(Post.text_of_post),
-            Container(
-              height: MediaQuery.of(context).size.height/5,
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: AppMargin.m10),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/add.jpg"),
-                  fit: BoxFit.fill
-                )
-              ),
+            /// the title of the post
+            AutoSizeText(
+              post.title,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: FontSizeManager.s17),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
+            /// the post text
+            postContent(post.content),
+            if(post.images.isNotEmpty) postImages(post.images),
             /// the icons of like and comment
             const LikeAndComment(),
           ],
@@ -67,39 +70,43 @@ class PostItem extends StatelessWidget {
 }
 
 class PosterNameAndImage extends StatelessWidget {
- final String name;
- final String userName;
-  const PosterNameAndImage(this.name, this.userName);
+ final String uid;
+ final Timestamp date;
+  const PosterNameAndImage(this.uid,this.date);
 
   @override
   Widget build(BuildContext context) {
-    return   Row(
-      children: [
-        /// the user image
-        const CircleAvatar(
-          maxRadius: 25,
-          backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage('assets/images/man.jpg'),
-        ),
-        const SizedBox(
-          width: AppWidth.w10,
-        ),
-        /// the name ad the username
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(name,
-              style:const TextStyle(
-                  fontWeight: FontWeight.bold
+    final postingDate = DateFormat("yyyy MMMM dd   hh:mm a").format(DateTime(date.toDate().year,date.toDate().month,date.toDate().day,
+        date.toDate().hour,date.toDate().minute));
+
+    return FutureBuilder<String>(
+      future: postsPage_modelView().getUsername(uid),
+      builder: (_,snapshot)=>Row(
+        children: [
+          /// the user image
+          const CircleAvatar(
+            maxRadius: 25,
+            backgroundColor: Colors.transparent,
+            backgroundImage: AssetImage('assets/images/man.jpg'),
+          ),
+          const SizedBox(
+            width: AppWidth.w10,
+          ),
+          /// the name ad the username
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(snapshot.data ?? "-",
+                style: Theme.of(context).textTheme.overline
               ),
-            ),
-            Text("#"+userName,
-              style: const TextStyle(
-                  color: Colors.grey
-              ),),
-          ],
-        ),
-      ],
+              Text("Posted on  "+ postingDate,
+                style: const TextStyle(
+                    color: Colors.grey
+                ),),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -121,7 +128,7 @@ class postContent extends StatelessWidget {
       },
       text: text,
       linkStyle: const TextStyle(color: ColorManager.LinkColor ),
-      style: Theme.of(context).textTheme.bodyText1,
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontWeight: FontWeightManager.light),
       maxLines: maxlines ?? 4,
       overflow: TextOverflow.ellipsis,
     ) ;
@@ -203,3 +210,76 @@ class _LikeAndCommentState extends State<LikeAndComment> {
 }
 
 
+class postImages extends StatelessWidget {
+  final List<String> images;
+  const postImages(this.images);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height/5,
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: AppMargin.m10),
+      color: ColorManager.primaryColor,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppRadius.r15),
+        child: Row(
+          children: [
+            Expanded(
+              child: images.length == 4 ? Column(
+                children: [
+                  Expanded(
+                    child: _image(images[0]),
+
+                  ),
+                  Expanded(
+                    child: _image(images[1]),
+                  ),
+                ],
+              ) : _image(images[0]),
+            ),
+            if(images.length>1) Expanded(
+                child: images.length == 4 ?  Column(
+                  children: [
+                    Expanded(
+                      child:_image(images[2]),
+                    ),
+                    Expanded(
+                      child: _image(images[3]),
+                    )
+                  ],
+                ) : (
+                    images.length == 3 ?  Column(
+                      children: [
+                        Expanded(
+                          child: _image(images[1]),
+                        ),
+                        Expanded(
+                          child: _image(images[2]),
+                        )
+                      ],
+                    ) : _image(images[1])
+                )
+            )
+          ],
+        ),
+      )
+    );
+  }
+}
+
+
+class _image extends StatelessWidget {
+  final String image;
+  const _image(this.image);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height:  double.infinity,
+      width:  double.infinity,
+      margin: const EdgeInsets.all(AppMargin.m1),
+      child: Image.network(image,fit: BoxFit.cover,),
+    );
+  }
+}

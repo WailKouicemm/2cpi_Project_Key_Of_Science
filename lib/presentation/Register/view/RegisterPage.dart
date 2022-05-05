@@ -325,6 +325,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                   ElevatedButton(
                     onPressed: () async {
                       if(_formKey.currentState!.validate()){
+                        FocusScope.of(context).unfocus();
                         Provider.of<RegisterUser_viewModel>(context,listen: false).registerUser(
                             email: emailTextEdetingController.text.trim(),
                             password: passwordTextEdetingController.text.trim(),

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../../../Widgets/Post.dart';
 import '../../../../models/Models.dart';
@@ -20,24 +24,29 @@ class PostsPage extends StatelessWidget {
     return MaterialApp(
       theme: getThemeData(),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(AppStrings.post),
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(images.appBarImage),
-                    fit: BoxFit.cover
-                )
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(AppStrings.post),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(images.appBarImage),
+                      fit: BoxFit.cover
+                  )
+              ),
+            ),
+            leading: IconButton(
+              onPressed: ()=>Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back),
             ),
           ),
-          leading: IconButton(
-            onPressed: ()=>Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back),
-          ),
+          body: const Posts_Body(),
         ),
-        body: const Posts_Body(),
-      ),
+      )
     );
   }
 }
@@ -53,9 +62,35 @@ class Posts_Body extends StatefulWidget {
 }
 
 class _Posts_BodyState extends State<Posts_Body> {
+   late ScrollController _scrollController;
+  @override
+  void initState() {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<postsPage_modelView>(context,listen: false).getPosts();
+    });
+    _scrollController = ScrollController()..addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+   void _scrollListener() {
+       if ((_scrollController.position.pixels+250)>=_scrollController.position.maxScrollExtent) {
+         SchedulerBinding.instance!.addPostFrameCallback((_) {
+           Provider.of<postsPage_modelView>(context,listen: false).getPosts();
+         });
+
+      }
+   }
   @override
   Widget build(BuildContext context) {
+
     return ListView(
+      controller: _scrollController,
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
@@ -77,20 +112,37 @@ class _Posts_BodyState extends State<Posts_Body> {
                   onPressed: ()=>Navigator.of(context).push(
                     MaterialPageRoute(builder: (_)=>const AddPostPage())
                   ), 
-                  child: Text(AppStrings.addPost)
+                  child: const Text(AppStrings.addPost)
               ),
             ],
           ),
         ),
-        ListView.builder(
+        Selector<postsPage_modelView,Tuple2<List<Post>,bool>>(
+          selector: (_,provider)=>Tuple2(provider.postsList, provider.isLoading),
+          builder: (_,data,__)=>ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: posts.length,
+            itemCount: data.item1.length+1,
             itemBuilder: (context,index){
-              post tmp = posts[index];
-              return PostItem(Post: tmp);
+              if(index == data.item1.length){
+                if(data.item2) {
+                  return const Center(
+                    child: CircularProgressIndicator()
+                  );
+                }
+                return const Center();
+              }
+              Post tmp = data.item1[index];
+              // post x = posts[index];
+              // post tmp = post(
+              //     poster_image: x.poster_image,
+              //     poster_name: x.poster_name,
+              //     poster_username: x.poster_username,
+              //     text_of_post: data.item1[index].content);
+              return PostItem(post: tmp);
             },
           ),
+        ),
       ],
     );
   }

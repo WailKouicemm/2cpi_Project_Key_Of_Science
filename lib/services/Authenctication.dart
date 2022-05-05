@@ -60,16 +60,16 @@ class AuthService {
  static final _instance =  FirebaseFirestore.instance.collection('users');
  static Future<void> _sendUsertoFirestore({required String email, password, username,uid})async{
   try{
-    print("_sendUsertoFirestore called");
     await _instance
         .doc(uid)
         .set({
       'email': email,
       'password': password,
-      'username': username
-    }).then((value) => print("finished dsfhsdufhsdfsdf"));
+      'username': username,
+      "uid" : uid
+    });
   } catch (e){
-    print("error rezefjdsifjidfuhcivx $e");
+    print("error in  _sendUsertoFirestore$e");
     throw e;}
   }
 
@@ -81,6 +81,19 @@ class AuthService {
      throw e;
    }
   }
+
+  static Future<String> getUsername(String uid)async{
+    final _instance =  FirebaseFirestore.instance.collection('users');
+    final res = await  _instance.where("uid",isEqualTo: uid).get();
+    return res.docs[0]["username"];
+  }
+
+  static Future<String> getUserImage(String uid)async{
+    final _instance =  FirebaseFirestore.instance.collection('users');
+    final res = await  _instance.where("uid",isEqualTo: uid).get();
+    return res.docs[0]["image"];
+  }
+
 
 }
 

@@ -382,7 +382,7 @@ class Recentrly_posts extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                PosterNameAndImage(tmp.poster_name, tmp.poster_username),
+               // PosterNameAndImage(tmp.poster_name, tmp.poster_username),
                 // Row(
                 //   children: [
                 //     /// the user image

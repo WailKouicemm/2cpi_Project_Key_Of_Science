@@ -11,6 +11,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
+import 'package:keyofscience/services/addPostTOfirebase.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/Models.dart';
@@ -78,7 +79,12 @@ class _homePageState extends State<_homePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => ZoomDrawer.of(context)!.toggle(),
+          // onPressed: () => ZoomDrawer.of(context)!.toggle(),
+          onPressed: ()async{
+            for(int i=0;i<15;i++){
+              await addPostTOfirebase.uploadPost("$i$i$i$i$i$i$i$i$i$i", "https://scontent.falg3-2.fna.fbcdn.net/v/t1.15752-9/279210553_2463185370479513_4409890804855796935_n.png?_nc_cat=103&ccb=1-6&_nc_sid=ae9488&_nc_eui2=AeGmA5CU1rqF3babnPscnPlSIU2Q0HFK4TQhTZDQcUrhNHFctz6te7JdszjDx6DJtLP9ncb5RMiUsIsWnuJqR2u1&_nc_ohc=RC-473aP3GUAX-wUlgH&_nc_ht=scontent.falg3-2.fna&oh=03_AVLROGotsOkFXNrNRaw0MrazQFyaS5Zj73KbOJpXkRy4_Q&oe=629A3206", []);
+            }
+          },
           icon: Image.asset(AppIcons.settings,
             color: ColorManager.defaultColor,),
         ),
