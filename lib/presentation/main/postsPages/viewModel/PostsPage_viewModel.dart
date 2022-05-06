@@ -10,19 +10,33 @@ class postsPage_modelView extends ChangeNotifier{
 
   bool isLoading = false;
   List<Post> postsList = [];
-
+  int documentLimit = 3;
+  bool hasMore = true;
   Future<void> getPosts()async{
-    print("!isLoading!isLoading ${!isLoading}");
-    if(!isLoading){
+    print("entered with  hasMore ${hasMore}");
+    print("entered with  isLoading ${isLoading}");
+    if(!isLoading && hasMore){
+      print("************************* entered **************************");
      try{
        isLoading=true;
        notifyListeners();
-       final List<Post> _newList = await postSevices.getPosts();
+       final List<Post> _newList = await postSevices.getPosts(documentLimit,postsList.isEmpty);
+       print("_newList.lengthv ${_newList.length}");
+       if(_newList.length<documentLimit) {
+          hasMore = false;
+          print("hasMorehasMorehasMore ${hasMore}");
+        }
        postsList.addAll(_newList);
        isLoading=false;
        notifyListeners();
+     }on FirebaseException catch(Exception) {
+       print("ExceptionException $Exception");
      }catch (error){
-       print("getPosts  \n\n\n getPosts \n\n\n $error");
+       print("error on catch $error");
+       if(error.toString().contains("Bad state: No element")){
+         hasMore = false;
+         isLoading = false;
+       }
      }
     }
   }

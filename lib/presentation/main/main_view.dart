@@ -81,7 +81,7 @@ class _homePageState extends State<_homePage> {
         leading: IconButton(
           // onPressed: () => ZoomDrawer.of(context)!.toggle(),
           onPressed: ()async{
-            for(int i=0;i<15;i++){
+            for(int i=0;i<5;i++){
               await addPostTOfirebase.uploadPost("$i$i$i$i$i$i$i$i$i$i", "https://scontent.falg3-2.fna.fbcdn.net/v/t1.15752-9/279210553_2463185370479513_4409890804855796935_n.png?_nc_cat=103&ccb=1-6&_nc_sid=ae9488&_nc_eui2=AeGmA5CU1rqF3babnPscnPlSIU2Q0HFK4TQhTZDQcUrhNHFctz6te7JdszjDx6DJtLP9ncb5RMiUsIsWnuJqR2u1&_nc_ohc=RC-473aP3GUAX-wUlgH&_nc_ht=scontent.falg3-2.fna&oh=03_AVLROGotsOkFXNrNRaw0MrazQFyaS5Zj73KbOJpXkRy4_Q&oe=629A3206", []);
             }
           },

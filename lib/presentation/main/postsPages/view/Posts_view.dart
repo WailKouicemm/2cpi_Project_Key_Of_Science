@@ -124,6 +124,7 @@ class _Posts_BodyState extends State<Posts_Body> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: data.item1.length+1,
             itemBuilder: (context,index){
+              print("index has rebuild    $index");
               if(index == data.item1.length){
                 if(data.item2) {
                   return const Center(

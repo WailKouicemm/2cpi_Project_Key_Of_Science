@@ -11,17 +11,18 @@ class postSevices {
 
   static final _instance =  FirebaseFirestore.instance;
   static DocumentSnapshot? startAfter;
-  static Future<List<Post>> getPosts()async{
+  static Future<List<Post>> getPosts(int documentLimit,bool setSTARTAFTERtoNull)async{
     try{
+      if(setSTARTAFTERtoNull) startAfter=null;
       List<Post> lists= [];
       final res;
       if(startAfter == null){
-         res = await _instance.collection("posts").orderBy("date").limit(3).get();
+         res = await _instance.collection("posts").orderBy("date").limit(documentLimit).get();
       }else{
-        res = await _instance.collection("posts").limit(3).orderBy("date").startAfterDocument(startAfter!).get();
+        res = await _instance.collection("posts").limit(documentLimit).orderBy("date").startAfterDocument(startAfter!).get();
       }
-
       startAfter = res.docs.last;
+      print("res.docs.lengthres.docs.length ${res.docs.length}");
       for(int i=0;i<res.docs.length;i++){
         lists.add(
           Post.fromJson(res.docs[i].data())
