@@ -82,7 +82,8 @@ class _homePageState extends State<_homePage> {
           // onPressed: () => ZoomDrawer.of(context)!.toggle(),
           onPressed: ()async{
             for(int i=0;i<5;i++){
-              await addPostTOfirebase.uploadPost("$i$i$i$i$i$i$i$i$i$i", "https://scontent.falg3-2.fna.fbcdn.net/v/t1.15752-9/279210553_2463185370479513_4409890804855796935_n.png?_nc_cat=103&ccb=1-6&_nc_sid=ae9488&_nc_eui2=AeGmA5CU1rqF3babnPscnPlSIU2Q0HFK4TQhTZDQcUrhNHFctz6te7JdszjDx6DJtLP9ncb5RMiUsIsWnuJqR2u1&_nc_ohc=RC-473aP3GUAX-wUlgH&_nc_ht=scontent.falg3-2.fna&oh=03_AVLROGotsOkFXNrNRaw0MrazQFyaS5Zj73KbOJpXkRy4_Q&oe=629A3206", []);
+              await addPostTOfirebase.uploadPost("$i$i$i$i$i$i$i$i$i$i","What is Lorem Ipsum?"
+                  " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", []);
             }
           },
           icon: Image.asset(AppIcons.settings,

@@ -17,9 +17,9 @@ class postSevices {
       List<Post> lists= [];
       final res;
       if(startAfter == null){
-         res = await _instance.collection("posts").orderBy("date").limit(documentLimit).get();
+         res = await _instance.collection("posts").orderBy("date",descending: true).limit(documentLimit).get();
       }else{
-        res = await _instance.collection("posts").limit(documentLimit).orderBy("date").startAfterDocument(startAfter!).get();
+        res = await _instance.collection("posts").limit(documentLimit).orderBy("date",descending: true).startAfterDocument(startAfter!).get();
       }
       startAfter = res.docs.last;
       print("res.docs.lengthres.docs.length ${res.docs.length}");

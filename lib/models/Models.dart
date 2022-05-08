@@ -87,9 +87,9 @@ class Keyeince_features_item {
 class Post {
   final String title, content, id, uid;
   List<String> images ;
- final Timestamp date = Timestamp.now();
+ final Timestamp date;
 
-  Post({required this.title, required this.content, required this.id, required this.uid,required date,required this.images});
+  Post({required this.title, required this.content, required this.id, required this.uid,required this.date,required this.images});
 
   factory Post.fromJson(Map<String, dynamic> map){
     List<String> _images=[];

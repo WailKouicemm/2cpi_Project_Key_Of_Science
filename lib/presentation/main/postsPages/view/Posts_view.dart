@@ -124,22 +124,24 @@ class _Posts_BodyState extends State<Posts_Body> {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: data.item1.length+1,
             itemBuilder: (context,index){
-              print("index has rebuild    $index");
               if(index == data.item1.length){
                 if(data.item2) {
                   return const Center(
                     child: CircularProgressIndicator()
                   );
                 }
-                return const Center();
+                return const Center(
+                  child: Text(
+                    "no more posts",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: FontSizeManager.s10,
+                    )
+                  )
+                );
               }
               Post tmp = data.item1[index];
-              // post x = posts[index];
-              // post tmp = post(
-              //     poster_image: x.poster_image,
-              //     poster_name: x.poster_name,
-              //     poster_username: x.poster_username,
-              //     text_of_post: data.item1[index].content);
               return PostItem(post: tmp);
             },
           ),

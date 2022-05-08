@@ -22,7 +22,6 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedSize(
       duration: const Duration(milliseconds: AppDuration.d250),
       child: Container(
