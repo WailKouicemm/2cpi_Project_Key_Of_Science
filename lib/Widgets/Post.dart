@@ -148,28 +148,34 @@ class _LikeAndCommentState extends State<LikeAndComment> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Row(
-          children: [
-            /// comment icon
-            IconButton(
-              // ()=>setState(()=>commentField=!commentField)
-              onPressed: (){
-                FirebaseAuth.instance.currentUser!.uid;
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/comment.svg',
-                color: ColorManager.defaultColor,
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p8),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: AppWidth.w10,
               ),
-            ),
-            const SizedBox(
-              width: AppWidth.w10,
-            ),
-            /// like icon
-            IconButton(
-              onPressed: (){},
-              icon: const Icon(Icons.favorite_border),
-            )
-          ],
+              /// comment icon
+              GestureDetector(
+                // ()=>setState(()=>commentField=!commentField)
+                onTap: (){
+                  FirebaseAuth.instance.currentUser!.uid;
+                },
+                child: SvgPicture.asset(
+                  'assets/icons/comment.svg',
+                  color: ColorManager.defaultColor,
+                ),
+              ),
+              const SizedBox(
+                width: AppWidth.w10,
+              ),
+              /// like icon
+              GestureDetector(
+                onTap: (){},
+                child: const Icon(Icons.favorite_border),
+              )
+            ],
+          ),
         ),
         if(commentField)  AnimatedContainer(
           duration: const Duration(milliseconds: 200),

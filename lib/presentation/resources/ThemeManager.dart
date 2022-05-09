@@ -47,7 +47,7 @@ ThemeData getThemeData()=>ThemeData(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
        elevation: AppElevation.e5,
-       padding: const EdgeInsets.all(AppPadding.p12),
+       padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15, vertical: AppPadding.p12),
        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
        primary: ColorManager.defaultColor,
        textStyle: semiBoldStyle(color: ColorManager.white),

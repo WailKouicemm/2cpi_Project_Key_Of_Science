@@ -8,6 +8,7 @@ class images {
   static const String backgroundLogin = "$diractory/backround_appbar.png";
   static const String send = "$diractory/navigation-2-outline.png";
   static const String card = '$diractory/CARD.png';
+
 }
 
 class AppIcons {

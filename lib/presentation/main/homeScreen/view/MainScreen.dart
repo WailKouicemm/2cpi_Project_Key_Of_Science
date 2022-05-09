@@ -127,6 +127,8 @@ class profilecard extends StatelessWidget {
                   //   ),
                   // ),
 
+
+
                   Selector<usernameManage,String>(
                     selector: (_,provider)=>provider.username,
                     builder: (_,username,__)=>Text('Hi , ' + username,

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:keyofscience/presentation/resources/FontsManager.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../services/Authenctication.dart';
+import '../../../resources/Styles_Manager.dart';
+import '../../main_Viewmodel.dart';
 
 class drawerScreen extends StatelessWidget {
   const drawerScreen();
@@ -35,13 +39,13 @@ class drawerScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
-                 Text("AuthService.getUsername",
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white
+                Selector<usernameManage,String>(
+                  selector: (_,provider)=>provider.username,
+                  builder: (_,username,__)=>Text('Hi , ' + username,
+                      style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
                   ),
                 ),
+
                 const Divider(color: Colors.white60,height: 30,),
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),

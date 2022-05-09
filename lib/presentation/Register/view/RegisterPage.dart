@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/commun/Validator.dart';
+import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Register/viewModel/RegisterViewModel.dart';
@@ -16,13 +17,15 @@ import '../../resources/values_manager.dart';
 
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage();
+  final PageController pageController;
+  const  RegisterPage(this.pageController);
 
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    return MultiProvider(
+    return WillPopScope(
+        child: MultiProvider(
           providers: [
             ChangeNotifierProvider<RegisterUser_viewModel>(create: (_) => RegisterUser_viewModel()),
           ],
@@ -137,11 +140,15 @@ class RegisterPage extends StatelessWidget {
                                 // style: TextStyle(color: Kdefault.KdefaultColor , fontFamily: "Montserrat"),
                               ),
                               TextButton(
-                                onPressed: ()=> Navigator.pushReplacement(context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Login(),
-                                  ),
-                                ),
+                                onPressed: (){
+                                  pageController.previousPage(duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
+                                },
+                                // onPressed: ()=>Navigator.pop(context),
+                                // onPressed: ()=> Navigator.push(context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => const Login(),
+                                //   ),
+                                // ),
                                 child: const Text(AppStrings.login),
                               ),
                             ],
@@ -153,6 +160,11 @@ class RegisterPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        onWillPop: ()async{
+          pageController.previousPage(duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
+          return false;
+        }
         );
 
   }
@@ -326,11 +338,13 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     onPressed: () async {
                       if(_formKey.currentState!.validate()){
                         FocusScope.of(context).unfocus();
+                        Provider.of<nextPage_viewModel>(context,listen: false).register();
                         Provider.of<RegisterUser_viewModel>(context,listen: false).registerUser(
                             email: emailTextEdetingController.text.trim(),
                             password: passwordTextEdetingController.text.trim(),
                             username: nameTextEdetingController.text.trim(),
                             context : context);
+
                       }
                     },
                     child: const Text(

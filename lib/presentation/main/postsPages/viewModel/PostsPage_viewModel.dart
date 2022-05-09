@@ -27,10 +27,11 @@ class postsPage_modelView extends ChangeNotifier{
      }on FirebaseException catch(Exception) {
        print("Exeption in getPosts $Exception");
      }catch (error){
-       print("error on catch $error");
+       print("error on catch of postsPage_modelView => $error");
        if(error.toString().contains("Bad state: No element")){
          hasMore = false;
          isLoading = false;
+         notifyListeners();
        }
      }
     }

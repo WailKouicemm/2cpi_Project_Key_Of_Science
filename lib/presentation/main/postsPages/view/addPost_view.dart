@@ -235,15 +235,11 @@ class _showImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Selector<addpost_viewModel, List<XFile>>(
-        shouldRebuild: (previous, next){
-          return true;
-        },
-        selector: (_,provider)=>provider.pickedImages,
-        builder: (_,images,__)=> images.isEmpty ? InkWell(
+    return Column(
+      children: [
+        GestureDetector(
           onTap:  ()=>Provider.of<addpost_viewModel>(context,listen: false)
-           .pickeImages_fromGallery(),
-          splashColor: Colors.transparent,
+              .pickeImages_fromGallery(),
           child: Container(
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(AppPadding.p25),
@@ -262,36 +258,46 @@ class _showImages extends StatelessWidget {
                 ],
               )
           ),
-        ) : GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: images.length>2 ? 3 : images.length,
-              childAspectRatio: 1,
-              crossAxisSpacing: 3.0,
-              mainAxisSpacing: 3.0,
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: images.map((image) =>
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: FileImage(File(image.path)),
-                        fit: BoxFit.fill
-                    ),
-                  ),
-                  alignment: Alignment.topRight,
-                  padding: const EdgeInsets.all(AppPadding.p5),
-                  child: CircleAvatar(
-                    backgroundColor: ColorManager.grey.withOpacity(0.4),
-                    radius: 15,
-                    child: IconButton(
-                      onPressed: ()=>Provider.of<addpost_viewModel>(context,listen: false).removeImage(image),
-                      icon: const Icon(Icons.close,color: ColorManager.white,size: 15,),
-                    ),
-                  ),
-                )
-            ).toList()
+        ),
+        Selector<addpost_viewModel, List<XFile>>(
+            shouldRebuild: (previous, next){
+              return true;
+            },
+            selector: (_,provider)=>provider.pickedImages,
+            builder: (_,images,__)=> images.isNotEmpty ?  GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: images.length>2 ? 3 : images.length,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 3.0,
+                  mainAxisSpacing: 3.0,
+                ),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: images.map((image) =>
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: FileImage(File(image.path)),
+                            fit: BoxFit.fill
+                        ),
+                      ),
+                      alignment: Alignment.topRight,
+                      padding: const EdgeInsets.all(AppPadding.p5),
+                      child: CircleAvatar(
+                        backgroundColor: ColorManager.grey.withOpacity(0.4),
+                        radius: 15,
+                        child: IconButton(
+                          onPressed: ()=>Provider.of<addpost_viewModel>(context,listen: false).removeImage(image),
+                          icon: const Icon(Icons.close,color: ColorManager.white,size: 15,),
+                        ),
+                      ),
+                    )
+                ).toList()
+            ) : const Center()
         )
+
+      ],
     );
+
   }
 }

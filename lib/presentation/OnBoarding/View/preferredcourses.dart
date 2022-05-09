@@ -82,7 +82,7 @@ class _GridListState extends State<GridList> {
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 170, crossAxisSpacing: 20, mainAxisSpacing: 20),
         itemCount: widget.list.length,
-        itemBuilder: (context, index) => InkWell(
+        itemBuilder: (context, index) => GestureDetector(
           onTap: ()=>Provider.of<selectedItemProvier>(context,listen: false).onItemSelected(widget.list[index].title),
           child: Selector<selectedItemProvier,bool>(
             selector: (context,provider)=>provider.selectedItems.contains(widget.list[index].title),

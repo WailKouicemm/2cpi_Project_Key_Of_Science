@@ -1,6 +1,7 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 
 import '../../../components.dart';
@@ -45,14 +46,14 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                       ),
                     ),
                   ),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: ()=> Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>  const HomePage() ),
                     ),
                     child: Text(AppStrings.skip,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.headline6!.copyWith(color: ColorManager.white),
                       // style: TextStyle(
                       //   color: Kdefault.KdefaultColor,
                       //   fontSize: 14

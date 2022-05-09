@@ -1,20 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthService {
-  static String _username = "***";
+  static final _firebaseAuth = auth.FirebaseAuth.instance;
+  static final _instance =  FirebaseFirestore.instance.collection('users');
 
  static Future<void> _setUsername(String usernam)async{
-   _username=usernam;
+   print("_setUsername $usernam");
    final prefs = await SharedPreferences.getInstance();
    await prefs.setString("usernam",usernam);
  }
 
  static Future<String> fetchUsername() async{
+   String  username;
    final prefs = await SharedPreferences.getInstance();
-   String  username = await prefs.getString("usernam") ?? "-";
+   username = await prefs.getString("usernam") ?? "***";
    return username;
  }
 
@@ -23,15 +26,13 @@ class AuthService {
    await prefs.remove("usernam");
  }
 
-  static final _firebaseAuth = auth.FirebaseAuth.instance;
 
 
 
   static Future<void> SignUpWithEmailPasssword(String email, String password,String username) async {
-    // final credencial =
     try{
-      await _setUsername(username);
      final auth.UserCredential res =  await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+     await _setUsername(username);
     await _sendUsertoFirestore(
       email: email,
       password: password,
@@ -45,9 +46,10 @@ class AuthService {
 
   static Future<void> SignInWithEmailPasssword(String email, String password) async {
     try{
-     await AuthService._getUsernameFromFirebase(email);
      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+     // _getUsernameFromFirebase(email);
     } catch (error){
+      print("SignInWithEmailPasssword error $error");
       throw error;
     }
   }
@@ -57,7 +59,6 @@ class AuthService {
      await _removeUsername();
   }
 
- static final _instance =  FirebaseFirestore.instance.collection('users');
  static Future<void> _sendUsertoFirestore({required String email, password, username,uid})async{
   try{
     await _instance
@@ -73,10 +74,10 @@ class AuthService {
     throw e;}
   }
 
-  static Future<void> _getUsernameFromFirebase(String email)async{
+  static Future<void> getUsernameFromFirebase(String email)async{
    try{
      final res  =  await _instance.where("email",isEqualTo: email).get();
-     _setUsername(res.docs[0]["username"]);
+    await _setUsername(res.docs[0]["username"]);
    }catch (e){
      throw e;
    }

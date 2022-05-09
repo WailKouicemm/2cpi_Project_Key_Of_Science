@@ -1,5 +1,5 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 
 import '../../resources/FontsManager.dart';
-import '../../../main.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
 import '../ViewModel/login_viewModel.dart';
@@ -17,7 +16,8 @@ import '../ViewModel/login_viewModel.dart';
 
 
 class Login extends StatefulWidget {
-  const  Login();
+  final PageController pageController;
+  const  Login(this.pageController);
 
   @override
   _LoginState createState() => _LoginState();
@@ -29,33 +29,35 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: getThemeData().copyWith(
-              elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ElevatedButton.styleFrom(
-                    elevation: AppElevation.e5,
-                    padding: const EdgeInsets.all(AppPadding.p12),
-                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
-                    primary: ColorManager.white,
-                    // ColorManager.defaultColor
-                  )
-              ),
-              textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    textStyle: boldStyle(
-                        color: ColorManager.white,
-                        fontWeight: FontWeightManager.bold,
-                        fontSize: 12.0
-                    ),
-                  )
-              )
-          ),
-          home: Scaffold(
+    return
+      //MaterialApp(
+        // debugShowCheckedModeBanner: false,
+        // theme: getThemeData().copyWith(
+        //     elevatedButtonTheme: ElevatedButtonThemeData(
+        //         style: ElevatedButton.styleFrom(
+        //           elevation: AppElevation.e5,
+        //           padding: const EdgeInsets.all(AppPadding.p12),
+        //           shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+        //           primary: ColorManager.white,
+        //           // ColorManager.defaultColor
+        //         )
+        //     ),
+        //     textButtonTheme: TextButtonThemeData(
+        //         style: TextButton.styleFrom(
+        //           textStyle: boldStyle(
+        //               color: ColorManager.white,
+        //               fontWeight: FontWeightManager.bold,
+        //               fontSize: 12.0
+        //           ),
+        //         )
+        //     )
+        // ),
+       // home:
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
+          ],
+          child: Scaffold(
             body: SizedBox(
               height: double.infinity,
               width: double.infinity,
@@ -99,15 +101,15 @@ class _LoginState extends State<Login> {
                             topRight: Radius.circular(AppRadius.r30),
                           ),
                         ),
-                        child: const TextFormFields()
+                        child:  TextFormFields(widget.pageController)
                     ),
                   ),
                 ],
               ),
             ),
-          )
-      )
-    );
+          ),
+        );
+   // );
   }
 }
 
@@ -115,7 +117,8 @@ class _LoginState extends State<Login> {
 
 
 class TextFormFields extends StatefulWidget {
-  const TextFormFields({Key? key}) : super(key: key);
+  final PageController pageController;
+  const TextFormFields(this.pageController);
 
   @override
   _TextFormFieldsState createState() => _TextFormFieldsState();
@@ -204,7 +207,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 ),
                 TextButton(
                   onPressed: (){},
-                  child: const Text(' rest here ',
+                  child: const Text(' reset here ',
                     style: TextStyle(color: ColorManager.white,),
                   ),
                 ),
@@ -225,13 +228,25 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     ),
                   ) :
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                                elevation: AppElevation.e5,
+                                padding: const EdgeInsets.all(AppPadding.p12),
+                                shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+                                primary: ColorManager.white,
+                                // ColorManager.defaultColor
+                              ),
                     onPressed: ()async{
-                      if( _formKey.currentState!.validate()){
-                        await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
-                            email: emailTextEdetingController.text.trim(),
-                            password: passwordTextEdetingController.text.trim(),
-                            context: context);
-                      }
+                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                          email: "sa@esi.dz",
+                          password: "111222",
+                          context: context);
+
+                      // if( _formKey.currentState!.validate()){
+                      //   await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                      //       email: emailTextEdetingController.text.trim(),
+                      //       password: passwordTextEdetingController.text.trim(),
+                      //       context: context);
+                      // }
                     },
                     child: Text(
                       'LOG IN',
@@ -258,9 +273,10 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_)=>const MyApp()),
-                    );
+                    widget.pageController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
+                    // Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (_)=>const RegisterPage(),
+                    // ));
                   },
                   child: const Text(' register now ',
                     style: TextStyle(color: ColorManager.white),),

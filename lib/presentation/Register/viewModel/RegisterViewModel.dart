@@ -43,5 +43,7 @@ class RegisterUser_viewModel extends ChangeNotifier{
      print(e);
      AwesomeMessag(context: context, title: AppStrings.errorTitle, message:  AppStrings.unknownError);
    }
+
+
   }
 }

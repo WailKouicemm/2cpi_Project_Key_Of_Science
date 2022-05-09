@@ -13,7 +13,7 @@ class addpost_viewModel extends ChangeNotifier {
     final ImagePicker _picker = ImagePicker();
     final List<XFile>? images = await _picker.pickMultiImage();
     if(images!=null){
-      pickedImages = images.toList();
+      pickedImages.addAll(images.toList());
       notifyListeners();
     }
   }

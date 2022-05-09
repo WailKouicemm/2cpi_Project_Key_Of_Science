@@ -46,7 +46,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: getThemeData(),
-          home:       Selector<pageIndexProvider, int>(
+          home: Selector<pageIndexProvider, int>(
               selector: (context, provider) => provider.index,
               builder: (BuildContext context, value, Widget? child)=> Scaffold(
                   backgroundColor: ColorManager.primaryColor,

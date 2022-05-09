@@ -131,13 +131,16 @@ class _Posts_BodyState extends State<Posts_Body> {
                   );
                 }
                 return const Center(
-                  child: Text(
-                    "no more posts",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: FontSizeManager.s10,
-                    )
+                  child: Padding(
+                    padding: EdgeInsets.all(AppPadding.p20),
+                    child: Text(
+                        "no more posts",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: FontSizeManager.s10,
+                        )
+                    ),
                   )
                 );
               }

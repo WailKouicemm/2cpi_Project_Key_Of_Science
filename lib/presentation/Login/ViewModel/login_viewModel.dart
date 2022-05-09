@@ -16,10 +16,11 @@ class loginUser_viewModel extends ChangeNotifier {
 
     try {
       await AuthService.SignInWithEmailPasssword(email, password);
+
     } on FirebaseAuthException catch (error){
       isLoading = false;
       notifyListeners();
-      print("FirebaseAuthException $error");
+      print("loginUser FirebaseAuthException $error");
 
       String message = AppStrings.unknownError;
       if (error.toString().contains("user-not-found") ) {
@@ -31,11 +32,9 @@ class loginUser_viewModel extends ChangeNotifier {
       }
       AwesomeMessag(context: context, title: AppStrings.errorTitle, message: message);
     } catch (e){
-      print("catch error $e");
+      print("loginUser error $e");
       AwesomeMessag(context: context, title: AppStrings.errorTitle, message: AppStrings.unknownError);
     }
-    isLoading = false;
-    notifyListeners();
   }
 }
 
