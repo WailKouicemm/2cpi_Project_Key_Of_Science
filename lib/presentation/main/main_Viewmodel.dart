@@ -40,4 +40,8 @@ class nextPage_viewModel extends ChangeNotifier {
   void register(){
     goToOnBoarding = true;
   }
+
+  void setFalse(){
+    goToOnBoarding = true;
+  }
 }

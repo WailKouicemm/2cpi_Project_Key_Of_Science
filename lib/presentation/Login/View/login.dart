@@ -236,17 +236,12 @@ class _TextFormFieldsState extends State<TextFormFields> {
                                 // ColorManager.defaultColor
                               ),
                     onPressed: ()async{
-                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
-                          email: "sa@esi.dz",
-                          password: "111222",
-                          context: context);
-
-                      // if( _formKey.currentState!.validate()){
-                      //   await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
-                      //       email: emailTextEdetingController.text.trim(),
-                      //       password: passwordTextEdetingController.text.trim(),
-                      //       context: context);
-                      // }
+                      if( _formKey.currentState!.validate()){
+                        await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                            email: emailTextEdetingController.text.trim(),
+                            password: passwordTextEdetingController.text.trim(),
+                            context: context);
+                      }
                     },
                     child: Text(
                       'LOG IN',

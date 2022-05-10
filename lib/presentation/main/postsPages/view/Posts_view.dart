@@ -24,11 +24,7 @@ class PostsPage extends StatelessWidget {
     return MaterialApp(
       theme: getThemeData(),
       debugShowCheckedModeBanner: false,
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
-        ],
-        child: Scaffold(
+      home: Scaffold(
           appBar: AppBar(
             title: const Text(AppStrings.post),
             flexibleSpace: Container(
@@ -46,7 +42,6 @@ class PostsPage extends StatelessWidget {
           ),
           body: const Posts_Body(),
         ),
-      )
     );
   }
 }
@@ -89,67 +84,72 @@ class _Posts_BodyState extends State<Posts_Body> {
   @override
   Widget build(BuildContext context) {
 
-    return ListView(
-      controller: _scrollController,
-      physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p10,horizontal: AppPadding.p15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppStrings.newPosts,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(fontSize: FontSizeManager.s24),
-              //  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),
-              ),
-              ElevatedButton(
-                  onPressed: ()=>Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_)=>const AddPostPage())
-                  ), 
-                  child: const Text(AppStrings.addPost)
-              ),
-            ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
+      ],
+      child: ListView(
+        controller: _scrollController,
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p5),
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: AppPadding.p10,horizontal: AppPadding.p15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppStrings.newPosts,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(fontSize: FontSizeManager.s24),
+                  //  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),
+                ),
+                ElevatedButton(
+                    onPressed: ()=>Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_)=>const AddPostPage())
+                    ),
+                    child: const Text(AppStrings.addPost)
+                ),
+              ],
+            ),
           ),
-        ),
-        Selector<postsPage_modelView,Tuple2<List<Post>,bool>>(
-          selector: (_,provider)=>Tuple2(provider.postsList, provider.isLoading),
-          builder: (_,data,__)=>ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: data.item1.length+1,
-            itemBuilder: (context,index){
-              if(index == data.item1.length){
-                if(data.item2) {
+          Selector<postsPage_modelView,Tuple2<List<Post>,bool>>(
+            selector: (_,provider)=>Tuple2(provider.postsList, provider.isLoading),
+            builder: (_,data,__)=>ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: data.item1.length+1,
+              itemBuilder: (context,index){
+                if(index == data.item1.length){
+                  if(data.item2) {
+                    return const Center(
+                        child: CircularProgressIndicator()
+                    );
+                  }
                   return const Center(
-                    child: CircularProgressIndicator()
+                      child: Padding(
+                        padding: EdgeInsets.all(AppPadding.p20),
+                        child: Text(
+                            "no more posts",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: FontSizeManager.s10,
+                            )
+                        ),
+                      )
                   );
                 }
-                return const Center(
-                  child: Padding(
-                    padding: EdgeInsets.all(AppPadding.p20),
-                    child: Text(
-                        "no more posts",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: FontSizeManager.s10,
-                        )
-                    ),
-                  )
-                );
-              }
-              Post tmp = data.item1[index];
-              return PostItem(post: tmp);
-            },
+                Post tmp = data.item1[index];
+                return PostItem(post: tmp);
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

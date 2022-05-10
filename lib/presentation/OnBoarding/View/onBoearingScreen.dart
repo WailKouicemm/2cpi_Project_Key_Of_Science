@@ -8,6 +8,7 @@ import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../../kdefault.dart';
+import '../../main/main_Viewmodel.dart';
 import '../../resources/ThemeManager.dart';
 import '../ViewModel/OnBoarding_ViewModel.dart';
 
@@ -30,6 +31,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
   @override
   void dispose() {
     _pageController.dispose();
+    Provider.of<nextPage_viewModel>(context,listen: false).setFalse();
     super.dispose();
   }
   final List _onBoardingPages =  const [
