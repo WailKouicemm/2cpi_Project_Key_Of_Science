@@ -237,6 +237,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                               ),
                     onPressed: ()async{
                       if( _formKey.currentState!.validate()){
+                     //   Focus.of(context).unfocus();
                         await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
                             email: emailTextEdetingController.text.trim(),
                             password: passwordTextEdetingController.text.trim(),

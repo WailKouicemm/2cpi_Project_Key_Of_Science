@@ -10,7 +10,7 @@ class postsPage_modelView extends ChangeNotifier{
 
   bool isLoading = false;
   List<Post> postsList = [];
-  int documentLimit = 3;
+  int documentLimit = 5;
   bool hasMore = true;
   Future<void> getPosts()async{
     if(!isLoading && hasMore){

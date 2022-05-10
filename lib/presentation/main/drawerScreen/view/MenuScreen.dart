@@ -39,12 +39,14 @@ class drawerScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15,),
-                Selector<usernameManage,String>(
-                  selector: (_,provider)=>provider.username,
-                  builder: (_,username,__)=>Text('Hi , ' + username,
-                      style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
-                  ),
-                ),
+                 FutureBuilder<String>(
+                   future: usernameManage.getUsername(),
+                   builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? 'HIHIHI'),
+                       style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
+                 ),
+                 ),
+
+
 
                 const Divider(color: Colors.white60,height: 30,),
                 const Padding(

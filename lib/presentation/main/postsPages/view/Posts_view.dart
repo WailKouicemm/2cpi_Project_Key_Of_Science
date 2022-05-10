@@ -16,37 +16,50 @@ import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
 
 
-class PostsPage extends StatelessWidget {
-  const PostsPage();
+// class PostsPage extends StatelessWidget {
+//   const PostsPage();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: getThemeData(),
+//       debugShowCheckedModeBanner: false,
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: const Text(AppStrings.post),
+//             flexibleSpace: Container(
+//               decoration: const BoxDecoration(
+//                   image: DecorationImage(
+//                       image: AssetImage(images.appBarImage),
+//                       fit: BoxFit.cover
+//                   )
+//               ),
+//             ),
+//             leading: IconButton(
+//               onPressed: ()=>Navigator.pop(context),
+//               icon: const Icon(Icons.arrow_back),
+//             ),
+//           ),
+//           body: const Posts_Body(),
+//         ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: getThemeData(),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text(AppStrings.post),
-            flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(images.appBarImage),
-                      fit: BoxFit.cover
-                  )
-              ),
-            ),
-            leading: IconButton(
-              onPressed: ()=>Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
-          body: const Posts_Body(),
-        ),
-    );
-  }
-}
+ class PostsScreen extends StatelessWidget {
+   const PostsScreen({Key? key}) : super(key: key);
 
- 
+   @override
+   Widget build(BuildContext context) {
+     return MultiProvider(
+         providers: [
+         ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
+     ],
+     child: const Posts_Body()
+     );
+   }
+ }
+
 
 
 class Posts_Body extends StatefulWidget {
@@ -84,11 +97,8 @@ class _Posts_BodyState extends State<Posts_Body> {
   @override
   Widget build(BuildContext context) {
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
-      ],
-      child: ListView(
+    return  Scaffold(
+      body: ListView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,

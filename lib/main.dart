@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
     // );
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<usernameManage>(create: (_)=>usernameManage()),
-        ChangeNotifierProvider<nextPage_viewModel>(create: (_)=>nextPage_viewModel())
+        ChangeNotifierProvider<nextPage_viewModel>(create: (_)=>nextPage_viewModel()),
+        ChangeNotifierProvider<buttomNavy_viewModel>(create: (_)=>buttomNavy_viewModel())
       ],
       child: MaterialApp(
         theme: getThemeData(),
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             stream: auth.FirebaseAuth.instance.authStateChanges(),
             builder: (_,snapshot){
               if(snapshot.hasData){
-                 Provider.of<usernameManage>(context,listen: false).fetchUsername();
+               //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
                 return const NextPage();
               }
               return const loginORregister();

@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:keyofscience/services/Authenctication.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-class usernameManage extends ChangeNotifier {
-String username = "_";
+import 'package:keyofscience/presentation/OnBoarding/ViewModel/OnBoarding_ViewModel.dart';
+class usernameManage {
 
-  Future<void> fetchUsername()async{
+  static String _username =  "-";
 
-    username = await AuthService.fetchUsername();
-    print("usernameusername $username");
-    if(username=="***"){
-        final _firebaseAuth = auth.FirebaseAuth.instance;
-      await AuthService.getUsernameFromFirebase(_firebaseAuth.currentUser!.email ?? "");
-        username = await AuthService.fetchUsername();
-    }
-    print("finallyfinally $username");
-    notifyListeners();
-
+static Future<String>  getUsername()async{
+  _username = await auth.FirebaseAuth.instance.currentUser!.displayName ?? 'USERNAME';
+  return _username;
 }
+
+
+//   Future<void> fetchUsername()async{
+//
+//     username = await AuthService.fetchUsername();
+//     print("usernameusername $username");
+//     if(username=="***"){
+//         final _firebaseAuth = auth.FirebaseAuth.instance;
+//       await AuthService.getUsernameFromFirebase(_firebaseAuth.currentUser!.email ?? "");
+//         username = await AuthService.fetchUsername();
+//     }
+//     print("finallyfinally $username");
+//     notifyListeners();
+//
+// }
 /*
   Future<void> fetchUsername()async{
     print("!isGetting ${!isGetting}");
@@ -33,6 +40,15 @@ String username = "_";
  */
 
 }
+
+class buttomNavy_viewModel extends ChangeNotifier{
+  int index = 0;
+  void goTo(int index){
+    this.index = index;
+    notifyListeners();
+  }
+  }
+
 
 class nextPage_viewModel extends ChangeNotifier {
   bool goToOnBoarding = false;

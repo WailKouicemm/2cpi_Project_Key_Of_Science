@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -11,6 +10,7 @@ class AuthService {
  static Future<void> _setUsername(String usernam)async{
    print("_setUsername $usernam");
    final prefs = await SharedPreferences.getInstance();
+
    await prefs.setString("usernam",usernam);
  }
 
@@ -32,8 +32,9 @@ class AuthService {
   static Future<void> SignUpWithEmailPasssword(String email, String password,String username) async {
     try{
      final auth.UserCredential res =  await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-     await _setUsername(username);
-    await _sendUsertoFirestore(
+    // await _setUsername(username);
+     await _firebaseAuth.currentUser!.updateDisplayName(username);
+     await _sendUsertoFirestore(
       email: email,
       password: password,
       username: username,

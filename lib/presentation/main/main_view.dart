@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
       controller: ZoomDrawerController(),
       style: DrawerStyle.Style1,
       menuScreen: const drawerScreen(),
-      mainScreen: const _homePage(),
+      mainScreen: const homePage(),
       borderRadius: AppRadius.r24,
       angle: 0.0,
       showShadow: true,
@@ -51,31 +51,20 @@ class HomePage extends StatelessWidget {
 }
 
 
-class _homePage extends StatefulWidget {
-  const _homePage();
+class homePage extends StatelessWidget {
+  const homePage();
 
-  @override
-  State<_homePage> createState() => _homePageState();
-}
 
-class _homePageState extends State<_homePage> {
-  @override
-  void initState() {
-    // SchedulerBinding.instance!.addPostFrameCallback((_) {
-    //   Provider.of<usernameManage>(context,listen: false).fetchUsername();
-    // });
-    super.initState();
-  }
-  static const List<bottomNavyItem> _bottomNavyItems = [
-    bottomNavyItem(title: "Home", icon_asset: AppIcons.home,page: homeScreen()),
-    bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: scheduleScreen()),
-    bottomNavyItem(title: "POSTS", icon_asset: AppIcons.post,page: Posts_Body()),
-    bottomNavyItem(title: "COURSES", icon_asset: AppIcons.courses,page: coursesScreen()),
-//  bottomNavyItem(title: "STATISTICS", icon_asset: "icon"),
-  ];
-  int _index=0;
   @override
   Widget build(BuildContext context) {
+      const List<bottomNavyItem> _bottomNavyItems = [
+      bottomNavyItem(title: "Home", icon_asset: AppIcons.home,page: homeScreen()),
+      bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: scheduleScreen()),
+      bottomNavyItem(title: "POSTS", icon_asset: AppIcons.post,page: PostsScreen()),
+      bottomNavyItem(title: "COURSES", icon_asset: AppIcons.courses,page: coursesScreen()),
+//  bottomNavyItem(title: "STATISTICS", icon_asset: "icon"),
+    ];
+      int _index=Provider.of<buttomNavy_viewModel>(context).index;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -112,7 +101,7 @@ class _homePageState extends State<_homePage> {
         ),
         ).toList(),
         currentIndex: _index,
-        onTap: (i)=>i==_index? null : setState(()=>_index=i),
+        onTap: (index)=>Provider.of<buttomNavy_viewModel>(context,listen: false).goTo(index),
       ),
     );
   }

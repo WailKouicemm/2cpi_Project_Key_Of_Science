@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
+import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -55,11 +56,12 @@ class recentlyPoststitle extends StatelessWidget {
               style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeightManager.bold),
                ),
              TextButton(
-              onPressed: ()=> Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_)=>const PostsPage()
-                  ),
-              ),
+              onPressed: ()=> Provider.of<buttomNavy_viewModel>(context,listen: false).goTo(2),
+              //     Navigator.of(context).push(
+              //     MaterialPageRoute(
+              //         builder: (_)=>const PostsPage()
+              //     ),
+              // ),
               child: const Text('SEE ALL'),
             ),
           ],
@@ -129,10 +131,10 @@ class profilecard extends StatelessWidget {
 
 
 
-                  Selector<usernameManage,String>(
-                    selector: (_,provider)=>provider.username,
-                    builder: (_,username,__)=>Text('Hi , ' + username,
-                        style: boldStyle(color: ColorManager.white)
+                  FutureBuilder<String>(
+                    future: usernameManage.getUsername(),
+                    builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? 'HIHIHI'),
+                        style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
                     ),
                   ),
 
