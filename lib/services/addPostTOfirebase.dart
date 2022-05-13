@@ -48,7 +48,7 @@ class addPostTOfirebase{
         "content": content,
         "images": images,
         "date": Timestamp.now(),
-        "uid": FirebaseAuth.instance.currentUser!.uid,
+        "email": FirebaseAuth.instance.currentUser!.email,
         "id": id
       });
       print("end _upload_titleETcontent");

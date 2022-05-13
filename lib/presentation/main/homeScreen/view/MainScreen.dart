@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
-import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -13,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
 import '../../postsPages/view/Posts_view.dart';
-import '../../postsPages/view/addPost_view.dart';
+import '../../postsPages/view/comments_view.dart';
 
 
 class homeScreen extends StatelessWidget {
@@ -181,16 +180,16 @@ class Keyeince_features extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const List<Keyeince_features_item> Keyeince_features_items = [
-      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page:  AddPostPage()),
-      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,page:  AddPostPage()),
-      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page:  AddPostPage()),
+      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page:  PostsScreen()),
+      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,page:  PostsScreen()),
+      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page:  PostsScreen()),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
         child: InkWell(
-          onTap: ()=> Navigator.of(context).push(
-              MaterialPageRoute(builder: (context)=>tmp.page)
-          ),
+          onTap: (){
+
+          },
           child: Container(
             height: AppHeight.h60,
             margin: const EdgeInsets.symmetric(horizontal: 10),

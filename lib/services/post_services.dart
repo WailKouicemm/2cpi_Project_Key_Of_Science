@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:keyofscience/models/Models.dart';
+import 'package:keyofscience/services/Authenctication.dart';
 
 
 
@@ -24,8 +25,10 @@ class postSevices {
       startAfter = res.docs.last;
       print("res.docs.lengthres.docs.length ${res.docs.length}");
       for(int i=0;i<res.docs.length;i++){
+        print("res.docs[i].data()['email'] ${res.docs[i].data()['email']}");
+        final user userr = await AuthService.getUser(res.docs[i].data()['email'] ?? '');
         lists.add(
-          Post.fromJson(res.docs[i].data())
+          Post.fromJson(res.docs[i].data(),userr)
         );
       }
       return lists;

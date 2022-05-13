@@ -51,6 +51,8 @@ dependencies:
   ai_awesome_message: ^2.2.0
   tuple:
   intl: ^0.17.0
+  modal_bottom_sheet: ^2.0.1
+
 
 dev_dependencies:
   flutter_test:

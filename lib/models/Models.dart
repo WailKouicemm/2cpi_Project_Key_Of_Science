@@ -1,6 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/services/Authenctication.dart';
 
+
+class user {
+  final String username,email,image;
+
+  user({required this.username,required this.email,required this.image});
+
+  factory user.fromJson(Map<String,dynamic> json){
+    return user(
+      username: json['username'],
+      email: json['email'],
+      image: json['image'] ?? '',
+    );
+  }
+
+}
 class course {
   final String image;
 
@@ -29,6 +45,20 @@ class post {
       poster_name: json['name'],
       poster_username: json['username'],
       text_of_post: json['text'],
+    );
+  }
+}
+
+class comment {
+  final String content;
+  final user userr;
+
+  comment({required this.userr,required this.content});
+
+  factory comment.fromJson(Map<String,dynamic> json,user userr){
+    return comment(
+        content: json['content'],
+        userr: userr
     );
   }
 }
@@ -65,13 +95,6 @@ class bottomNavyItem {
       {required this.title, required this.icon_asset, required this.page});
 }
 
-class Userr {
-  final String uid;
-
-  final String? email;
-
-  Userr(this.uid, this.email);
-}
 
 
 class Keyeince_features_item {
@@ -85,13 +108,15 @@ class Keyeince_features_item {
 
 
 class Post {
-  final String title, content, id, uid;
+  final String title, content, id, email;
   List<String> images ;
  final Timestamp date;
+  final user userr;
 
-  Post({required this.title, required this.content, required this.id, required this.uid,required this.date,required this.images});
+  Post( {required this.title, required this.content, required this.id,
+    required this.email,required this.date, required this.images,required this.userr,});
 
-  factory Post.fromJson(Map<String, dynamic> map){
+  factory Post.fromJson(Map<String, dynamic> map,user userr){
     List<String> _images=[];
     map["images"].forEach((e){
       _images.add(e.toString());
@@ -100,9 +125,10 @@ class Post {
         title: map["title"] ?? "",
         content: map["content"]?? "",
         id: map["id"]?? "",
-        uid: map["uid"]?? "",
+        email: map["email"]?? "",
         date: map["date"]?? "",
-        images: _images
+        images: _images,
+        userr : userr
     );
   }
 

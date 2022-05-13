@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,8 +7,11 @@ import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart'
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:keyofscience/services/Authenctication.dart';
+import 'package:keyofscience/services/comments_services.dart';
 import 'package:provider/provider.dart';
 
 
@@ -15,6 +19,15 @@ import 'package:provider/provider.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+
+  //await comments_service.sendCommentToFirebase(content: "sendCommentToFirebase sendCommentToFirebase",postID: "postNumber 1",uid: "111111");
+  //   final _firestoreInstance =  FirebaseFirestore.instance.collection("comments");
+  // await _firestoreInstance.doc("postID2").set({
+  //   "content": "content 2",
+  //   "uid": "8vOwG0GzepU3QPIxVNPOb5dCqgH2",
+  //   'date': Timestamp.now()
+  // });
 
   /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

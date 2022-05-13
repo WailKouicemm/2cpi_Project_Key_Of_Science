@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../models/Models.dart';
+
 
 class AuthService {
   static final _firebaseAuth = auth.FirebaseAuth.instance;
@@ -94,6 +96,13 @@ class AuthService {
     final _instance =  FirebaseFirestore.instance.collection('users');
     final res = await  _instance.where("uid",isEqualTo: uid).get();
     return res.docs[0]["image"];
+  }
+
+  static Future<user> getUser(String email)async{
+    final _instance =  FirebaseFirestore.instance.collection('users');
+    final res = await  _instance.where("email",isEqualTo: email).get();
+  //  return res.docs[0]["image"];
+   return user.fromJson(res.docs[0].data());
   }
 
 

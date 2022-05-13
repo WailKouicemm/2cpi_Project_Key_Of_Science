@@ -114,6 +114,7 @@ class _AddPostPageState extends State<AddPostPage> {
                                 padding: const EdgeInsets.fromLTRB(
                                     AppPadding.p4, AppPadding.p10, AppPadding.p4, AppPadding.p20),
                                 child: TextFormField(
+                                  style: const TextStyle(color: Colors.black),
                                   decoration: const InputDecoration(
                                     hintText: AppStrings.post_content,
                                   ),

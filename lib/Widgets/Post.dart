@@ -13,13 +13,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../components.dart';
 import '../models/Models.dart';
 import '../presentation/main/postsPages/view/Posts_view.dart';
-import '../presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
+import '../presentation/main/postsPages/view/comments_view.dart';
 
 
 class PostItem extends StatelessWidget {
   final Post post;
   const PostItem({required this.post});
-
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
@@ -45,7 +44,7 @@ class PostItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             /// the image of the poster and his name and the date
-             PosterNameAndImage(post.uid,post.date),
+             PosterNameAndImage(post.userr,post.date),
             const SizedBox(
               height: AppHeight.h10,
             ),
@@ -60,7 +59,7 @@ class PostItem extends StatelessWidget {
             postContent(post.content),
             if(post.images.isNotEmpty) postImages(post.images),
             /// the icons of like and comment
-            const LikeAndComment(),
+              LikeAndComment(post.id),
           ],
         ),
       ),
@@ -69,43 +68,40 @@ class PostItem extends StatelessWidget {
 }
 
 class PosterNameAndImage extends StatelessWidget {
- final String uid;
+ final user userr;
  final Timestamp date;
-  const PosterNameAndImage(this.uid,this.date);
+  const PosterNameAndImage(this.userr,this.date);
 
   @override
   Widget build(BuildContext context) {
     final postingDate = DateFormat("yyyy MMMM dd   hh:mm a").format(DateTime(date.toDate().year,date.toDate().month,date.toDate().day,
         date.toDate().hour,date.toDate().minute));
 
-    return FutureBuilder<String>(
-      future: postsPage_modelView().getUsername(uid),
-      builder: (_,snapshot)=>Row(
-        children: [
-          /// the user image
-          const CircleAvatar(
-            maxRadius: 25,
-            backgroundColor: Colors.transparent,
-            backgroundImage: AssetImage('assets/images/man.jpg'),
-          ),
-          const SizedBox(
-            width: AppWidth.w10,
-          ),
-          /// the name ad the username
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(snapshot.data ?? "-",
+    return Row(
+      children: [
+        /// the user image
+          CircleAvatar(
+          maxRadius: 25,
+          backgroundColor: Colors.transparent,
+          backgroundImage: AssetImage(userr.image.isEmpty ? 'assets/images/man.jpg': userr.image),
+        ),
+        const SizedBox(
+          width: AppWidth.w10,
+        ),
+        /// the name ad the username
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(userr.username,
                 style: Theme.of(context).textTheme.overline
-              ),
-              Text("Posted on  "+ postingDate,
-                style: const TextStyle(
-                    color: Colors.grey
-                ),),
-            ],
-          ),
-        ],
-      ),
+            ),
+            Text("Posted on  "+ postingDate,
+              style: const TextStyle(
+                  color: Colors.grey
+              ),),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -135,7 +131,8 @@ class postContent extends StatelessWidget {
 }
 
 class LikeAndComment extends StatefulWidget {
-  const LikeAndComment();
+  final String postId;
+  const LikeAndComment(this.postId);
 
   @override
   State<LikeAndComment> createState() => _LikeAndCommentState();
@@ -159,7 +156,7 @@ class _LikeAndCommentState extends State<LikeAndComment> {
               GestureDetector(
                 // ()=>setState(()=>commentField=!commentField)
                 onTap: (){
-                  FirebaseAuth.instance.currentUser!.uid;
+                  comments_view(context,widget.postId);
                 },
                 child: SvgPicture.asset(
                   'assets/icons/comment.svg',
@@ -288,3 +285,5 @@ class _image extends StatelessWidget {
     );
   }
 }
+
+

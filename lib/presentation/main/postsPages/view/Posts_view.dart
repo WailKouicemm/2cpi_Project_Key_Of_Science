@@ -4,7 +4,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
-import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
@@ -88,6 +87,7 @@ class _Posts_BodyState extends State<Posts_Body> {
 
    void _scrollListener() {
        if ((_scrollController.position.pixels+250)>=_scrollController.position.maxScrollExtent) {
+         print("hellwo addPostFrameCallback");
          SchedulerBinding.instance!.addPostFrameCallback((_) {
            Provider.of<postsPage_modelView>(context,listen: false).getPosts();
          });

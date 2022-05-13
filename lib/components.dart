@@ -268,14 +268,10 @@ class UserImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  CircleAvatar(
-      maxRadius: 27,
-      backgroundColor: Colors.lightBlueAccent,
-      child: CircleAvatar(
-        maxRadius: 25,
-        backgroundColor: Colors.transparent,
-        backgroundImage: AssetImage(img),
-      ),
+    return CircleAvatar(
+      maxRadius: 25,
+      backgroundColor: Colors.transparent,
+      backgroundImage: AssetImage(img ==''? 'assets/images/man.jpg' : img),
     );
   }
 }
