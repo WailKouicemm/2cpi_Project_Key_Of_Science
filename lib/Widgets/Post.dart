@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/post_services.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../components.dart';
@@ -59,7 +62,7 @@ class PostItem extends StatelessWidget {
             postContent(post.content),
             if(post.images.isNotEmpty) postImages(post.images),
             /// the icons of like and comment
-              LikeAndComment(post.id),
+              LikeAndComment(post.id,post.isLiked),
           ],
         ),
       ),
@@ -132,16 +135,23 @@ class postContent extends StatelessWidget {
 
 class LikeAndComment extends StatefulWidget {
   final String postId;
-  const LikeAndComment(this.postId);
+  final bool isLiked;
+  const LikeAndComment(this.postId,this.isLiked);
 
   @override
   State<LikeAndComment> createState() => _LikeAndCommentState();
 }
 
 class _LikeAndCommentState extends State<LikeAndComment> {
-  bool commentField=false;
+ late bool isliked;
+  @override
+  void initState() {
+      isliked = widget.isLiked;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -167,45 +177,19 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                 width: AppWidth.w10,
               ),
               /// like icon
-              GestureDetector(
-                onTap: (){},
-                child: const Icon(Icons.favorite_border),
+              StatefulBuilder(
+                builder: (_,setstate)=>GestureDetector(
+                  onTap: ()async{
+                    setstate(() {isliked=!isliked;});
+                    await postSevices.like(postId: widget.postId);
+                    setstate(() async{isliked= await postSevices.isLike(postId: widget.postId);});
+                  },
+                  child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                ),
               )
             ],
           ),
         ),
-        if(commentField)  AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          child: Row(
-            children: const [
-              UserImage(img: 'assets/images/man.jpg'),
-
-              SizedBox(
-                width: AppWidth.w10,
-              ),
-              /*
-                  TextField(
-                      key: const  ValueKey('Password876'),
-                      controller:  TextEditingController(),
-                      maxLines: 4,
-                      minLines: 1,
-                      decoration: InputDecoration(
-                        hintText: 'add a comment as #${tmp.poster_username}',
-                        suffixIcon:  IconButton(
-                          onPressed: (){},
-                          icon: Image.asset("assets/images/navigation-2-outline.png",color: KdefaultColor,),
-                          iconSize: 25,
-                        ),
-                      ),
-                      keyboardType: TextInputType.text,
-                    ),
-                   */
-              Expanded(
-                child: TextFiledComment(),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
@@ -222,7 +206,10 @@ class postImages extends StatelessWidget {
       height: MediaQuery.of(context).size.height/5,
       width: double.infinity,
       margin: const EdgeInsets.symmetric(vertical: AppMargin.m10),
-      color: ColorManager.primaryColor,
+      decoration: BoxDecoration(
+        color: ColorManager.primaryColor,
+        borderRadius: BorderRadius.circular(AppRadius.r15),
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppRadius.r15),
         child: Row(

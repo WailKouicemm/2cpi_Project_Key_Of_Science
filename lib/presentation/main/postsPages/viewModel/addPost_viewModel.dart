@@ -7,11 +7,15 @@ import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/services/addPostTOfirebase.dart';
 
 class addpost_viewModel extends ChangeNotifier {
+
    List<XFile>  pickedImages = [];
    bool isUploading = false;
   Future<void> pickeImages_fromGallery() async {
     final ImagePicker _picker = ImagePicker();
-    final List<XFile>? images = await _picker.pickMultiImage();
+    final List<XFile>? images = await _picker.pickMultiImage(
+      imageQuality: 50 // %
+    );
+
     if(images!=null){
       pickedImages.addAll(images.toList());
       notifyListeners();

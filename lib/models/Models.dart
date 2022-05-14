@@ -112,11 +112,12 @@ class Post {
   List<String> images ;
  final Timestamp date;
   final user userr;
+  final bool isLiked;
 
   Post( {required this.title, required this.content, required this.id,
-    required this.email,required this.date, required this.images,required this.userr,});
+    required this.email,required this.date, required this.images,required this.userr,required this.isLiked});
 
-  factory Post.fromJson(Map<String, dynamic> map,user userr){
+  factory Post.fromJson(Map<String, dynamic> map,user userr,bool isLiked){
     List<String> _images=[];
     map["images"].forEach((e){
       _images.add(e.toString());
@@ -128,7 +129,8 @@ class Post {
         email: map["email"]?? "",
         date: map["date"]?? "",
         images: _images,
-        userr : userr
+        userr : userr,
+        isLiked : isLiked
     );
   }
 

@@ -26,7 +26,7 @@ class addPostTOfirebase{
   static Future<List<String>> _uploadImages(List<XFile> images)async {
     List<String> imagesUrl = [];
     try{
-      print("begin _uploadImages");
+      print(images);
          for(XFile image in images) {
            final task = _storgeInstance.ref().child(const Uuid().v1()).putFile(File(image.path));
            await task.whenComplete(() async{
@@ -43,7 +43,7 @@ class addPostTOfirebase{
   static Future<void> _upload_titleETcontent(String title,content,List<String> images)async{
     try{
       final String id = const Uuid().v1();
-      _firestoreInstance.doc(id).set({
+      await _firestoreInstance.doc(id).set({
         "title": title,
         "content": content,
         "images": images,

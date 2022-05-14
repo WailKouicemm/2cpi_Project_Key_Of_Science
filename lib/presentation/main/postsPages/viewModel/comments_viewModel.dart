@@ -10,7 +10,7 @@ import '../../../../models/Models.dart';
 class comments_viewModel extends ChangeNotifier{
 
   List<comment> comments = [];
-  final int documentLimit = 5;
+  final int documentLimit = 10;
   bool isLoading = false;
   bool hasMore = true;
 
@@ -63,4 +63,6 @@ class comments_viewModel extends ChangeNotifier{
       isAddingCooment = false;
     }
   }
+
+
 }
