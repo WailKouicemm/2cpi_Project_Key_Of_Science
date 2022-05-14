@@ -182,7 +182,8 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                   onTap: ()async{
                     setstate(() {isliked=!isliked;});
                     await postSevices.like(postId: widget.postId);
-                    setstate(() async{isliked= await postSevices.isLike(postId: widget.postId);});
+                    isliked= await postSevices.isLike(postId: widget.postId);
+                    setstate(() {});
                   },
                   child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
                 ),

@@ -26,10 +26,8 @@ class postSevices {
       startAfter = res.docs.last;
       print("res.docs.lengthres.docs.length ${res.docs.length}");
       for(int i=0;i<res.docs.length;i++){
-        print("res.docs[i].data()['email'] ${res.docs[i].data()['email']}");
         final user userr = await AuthService.getUser(res.docs[i].data()['email'] ?? '');
-        final bool isLiked = await isLike(
-          postId: res.docs[i].data()['id']);
+        final bool isLiked = await isLike(postId: res.docs[i].data()['id']);
         lists.add(
           Post.fromJson(res.docs[i].data(),userr,isLiked)
         );
