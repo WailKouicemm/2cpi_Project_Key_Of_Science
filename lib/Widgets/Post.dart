@@ -64,7 +64,7 @@ class PostItem extends StatelessWidget {
             postContent(post.content),
             if(post.images.isNotEmpty) postImages(post.images),
             /// the icons of like and comment
-              LikeAndComment(post.id,post.isLiked),
+              LikeAndComment(post.id,post.isLiked,post.nbLikes),
           ],
         ),
       ),
@@ -138,7 +138,8 @@ class postContent extends StatelessWidget {
 class LikeAndComment extends StatefulWidget {
   final String postId;
   final bool isLiked;
-  const LikeAndComment(this.postId,this.isLiked);
+  int nbLikes;
+    LikeAndComment(this.postId,this.isLiked,this.nbLikes);
 
   @override
   State<LikeAndComment> createState() => _LikeAndCommentState();
@@ -181,14 +182,23 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                     width: AppWidth.w10,
                   ),
                   /// like icon
-                  GestureDetector(
-                    onTap: ()async{
-                      setstate(() {isliked=!isliked;});
-                      await postsPage_modelView.likePost(widget.postId);
-                      // await postSevices.like(postId: widget.postId);
-                    },
-                    child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
-                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: ()async{
+                          widget.nbLikes++;
+                          setstate(() {isliked=!isliked;});
+                          await postsPage_modelView.likePost(widget.postId);
+                          // await postSevices.like(postId: widget.postId);
+                        },
+                        child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                      ),
+                      const SizedBox(
+                        width: AppWidth.w10,
+                      ),
+                      Text("${widget.nbLikes}")
+                    ],
+                  )
                 ],
               ),
           ),

@@ -28,8 +28,9 @@ class postSevices {
       for(var item in res.docs){ // int i=0;i<res.docs.length;i++
         final user userr = await AuthService.getUser(item.data()['email'] ?? '');
         final bool isLiked = await isLike(postId: item.data()['id']);
+        final int nbLikes = 0; // await NbLikes(item.data()['id']);
         lists.add(
-          Post.fromJson(item.data(),userr,isLiked)
+          Post.fromJson(item.data(),userr,isLiked,nbLikes)
         );
         print("for loop item");
       }
@@ -43,7 +44,8 @@ class postSevices {
   static Future<bool> isLike({required String  postId})async{
     final String email = await FirebaseAuth.instance.currentUser!.email ?? '';
     final DocumentSnapshot  res;
-      res = await _firestoreInstance.collection('comments').doc(postId).collection('likes').doc(email).get();
+      res = await _firestoreInstance.collection('likes').doc(postId)
+          .collection('likes').doc(email).get();
     return res.exists;
    }
 
@@ -51,15 +53,27 @@ class postSevices {
     try{
       final String email = await FirebaseAuth.instance.currentUser!.email ?? '';
       bool islike = await  isLike(postId: postId);
-      final likesCollection = _firestoreInstance.collection('comments').doc(postId).collection('likes');
+      final likesCollection = _firestoreInstance.collection('likes').doc(postId).collection('likes');
       if(islike){
         await likesCollection.doc(email).delete();
       }else{
         await likesCollection.doc(email).set({});
       }
-    }catch (_){}
+    }catch (e){rethrow;}
    }
 
+   static Future<int> NbLikes(String postId)async{
+    try{
+      int nb =  await _firestoreInstance.collection('likes').
+      doc(postId).collection('likes').snapshots().length;
+      print("nbnbnbnb $nb");
+      return nb;
+    }catch (e){
+      print("error in nbLikes $e");
+    }
+    return -1;
+
+   }
 
 
 }

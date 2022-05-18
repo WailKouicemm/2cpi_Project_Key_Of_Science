@@ -65,7 +65,7 @@ class cours_card extends StatelessWidget {
                           ),
                           Text(cours.coursesnum ,
                             style: lightStyle(color: ColorManager.grey, fontSize: FontSizeManager.s10),),
-                          InkWell(
+                          GestureDetector(
                             onTap: (){},
                             child: Container(
                               padding: const EdgeInsets.all(AppPadding.p1),

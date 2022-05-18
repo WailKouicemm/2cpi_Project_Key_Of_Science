@@ -21,10 +21,13 @@ class _ImagePageState extends State<ImagePage> {
   }
   @override
   Widget build(BuildContext ctx) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
     final PageController _pageController = PageController(initialPage: _currentpage);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
          backgroundColor: Colors.black,
          elevation: 0.0,

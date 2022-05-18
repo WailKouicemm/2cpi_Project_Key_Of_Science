@@ -19,7 +19,6 @@ class comments_viewModel extends ChangeNotifier{
       isLoading = true;
       notifyListeners();
     try{
-      final String uid = FirebaseAuth.instance.currentUser!.uid;
       final List<Map<String, dynamic>> li = await comments_service.getCommentsFromFirebase(documentLimit, comments.isEmpty,postId);
       if(li.length<documentLimit) {
         hasMore = false;
@@ -27,7 +26,8 @@ class comments_viewModel extends ChangeNotifier{
         for(int i=0;i<li.length;i++){
           final element = li[i];
           user userr = await AuthService.getUser(element['email']);
-          comments.add(comment.fromJson(element,userr,""));
+          bool isLiked = await comments_service.isLike(postId: postId, commentId: element['id']);
+          comments.add(comment.fromJson(element,userr,element['id'],isLiked));
         }
 
       notifyListeners();
@@ -63,5 +63,9 @@ class comments_viewModel extends ChangeNotifier{
     }
   }
 
-
+  static Future<void> likeComment({required String  postId,required String commentId})async{
+    try{
+      await comments_service.likeComment(postId: postId,commentId: commentId);
+    }catch (_){}
+  }
 }

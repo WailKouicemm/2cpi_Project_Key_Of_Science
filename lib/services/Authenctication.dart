@@ -99,10 +99,19 @@ class AuthService {
   }
 
   static Future<user> getUser(String email)async{
-    final _instance =  FirebaseFirestore.instance.collection('users');
-    final res = await  _instance.where("email",isEqualTo: email).get();
-  //  return res.docs[0]["image"];
-   return user.fromJson(res.docs[0].data());
+    try{
+      print("emailemail $email");
+      final _instance =  FirebaseFirestore.instance.collection('users');
+      final res = await  _instance.where("email",isEqualTo: email).get();
+      //  return res.docs[0]["image"];
+      if(res.docs.isEmpty){
+        return user(username: '', email: email, image: '');
+      }
+      return user.fromJson(res.docs.first.data());
+    }catch (e){
+      print("error hehrehehrehehrehehre $e");
+      rethrow;
+    }
   }
 
 

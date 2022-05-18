@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/models/Models.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/comments_services.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -122,22 +123,12 @@ class _buildBottomSheet extends StatelessWidget {
             body: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       "78 person Like that",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    StatefulBuilder(
-                      builder: ((context, setState) => GestureDetector(
-                        onTap: () async{
-                          setState(() {isLiked=!isLiked;});
-                          await postsPage_modelView.likePost(postId);
-                        },
-                        child: isLiked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
-                      )
-                      ),
-                    )
                   ],
                 ),
                 const Divider(
@@ -216,7 +207,7 @@ class _comments_listState extends State<comments_list> {
             );
           }
           comment tmp = data.item1[index];
-          return  _singleComment(tmp);
+          return  _singleComment(tmp,widget.postId);
         },
       ),
     );
@@ -226,7 +217,8 @@ class _comments_listState extends State<comments_list> {
 
 class _singleComment extends StatelessWidget {
   final comment coment;
-  const _singleComment(this.coment);
+  final String postId;
+  const _singleComment(this.coment,this.postId);
 
   @override
   Widget build(BuildContext context) {
@@ -278,11 +270,8 @@ class _singleComment extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: AppPadding.p5,
                             horizontal: AppPadding.p10),
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: const Icon(Icons.favorite_border,
-                              color: ColorManager.grey1),
-                        ))
+                        child: likeButton(commentId: coment.id,postId: postId, isLike: coment.isLiked,)
+                        )
                   ],
                 )),
             const Spacer(),
@@ -352,6 +341,32 @@ class _addCommentTextFieldState extends State<addCommentTextField> {
         },
         keyboardType: TextInputType.text,
       ),
+    );
+  }
+}
+
+
+class likeButton extends StatefulWidget {
+  final String postId;
+  final String commentId;
+  bool isLike;
+    likeButton({required this.isLike,required this.postId,required this.commentId});
+
+  @override
+  _likeButtonState createState() => _likeButtonState();
+}
+
+class _likeButtonState extends State<likeButton> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: ()async{
+        setState(() {widget.isLike=!widget.isLike;});
+        await comments_service.likeComment(postId: widget.postId, commentId: widget.commentId);
+      },
+      child: widget.isLike? const Icon(Icons.favorite,color: ColorManager.grey1) :
+      const Icon(Icons.favorite_border,color: ColorManager.grey1,),
+
     );
   }
 }

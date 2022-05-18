@@ -53,14 +53,16 @@ class comment {
   final String content;
   final String id;
   final user userr;
+  final bool isLiked;
 
-  comment({required this.userr,required this.content,required this.id});
+  comment({required this.userr,required this.content,required this.id,required this.isLiked});
 
-  factory comment.fromJson(Map<String,dynamic> json,user userr,String id){
+  factory comment.fromJson(Map<String,dynamic> json,user userr,String id,bool isLiked){
     return comment(
         content: json['content'],
         userr: userr,
-        id: id
+        id: id,
+      isLiked: isLiked
     );
   }
 }
@@ -115,11 +117,13 @@ class Post {
  final Timestamp date;
   final user userr;
   final bool isLiked;
+  final int nbLikes;
 
   Post( {required this.title, required this.content, required this.id,
-    required this.email,required this.date, required this.images,required this.userr,required this.isLiked});
+    required this.email,required this.date, required this.images,
+    required this.userr,required this.isLiked,required this.nbLikes});
 
-  factory Post.fromJson(Map<String, dynamic> map,user userr,bool isLiked){
+  factory Post.fromJson(Map<String, dynamic> map,user userr,bool isLiked,int nbLikes){
     List<String> _images=[];
     map["images"].forEach((e){
       _images.add(e.toString());
@@ -132,7 +136,8 @@ class Post {
         date: map["date"]?? "",
         images: _images,
         userr : userr,
-        isLiked : isLiked
+        isLiked : isLiked,
+        nbLikes: nbLikes
     );
   }
 
