@@ -21,7 +21,7 @@ class postsPage_modelView extends ChangeNotifier{
        print("getPosts service completed");
        if(_newList.length<documentLimit) {
           hasMore = false;
-        }
+         }
        postsList.addAll(_newList);
        isLoading=false;
        notifyListeners();
