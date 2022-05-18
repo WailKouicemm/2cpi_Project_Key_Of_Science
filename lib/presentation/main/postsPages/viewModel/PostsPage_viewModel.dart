@@ -18,6 +18,7 @@ class postsPage_modelView extends ChangeNotifier{
        isLoading=true;
        notifyListeners();
        final List<Post> _newList = await postSevices.getPosts(documentLimit,postsList.isEmpty);
+       print("getPosts service completed");
        if(_newList.length<documentLimit) {
           hasMore = false;
         }

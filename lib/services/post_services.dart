@@ -25,12 +25,13 @@ class postSevices {
       }
       startAfter = res.docs.last;
       print("res.docs.lengthres.docs.length ${res.docs.length}");
-      for(int i=0;i<res.docs.length;i++){
-        final user userr = await AuthService.getUser(res.docs[i].data()['email'] ?? '');
-        final bool isLiked = await isLike(postId: res.docs[i].data()['id']);
+      for(var item in res.docs){ // int i=0;i<res.docs.length;i++
+        final user userr = await AuthService.getUser(item.data()['email'] ?? '');
+        final bool isLiked = await isLike(postId: item.data()['id']);
         lists.add(
-          Post.fromJson(res.docs[i].data(),userr,isLiked)
+          Post.fromJson(item.data(),userr,isLiked)
         );
+        print("for loop item");
       }
       return lists;
     }catch (error){
