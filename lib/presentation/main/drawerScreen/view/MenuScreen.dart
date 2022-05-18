@@ -3,10 +3,12 @@ import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../services/Authenctication.dart';
 import '../../../resources/Styles_Manager.dart';
 import '../../main_Viewmodel.dart';
+
+import 'package:iconsax/iconsax.dart';
+
 
 class drawerScreen extends StatelessWidget {
   const drawerScreen();
@@ -29,59 +31,113 @@ class drawerScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
-                  maxRadius: 41,
-                  backgroundColor: Colors.lightBlueAccent,
-                  child: CircleAvatar(
-                      maxRadius: 38,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: AssetImage('assets/images/man.jpg'),
+                 Padding(
+                   padding: const EdgeInsets.only(left: 20 , bottom: 50),
+                   child: Column(
+                     children: [
+                       CircleAvatar(
+                        maxRadius: 53,
+                        backgroundColor: Colors.white,
+                        child: CircleAvatar(
+                            maxRadius: 50,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: AssetImage('assets/images/man.jpg'),
+                        ),
+                ),
+
+                       SizedBox(height: 15,),
+                       FutureBuilder<String>(
+                         future: usernameManage.getUsername(),
+                         builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? 'HIHIHI'),
+                             style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s15,fontWeight: FontWeight.w700)
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+
+                 Padding(
+                   padding: const EdgeInsets.only(bottom: 10),
+                   child: MaterialButton(
+                     onPressed: (){},
+                     child: Row(
+                       children: [
+                         Icon(Iconsax.monitor, color: Colors.white,),
+                         SizedBox(width: 10,),
+                         Text('My courses',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                       ],
+                     ),
+                   ),
+                 ),
+                 Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: MaterialButton(
+                    onPressed: (){},
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.monitor, color: Colors.white,),
+                        SizedBox(width: 10,),
+                        Text('My books',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                      ],
+                    ),
                   ),
                 ),
-                const SizedBox(height: 15,),
-                 FutureBuilder<String>(
-                   future: usernameManage.getUsername(),
-                   builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? 'HIHIHI'),
-                       style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
-                 ),
-                 ),
-
-
-
-                const Divider(color: Colors.white60,height: 30,),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Text('Home Screen'),
+                 Padding(
+                  padding: EdgeInsets.only(bottom:10),
+                  child: MaterialButton(
+                    onPressed: (){},
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.profile_circle, color: Colors.white,),
+                        SizedBox(width: 10,),
+                        Text('Edit details',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Text('Your Wish Liste'),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical:15),
-                  child: Text('Your card'),
-                ),
-                const Spacer(),
-                const Divider(color: Colors.white60,height: 30,),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  child: OutlineButton(
+                  padding: EdgeInsets.only(bottom:10),
+                  child: MaterialButton(
+                    onPressed: (){},
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.setting, color: Colors.white,),
+                        SizedBox(width: 10,),
+                        Text('Settings',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom:10),
+                  child: MaterialButton(
+                    onPressed: (){},
+                    child: Row(
+                      children: [
+                        Icon(Iconsax.information, color: Colors.white,),
+                        SizedBox(width: 10,),
+                        Text('Help & Support',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom:10),
+                  child: MaterialButton(
                     onPressed: ()async {
                       await AuthService.SignOut();
                     },
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset('assets/images/logout.png',scale: 25,color: Colors.white,),
-                        const  SizedBox(width: 5,),
-                        const  Text('Logout '),
+                        Icon(Iconsax.logout, color: Colors.white,),
+                        SizedBox(width: 10,),
+                        Text('Log out',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
                       ],
                     ),
-                    textColor: Colors.white,
-                    highlightColor: Colors.white,
-                    borderSide: const  BorderSide(color: Colors.white),
                   ),
                 ),
+
+
               ],
             ),
           )
