@@ -27,8 +27,7 @@ class comments_viewModel extends ChangeNotifier{
         for(int i=0;i<li.length;i++){
           final element = li[i];
           user userr = await AuthService.getUser(element['email']);
-          comments.add(comment.fromJson(element,userr));
-          print("elemant element['email'] ${element['email']}");
+          comments.add(comment.fromJson(element,userr,""));
         }
 
       notifyListeners();

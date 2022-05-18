@@ -44,7 +44,11 @@ class postsPage_modelView extends ChangeNotifier{
   }
 
 
-
+static Future<void> likePost(String postId)async{
+  try{
+    await postSevices.like(postId: postId);
+  }catch (_){}
+}
 
 
 

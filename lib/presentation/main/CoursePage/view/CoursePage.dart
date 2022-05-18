@@ -51,24 +51,27 @@ class CourseScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       /// cours image
-                      Container(
-                        height: height/4,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(AppRadius.r15),
-                          image: DecorationImage(
-                            image: AssetImage(cours.image),
-                            fit: BoxFit.fill,
-                          ),
-                          boxShadow:  <BoxShadow>[
-                            BoxShadow(
-                              color: ColorManager.black26.withOpacity(0.1),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
+                      Hero(
+                        tag: cours.image,
+                        child: Container(
+                          height: height/4,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppRadius.r15),
+                            image: DecorationImage(
+                              image: AssetImage(cours.image),
+                              fit: BoxFit.fill,
                             ),
-                          ],
+                            boxShadow:  <BoxShadow>[
+                              BoxShadow(
+                                color: ColorManager.black26.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          margin: const EdgeInsets.only(bottom: AppMargin.m4),
                         ),
-                        margin: const EdgeInsets.only(bottom: AppMargin.m4),
                       ),
                       /// cours creatoe and rating
                       Padding(

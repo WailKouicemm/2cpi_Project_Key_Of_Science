@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:keyofscience/Widgets/Post.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/models/Models.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -62,7 +62,7 @@ import '../viewModel/comments_viewModel.dart';
 //   }
 // }
 
-comments_view(BuildContext context,String postId) {
+comments_view(BuildContext context,String postId,bool isLiked) {
   /*
       return showFlexibleBottomSheet(
     minHeight: 0,
@@ -92,7 +92,7 @@ comments_view(BuildContext context,String postId) {
       providers: [
         ChangeNotifierProvider<comments_viewModel>(create: (_) => comments_viewModel())
       ],
-      child: _buildBottomSheet(context,postId),
+      child: _buildBottomSheet(context,postId,isLiked),
     ),
   );
 }
@@ -100,8 +100,11 @@ comments_view(BuildContext context,String postId) {
 class _buildBottomSheet extends StatelessWidget {
   final BuildContext context;
   final String postId;
+   bool isLiked;
 
-  _buildBottomSheet(this.context,this.postId);
+  _buildBottomSheet(this.context,this.postId,this.isLiked);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -125,12 +128,16 @@ class _buildBottomSheet extends StatelessWidget {
                       "78 person Like that",
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.favorite_border,
+                    StatefulBuilder(
+                      builder: ((context, setState) => GestureDetector(
+                        onTap: () async{
+                          setState(() {isLiked=!isLiked;});
+                          await postsPage_modelView.likePost(postId);
+                        },
+                        child: isLiked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                      )
                       ),
-                    ),
+                    )
                   ],
                 ),
                 const Divider(

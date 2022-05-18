@@ -188,7 +188,10 @@ class Keyeince_features extends StatelessWidget {
       children:  Keyeince_features_items.map((tmp) => Expanded(
         child: InkWell(
           onTap: (){
-
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (_)=>tmp.page)
+            );
           },
           child: Container(
             height: AppHeight.h60,

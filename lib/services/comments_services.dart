@@ -39,11 +39,17 @@ class comments_service{
       }
       startAfter = res.docs.last;
       for(int i=0;i<res.docs.length;i++){
+
         list.add(res.docs[i].data());
       }
       return list;
     }catch (error){
       throw error;
     }
+  }
+
+
+  static Future<void> likeComment(String postId,commentId)async{
+
   }
 }

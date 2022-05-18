@@ -53,6 +53,7 @@ dependencies:
   intl: ^0.17.0
   modal_bottom_sheet: ^2.0.1
   iconsax: ^0.0.8
+  photo_view:
 
 
 dev_dependencies:

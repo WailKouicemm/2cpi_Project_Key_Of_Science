@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:keyofscience/commun/photoView.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
@@ -157,38 +159,38 @@ class _LikeAndCommentState extends State<LikeAndComment> {
       children: [
         Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: AppWidth.w10,
+          child: StatefulBuilder(
+              builder: (_,setstate)=>   Row(
+                children: [
+                  const SizedBox(
+                    width: AppWidth.w10,
+                  ),
+                  /// comment icon
+                  GestureDetector(
+                        // ()=>setState(()=>commentField=!commentField)
+                        onTap: (){
+                          comments_view(context,widget.postId,isliked);
+                        },
+                        child: SvgPicture.asset(
+                          'assets/icons/comment.svg',
+                          color: ColorManager.defaultColor,
+                        ),
+                      ),
+
+                  const SizedBox(
+                    width: AppWidth.w10,
+                  ),
+                  /// like icon
+                  GestureDetector(
+                    onTap: ()async{
+                      setstate(() {isliked=!isliked;});
+                      await postsPage_modelView.likePost(widget.postId);
+                      // await postSevices.like(postId: widget.postId);
+                    },
+                    child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                  ),
+                ],
               ),
-              /// comment icon
-              GestureDetector(
-                // ()=>setState(()=>commentField=!commentField)
-                onTap: (){
-                  comments_view(context,widget.postId);
-                },
-                child: SvgPicture.asset(
-                  'assets/icons/comment.svg',
-                  color: ColorManager.defaultColor,
-                ),
-              ),
-              const SizedBox(
-                width: AppWidth.w10,
-              ),
-              /// like icon
-              StatefulBuilder(
-                builder: (_,setstate)=>GestureDetector(
-                  onTap: ()async{
-                    setstate(() {isliked=!isliked;});
-                    await postSevices.like(postId: widget.postId);
-                    isliked= await postSevices.isLike(postId: widget.postId);
-                    setstate(() {});
-                  },
-                  child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
-                ),
-              )
-            ],
           ),
         ),
       ],
@@ -198,7 +200,7 @@ class _LikeAndCommentState extends State<LikeAndComment> {
 
 
 class postImages extends StatelessWidget {
-  final List<String> images;
+   final List<String> images;
   const postImages(this.images);
 
   @override
@@ -219,36 +221,36 @@ class postImages extends StatelessWidget {
               child: images.length == 4 ? Column(
                 children: [
                   Expanded(
-                    child: _image(images[0]),
+                    child: _image(0, images),
 
                   ),
                   Expanded(
-                    child: _image(images[1]),
+                    child: _image(1,images),
                   ),
                 ],
-              ) : _image(images[0]),
+              ) : _image(0,images),
             ),
             if(images.length>1) Expanded(
                 child: images.length == 4 ?  Column(
                   children: [
                     Expanded(
-                      child:_image(images[2]),
+                      child:_image(2,images),
                     ),
                     Expanded(
-                      child: _image(images[3]),
+                      child: _image(3,images),
                     )
                   ],
                 ) : (
                     images.length == 3 ?  Column(
                       children: [
                         Expanded(
-                          child: _image(images[1]),
+                          child: _image(1,images),
                         ),
                         Expanded(
-                          child: _image(images[2]),
+                          child: _image(2,images),
                         )
                       ],
-                    ) : _image(images[1])
+                    ) : _image(1,images)
                 )
             )
           ],
@@ -260,17 +262,29 @@ class postImages extends StatelessWidget {
 
 
 class _image extends StatelessWidget {
-  final String image;
-  const _image(this.image);
+  final int index;
+  final List<String> imagesList;
+  const _image(this.index,this.imagesList);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height:  double.infinity,
-      width:  double.infinity,
-      margin: const EdgeInsets.all(AppMargin.m1),
-      child: Image.network(image,fit: BoxFit.cover,),
-    );
+    return  GestureDetector(
+        onTap: (){
+          Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (_)=>ImagePage(imagesList: imagesList,currentpage: index,))
+          );
+        },
+        child: Hero(
+          tag: imagesList[index],
+          child: Container(
+            height:  double.infinity,
+            width:  double.infinity,
+            margin: const EdgeInsets.all(AppMargin.m1),
+            child: Image.network(imagesList[index],fit: BoxFit.cover,),
+          ),
+        )
+      );
   }
 }
 

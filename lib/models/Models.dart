@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/services/Authenctication.dart';
+
 
 
 class user {
@@ -51,14 +51,16 @@ class post {
 
 class comment {
   final String content;
+  final String id;
   final user userr;
 
-  comment({required this.userr,required this.content});
+  comment({required this.userr,required this.content,required this.id});
 
-  factory comment.fromJson(Map<String,dynamic> json,user userr){
+  factory comment.fromJson(Map<String,dynamic> json,user userr,String id){
     return comment(
         content: json['content'],
-        userr: userr
+        userr: userr,
+        id: id
     );
   }
 }

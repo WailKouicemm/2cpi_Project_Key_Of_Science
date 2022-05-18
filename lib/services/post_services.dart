@@ -48,15 +48,18 @@ class postSevices {
    }
 
   static Future<void> like({required String  postId})async{
-    final String email = await FirebaseAuth.instance.currentUser!.email ?? '';
-    bool islike = await  isLike(postId: postId);
-    final likesCollection = _firestoreInstance.collection('comments').doc(postId).collection('likes');
-    if(islike){
-      await likesCollection.doc(email).delete();
-    }else{
-      await likesCollection.doc(email).set({});
-    }
+    try{
+      final String email = await FirebaseAuth.instance.currentUser!.email ?? '';
+      bool islike = await  isLike(postId: postId);
+      final likesCollection = _firestoreInstance.collection('comments').doc(postId).collection('likes');
+      if(islike){
+        await likesCollection.doc(email).delete();
+      }else{
+        await likesCollection.doc(email).set({});
+      }
+    }catch (_){}
    }
+
 
 
 }

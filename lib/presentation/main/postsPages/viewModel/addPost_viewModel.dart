@@ -53,12 +53,14 @@ class addpost_viewModel extends ChangeNotifier {
 
 class validators{
   static  String? titleValidator(String title){
+    return null; /// this is just in test Mode
     if(title.trim().length>10) {
       return null;
     }
     return "the length of the title should be more than 10 letter";
   }
   static  String? contentValidator(String content){
+    return null; /// this is just in test Mode
     if(content.trim().isNotEmpty) {
       return null;
     }

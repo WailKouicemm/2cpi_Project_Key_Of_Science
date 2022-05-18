@@ -29,58 +29,63 @@ class cours_card extends StatelessWidget {
             MaterialPageRoute(builder: (_)=>CourseScreen(cours: cours),)
           );
         },
-        child: Stack(
-          children: [
-            Container(
-              width: cardWidth,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                image:   DecorationImage(
-                  image: AssetImage(cours.image),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius:BorderRadius.circular(AppRadius.r15),
-              ),
-            ),
-            Container(
+        child: Hero(
+          tag: cours.image,
+          child: Stack(
+            children: [
+              Container(
                 width: cardWidth,
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppRadius.r15),
-                  color: Colors.black.withOpacity(0.4),
-                ),
-                child: Container(
-                  padding: const EdgeInsets.only(left: AppPadding.p15 , bottom: AppPadding.p15),
-                  width:  width * 0.25,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(cours.title ,
-                        style: Theme.of(context).textTheme.subtitle1?.
-                        copyWith(fontSize: FontSizeManager.s12),
-                      ),
-                      Text(cours.coursesnum ,
-                        style: lightStyle(color: ColorManager.grey, fontSize: FontSizeManager.s10),),
-                      InkWell(
-                        onTap: (){},
-                        child: Container(
-                          padding: const EdgeInsets.all(AppPadding.p1),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppRadius.r10),
-                            color: ColorManager.pink,
-                          ),
-                          child: Text(' continue ' ,
-                            style: Theme.of(context).textTheme.subtitle2,
-                          ),
-                        ),
-                      )
-                    ],
+                  image:   DecorationImage(
+                    image: AssetImage(cours.image),
+                    fit: BoxFit.cover,
                   ),
-                )
-            ),
-          ],
-        ),
+                  borderRadius:BorderRadius.circular(AppRadius.r15),
+                ),
+              ),
+              Container(
+                  width: cardWidth,
+                  alignment: Alignment.bottomLeft,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(AppRadius.r15),
+                    color: Colors.black.withOpacity(0.4),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.only(left: AppPadding.p15 , bottom: AppPadding.p15),
+                    width:  width * 0.25,
+                    child: SingleChildScrollView(
+                      child:  Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(cours.title ,
+                            style: Theme.of(context).textTheme.subtitle1?.
+                            copyWith(fontSize: FontSizeManager.s12),
+                          ),
+                          Text(cours.coursesnum ,
+                            style: lightStyle(color: ColorManager.grey, fontSize: FontSizeManager.s10),),
+                          InkWell(
+                            onTap: (){},
+                            child: Container(
+                              padding: const EdgeInsets.all(AppPadding.p1),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppRadius.r10),
+                                color: ColorManager.pink,
+                              ),
+                              child: Text(' continue ' ,
+                                style: Theme.of(context).textTheme.subtitle2,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  )
+              ),
+            ],
+          ),
+        )
       )
     );
   }
