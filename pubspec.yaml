@@ -54,6 +54,9 @@ dependencies:
   modal_bottom_sheet: ^2.0.1
   iconsax: ^0.0.8
   photo_view:
+  firestore_search: ^0.1.9
+  get: 4.6.1
+  shimmer: ^2.0.0
 
 
 dev_dependencies:

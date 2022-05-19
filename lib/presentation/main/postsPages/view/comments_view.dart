@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:keyofscience/Widgets/shimmerObject.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/models/Models.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
@@ -188,13 +189,13 @@ class _comments_listState extends State<comments_list> {
       selector: (_,provider)=>Tuple2(provider.comments, provider.isLoading),
       builder: (_,data,__)=>ListView.builder(
         shrinkWrap: true,
-        itemCount: data.item1.length+1,
+        itemCount: data.item1.length+5,
         itemBuilder: (context,index){
-          if(index == data.item1.length){
+          if(index >= data.item1.length){
             if(data.item2) {
-              return const Center(
-                  child: CircularProgressIndicator()
-              );
+              return const  shimmerComment();
+            }else if(index > data.item1.length){
+              return const Center();
             }
             return const Center(
                 child: Padding(
@@ -211,7 +212,7 @@ class _comments_listState extends State<comments_list> {
             );
           }
           comment tmp = data.item1[index];
-          return  _singleComment(tmp,widget.postId);
+           return  _singleComment(tmp,widget.postId);
         },
       ),
     );

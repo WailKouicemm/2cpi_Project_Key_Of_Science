@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:keyofscience/Widgets/shimmerObject.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
@@ -8,6 +10,7 @@ import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../../Widgets/Post.dart';
@@ -131,13 +134,14 @@ class _Posts_BodyState extends State<Posts_Body> {
             builder: (_,data,__)=>ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: data.item1.length+1,
+              itemCount: data.item1.length+2,
               itemBuilder: (context,index){
-                if(index == data.item1.length){
+                if(index >= data.item1.length){
                   if(data.item2) {
-                    return const Center(
-                        child: CircularProgressIndicator()
-                    );
+                    return const shimmerPost();
+                  }
+                  if(index > data.item1.length) {
+                    return const Center();
                   }
                   return const Center(
                       child: Padding(
@@ -153,7 +157,12 @@ class _Posts_BodyState extends State<Posts_Body> {
                       )
                   );
                 }
-                Post tmp = data.item1[index];
+                 Post tmp = data.item1[index];
+    /*
+                FirestoreSearchBar(
+                  tag: 'example',
+                );
+     */
                 return PostItem(post: tmp);
               },
             ),
@@ -192,6 +201,8 @@ class TextFiledComment extends StatelessWidget {
     );
   }
 }
+
+
 
 
 
