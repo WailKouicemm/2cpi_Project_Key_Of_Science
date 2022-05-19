@@ -123,11 +123,15 @@ class _buildBottomSheet extends StatelessWidget {
             body: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "78 person Like that",
                       style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    IconButton(
+                      onPressed: ()=>Navigator.pop(context),
+                      icon: const Icon(Icons.close,color: ColorManager.grey1,size: 23,),
                     ),
                   ],
                 ),

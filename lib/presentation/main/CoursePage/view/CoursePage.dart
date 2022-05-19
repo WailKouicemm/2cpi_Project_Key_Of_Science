@@ -6,6 +6,7 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../../../commun/photoView.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/Styles_Manager.dart';
@@ -53,24 +54,33 @@ class CourseScreen extends StatelessWidget {
                       /// cours image
                       Hero(
                         tag: cours.image,
-                        child: Container(
-                          height: height/4,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(AppRadius.r15),
-                            image: DecorationImage(
-                              image: AssetImage(cours.image),
-                              fit: BoxFit.fill,
-                            ),
-                            boxShadow:  <BoxShadow>[
-                              BoxShadow(
-                                color: ColorManager.black26.withOpacity(0.1),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(0, 3),
+                        child: GestureDetector(
+                          onTap: (){
+                            // Navigator.of(context).push(
+                            //     MaterialPageRoute(
+                            //         builder: (_)=>ImagePage(imagesList: [cours.image],
+                            //           currentpage: 0,))
+                            // );
+                          },
+                          child: Container(
+                              height: height/4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppRadius.r15),
+                                image: DecorationImage(
+                                  image: AssetImage(cours.image),
+                                  fit: BoxFit.fill,
+                                ),
+                                boxShadow:  <BoxShadow>[
+                                  BoxShadow(
+                                    color: ColorManager.black26.withOpacity(0.1),
+                                    spreadRadius: 5,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          margin: const EdgeInsets.only(bottom: AppMargin.m4),
+                              margin: const EdgeInsets.only(bottom: AppMargin.m4),
+                            ),
                         ),
                       ),
                       /// cours creatoe and rating
