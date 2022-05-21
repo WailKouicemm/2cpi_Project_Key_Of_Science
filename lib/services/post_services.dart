@@ -24,8 +24,8 @@ class postSevices {
         res = await _firestoreInstance.collection("posts").limit(documentLimit).orderBy("date",descending: true).startAfterDocument(startAfter!).get();
       }
       startAfter = res.docs.last;
-      print("res.docs.lengthres.docs.length ${res.docs.length}");
-      for(var item in res.docs){ // int i=0;i<res.docs.length;i++
+
+      for(var item in res.docs){
         final user userr = await AuthService.getUser(item.data()['email'] ?? '');
         final bool isLiked = await isLike(postId: item.data()['id']);
         final int nbLikes = 0; // await NbLikes(item.data()['id']);
@@ -40,6 +40,22 @@ class postSevices {
     }
    }
 
+   static Future<Post> getSignelPost(String postId)async{
+    try{
+      final  post;
+      final res = await _firestoreInstance.collection("posts").doc(postId).get();
+      if(res!=null){
+        final user userr = await AuthService.getUser(res.data()!['email'] ?? '');
+        final bool isLiked = await isLike(postId: res.data()!['id']);
+        final int nbLikes = 0; // await NbLikes(item.data()['id']);
+          post = Post.fromJson(res.data()!, userr, isLiked, nbLikes);
+        return post;
+      }
+      throw Exception("no match post , please try again later");
+    }catch (e){
+      rethrow;
+    }
+   }
 
   static Future<bool> isLike({required String  postId})async{
     final String email = await FirebaseAuth.instance.currentUser!.email ?? '';

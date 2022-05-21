@@ -1,9 +1,11 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/Posts_view.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/postPage_view.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:animations/animations.dart';
@@ -11,8 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
-import 'package:keyofscience/services/addPostTOfirebase.dart';
 import 'package:provider/provider.dart';
+
 
 import '../../../../models/Models.dart';
 import '../../models/Models.dart';
@@ -24,8 +26,66 @@ import 'homeScreen/view/MainScreen.dart';
 /// this page is not visible ( invisible Wisget ) , this is the widget that containe both MainPage
 /// ( you can consider it like HOMEPAGE , a,d the MENUPAGe ( the page of the drawer))
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
    const HomePage();
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+
+  @override
+  void initState() {
+
+    initDynamicLinks();
+    super.initState();
+  }
+
+  ///Retreive dynamic link firebase.
+  void initDynamicLinks() async {
+    print("initDynamicLinksinitDynamicLinks");
+    /// https://keyofscience.page.link/QecatCsNcjGNKPbc7
+    final PendingDynamicLinkData? data =
+    await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri? deepLink = data?.link;
+
+    if (deepLink != null) {
+      handleDynamicLink(deepLink);
+    }
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+          final Uri? deepLink = dynamicLink?.link;
+
+          if (deepLink != null) {
+            handleDynamicLink(deepLink);
+          }
+        }, onError: (OnLinkErrorException e) async {
+      print(e.message);
+    });
+  }
+
+  handleDynamicLink(Uri url) {
+    print("url is \n $url");
+    List<String> separatedString = [];
+    separatedString.addAll(url.path.split('/'));
+    print("separatedStringseparatedString \n $separatedString");
+    if (separatedString[1] == "post") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => postPage_fromLink(separatedString[2]),
+              //     MultiProvider(
+              //   providers: [
+              // ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView()),
+              //   ],
+              //   child: postPage_fromLink(separatedString[2]),
+              // )
+          )
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

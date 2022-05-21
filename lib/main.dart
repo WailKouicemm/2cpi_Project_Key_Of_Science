@@ -2,30 +2,43 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyofscience/presentation/Login/View/login.dart';
+import 'package:keyofscience/presentation/Login/ViewModel/login_viewModel.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/addPost_viewModel.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-
-
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark
-  ));
-  runApp(const MyApp());
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark));
+  runApp( MultiProvider(
+      providers: [
+        ChangeNotifierProvider<postsPage_modelView>(create: (_) => postsPage_modelView()),
+        ChangeNotifierProvider<buttomNavy_viewModel>(create: (_) => buttomNavy_viewModel()),
+        ChangeNotifierProvider<addpost_viewModel>(create: (_) => addpost_viewModel()),
+        ChangeNotifierProvider<loginUser_viewModel>(create: (_) => loginUser_viewModel()),
+        ChangeNotifierProvider<nextPage_viewModel>(create: (_) => nextPage_viewModel()),
+        ChangeNotifierProvider<comments_viewModel>(create: (_) => comments_viewModel()),
+      ],
+      child: const MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp();
+
   @override
   Widget build(BuildContext context) {
     // return MaterialApp(
@@ -33,28 +46,21 @@ class MyApp extends StatelessWidget {
     //   debugShowCheckedModeBanner: false,
     //   home: const HomePage(),
     // );
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<nextPage_viewModel>(create: (_)=>nextPage_viewModel()),
-        ChangeNotifierProvider<buttomNavy_viewModel>(create: (_)=>buttomNavy_viewModel())
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         theme: getThemeData(),
         debugShowCheckedModeBanner: false,
         home: Builder(
-          builder: (context)=>StreamBuilder(
+          builder: (context) => StreamBuilder(
             stream: auth.FirebaseAuth.instance.authStateChanges(),
-            builder: (_,snapshot){
-              if(snapshot.hasData){
-               //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
+            builder: (_, snapshot) {
+              if (snapshot.hasData) {
+                //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
                 return const NextPage();
               }
               return const loginORregister();
             },
           ),
-        )
-      ),
-    );
+        ));
   }
 }
 
@@ -79,27 +85,31 @@ class _loginORregisterState extends State<loginORregister> {
     _pageViewController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
-    final  _pages =   [Login(_pageViewController), RegisterPage(_pageViewController)];
+    final _pages = [
+      Login(_pageViewController),
+      RegisterPage(_pageViewController)
+    ];
     return PageView.builder(
       itemCount: _pages.length,
       allowImplicitScrolling: false,
       controller: _pageViewController,
-      itemBuilder: (_,index)=>_pages[index],
+      itemBuilder: (_, index) => _pages[index],
     );
   }
 }
-
-
 
 class NextPage extends StatelessWidget {
   const NextPage();
 
   @override
   Widget build(BuildContext context) {
-   final bool goToOnBoarding =  Provider.of<nextPage_viewModel>(context,listen: false).goToOnBoarding;
-    return  goToOnBoarding ? const onBoardingScreen() : const  HomePage();
+    final bool goToOnBoarding = Provider.of<nextPage_viewModel>(context, listen: false).goToOnBoarding;
+    return  goToOnBoarding
+          ? const onBoardingScreen()
+          :  const HomePage();
+
   }
 }

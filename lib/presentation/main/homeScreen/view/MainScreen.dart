@@ -7,6 +7,7 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/Models.dart';
@@ -21,23 +22,23 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    return  SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-            children: [
-              profilecard(height: height,),
-              const Title_Text(txt:'   Keyeince features',seAll: false),
-              const Keyeince_features(),
-              const Title_Text(txt:'   Courses for you',seAll: true),
-              const CorsesListViewItems(),
-              const recentlyPoststitle(),
-              const Recentrly_posts(),
-              const SizedBox(
-                height: AppMargin.m10,
-              )
-            ]
-        ),
-      );
+    return   SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(
+          children: [
+            profilecard(height: height,),
+            const Title_Text(txt:'   Keyeince features',seAll: false),
+            const Keyeince_features(),
+            const Title_Text(txt:'   Courses for you',seAll: true),
+            const CorsesListViewItems(),
+            const recentlyPoststitle(),
+            const Recentrly_posts(),
+            const SizedBox(
+              height: AppMargin.m10,
+            )
+          ]
+      ),
+    );
   }
 }
 

@@ -53,11 +53,8 @@ class _LoginState extends State<Login> {
         //     )
         // ),
        // home:
-        MultiProvider(
-          providers: [
-            ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
-          ],
-          child: Scaffold(
+
+     Scaffold(
             body: SizedBox(
               height: double.infinity,
               width: double.infinity,
@@ -107,8 +104,7 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-          ),
-        );
+          ) ;
    // );
   }
 }

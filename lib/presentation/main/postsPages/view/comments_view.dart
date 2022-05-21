@@ -90,39 +90,36 @@ comments_view(BuildContext context,String postId,bool isLiked) {
       borderRadius: BorderRadius.only(topRight: Radius.circular(25),topLeft: Radius.circular(25))
     ),
     context: context,
-    builder: (context) => MultiProvider(
-      providers: [
-        ChangeNotifierProvider<comments_viewModel>(create: (_) => comments_viewModel())
-      ],
-      child: _buildBottomSheet(context,postId,isLiked),
-    ),
+    builder: (context) => buildBottomSheet(context: context,postId: postId,),
+
   );
 }
 
-class _buildBottomSheet extends StatelessWidget {
+class buildBottomSheet extends StatelessWidget {
   final BuildContext context;
   final String postId;
-   bool isLiked;
+  bool isInPostPage;
 
-  _buildBottomSheet(this.context,this.postId,this.isLiked);
+  buildBottomSheet({required this.context,required this.postId,this.isInPostPage = false});
 
 
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (_) => Container(
-          padding: const EdgeInsets.only(top: AppPadding.p40, left: AppPadding.p20, right: AppPadding.p20),
-          alignment: Alignment.topCenter,
-          decoration: const BoxDecoration(
-            color: ColorManager.white,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          ),
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Column(
-              children: [
+    return Container(
+        padding: const EdgeInsets.only(top: AppPadding.p40, left: AppPadding.p20, right: AppPadding.p20),
+        alignment: Alignment.topCenter,
+        decoration: const BoxDecoration(
+          color: ColorManager.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if(!isInPostPage)...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -139,23 +136,25 @@ class _buildBottomSheet extends StatelessWidget {
                 const Divider(
                   color: ColorManager.grey1,
                 ),
-                Expanded(
-                  child: comments_list(ModalScrollController.of(context) ?? ScrollController(),postId),
-                ),
-                addCommentTextField(postId),
               ],
-            ),
-          )
-      ),
+              Expanded(
+                child: comments_list(postId: postId,scrollController: ModalScrollController.of(context) ?? ScrollController(),),
+              ),
+              addCommentTextField(postId),
+            ],
+          ),
+        )
     );
+
   }
 }
 
 class comments_list extends StatefulWidget {
   ScrollController scrollController;
   String postId;
+  bool isInPostPage;
 
-  comments_list(this.scrollController,this.postId);
+  comments_list({required this.scrollController,required this.postId,this.isInPostPage = false});
 
   @override
   _comments_listState createState() => _comments_listState();
@@ -163,16 +162,26 @@ class comments_list extends StatefulWidget {
 
 class _comments_listState extends State<comments_list> {
   late ScrollController _scrollController;
+  late final _appProvider;
 
   @override
   void initState() {
     _scrollController = widget.scrollController;
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       Provider.of<comments_viewModel>(context,listen: false).getComments(widget.postId);
+      _appProvider = Provider.of<comments_viewModel>(context,listen: false);
+
     });
     _scrollController = _scrollController..addListener(_scrollListener);
     super.initState();
   }
+  @override
+  void dispose() {
+    _appProvider.close();
+    super.dispose();
+  }
+
+
 
   void _scrollListener() {
     if ((_scrollController.position.pixels + 250) >=
@@ -189,6 +198,7 @@ class _comments_listState extends State<comments_list> {
       selector: (_,provider)=>Tuple2(provider.comments, provider.isLoading),
       builder: (_,data,__)=>ListView.builder(
         shrinkWrap: true,
+        physics: widget.isInPostPage ? const NeverScrollableScrollPhysics() :const BouncingScrollPhysics(),
         itemCount: data.item1.length+5,
         itemBuilder: (context,index){
           if(index >= data.item1.length){

@@ -16,6 +16,7 @@ import 'package:tuple/tuple.dart';
 import '../../../../Widgets/Post.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
+import '../viewModel/comments_viewModel.dart';
 
 
 // class PostsPage extends StatelessWidget {
@@ -53,12 +54,7 @@ import '../../../resources/ColorManager.dart';
 
    @override
    Widget build(BuildContext context) {
-     return MultiProvider(
-         providers: [
-         ChangeNotifierProvider<postsPage_modelView>(create: (_)=>postsPage_modelView())
-     ],
-     child: const Posts_Body()
-     );
+     return  const Posts_Body();
    }
  }
 

@@ -41,12 +41,7 @@ class _AddPostPageState extends State<AddPostPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-          providers: [
-            ChangeNotifierProvider<addpost_viewModel>(create: (_)=>addpost_viewModel())
-          ],
-          child: Builder(
-            builder: (ctx)=> Stack(
+    return  Stack(
               children: [
                 Scaffold(
                     backgroundColor: ColorManager.white,
@@ -55,7 +50,7 @@ class _AddPostPageState extends State<AddPostPage> {
                       backgroundColor: ColorManager.white,
                       leading: IconButton(
                           onPressed: () {
-                            Navigator.pop(ctx);
+                            Navigator.pop(context);
                           },
                           icon: AppIcons.back),
                       actions: [
@@ -148,7 +143,7 @@ class _AddPostPageState extends State<AddPostPage> {
                                   onPressed: (){
                                      if(_formKey.currentState!.validate()){
 
-                                    Provider.of<addpost_viewModel>(ctx,listen: false)
+                                    Provider.of<addpost_viewModel>(context,listen: false)
                                         .uploadPost(
                                       title: _titleController.text.trim(),
                                       content: _contentController.text.trim(),
@@ -176,9 +171,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   }
                 )
               ],
-            )
-          ),
-        );
+            ) ;
   }
 }
 

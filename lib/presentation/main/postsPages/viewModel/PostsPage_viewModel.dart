@@ -5,7 +5,6 @@ import 'package:keyofscience/services/Authenctication.dart';
 import 'package:keyofscience/services/post_services.dart';
 
 
-
 class postsPage_modelView extends ChangeNotifier{
 
   bool isLoading = false;
@@ -38,6 +37,19 @@ class postsPage_modelView extends ChangeNotifier{
     }
   }
 
+  Future<Post?> getSignelPost(String postId)async{
+    try{
+      final Post post = await postSevices.getSignelPost(postId);
+      return post;
+    }catch (error){
+      print("error in getSignelPost view_model $error");
+    }
+  }
+
+
+
+
+
   Future<String> getUsername(String uid)async{
   final String Username = await AuthService.getUsername(uid);
   return Username;
@@ -53,3 +65,5 @@ static Future<void> likePost(String postId)async{
 
 
 }
+
+

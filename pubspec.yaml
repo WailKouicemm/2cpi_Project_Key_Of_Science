@@ -57,6 +57,11 @@ dependencies:
   firestore_search: ^0.1.9
   get: 4.6.1
   shimmer: ^2.0.0
+  firebase_dynamic_links: ^2.0.6
+  share:
+  flutter_riverpod:
+  async: ^2.8.2
+
 
 
 dev_dependencies:

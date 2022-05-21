@@ -1,70 +1,93 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:keyofscience/commun/photoView.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/postPage_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
-import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
-import 'package:keyofscience/services/post_services.dart';
-import 'package:provider/provider.dart';
+import 'package:keyofscience/services/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../components.dart';
 import '../models/Models.dart';
-import '../presentation/main/postsPages/view/Posts_view.dart';
 import '../presentation/main/postsPages/view/comments_view.dart';
+import '../presentation/main/postsPages/viewModel/comments_viewModel.dart';
 
 
 class PostItem extends StatelessWidget {
   final Post post;
-  const PostItem({required this.post});
+  bool isInPostPage;
+   PostItem({required this.post,this.isInPostPage = false});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(horizontal: AppMargin.m4,vertical: AppMargin.m10),
-      padding: const EdgeInsets.fromLTRB(AppPadding.p10,AppPadding.p10,AppPadding.p10,AppPadding.p5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppRadius.r15),
-        color: ColorManager.white,
-        boxShadow:  <BoxShadow>[
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(0, 3),
-          ),
-        ],
+    print('.of<comments_viewModel.of<comments_viewModel  ${
+        Provider.of<comments_viewModel>(context, listen: false).comments.length
+    }');
+    return GestureDetector(
+      onTap: (){
+       if(!isInPostPage){
+         Navigator.of(context).push(
+             MaterialPageRoute(
+                 builder: (_)=>postPage_view(post))
+         );
+       }
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.symmetric(horizontal: AppMargin.m4,vertical: AppMargin.m10),
+        padding: const EdgeInsets.fromLTRB(AppPadding.p10,AppPadding.p10,AppPadding.p10,AppPadding.p5),
+        decoration: isInPostPage ? null : BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadius.r15),
+          color: ColorManager.white,
+          boxShadow:  <BoxShadow>[
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            /// the image of the poster and his name and the date
+            PosterNameAndImage(post.userr,post.date),
+            const SizedBox(
+              height: AppHeight.h10,
+            ),
+            /// the title of the post
+            posttitle(post.title),
+            /// the post text
+            postContent(post.content),
+            if(post.images.isNotEmpty) postImages(post.images),
+            /// the icons of like and comment
+            LikeAndComment(post : post,),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          /// the image of the poster and his name and the date
-          PosterNameAndImage(post.userr,post.date),
-          const SizedBox(
-            height: AppHeight.h10,
-          ),
-          /// the title of the post
-          AutoSizeText(
-            post.title,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: FontSizeManager.s17),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-          /// the post text
-          postContent(post.content),
-          if(post.images.isNotEmpty) postImages(post.images),
-          /// the icons of like and comment
-          LikeAndComment(post.id,post.isLiked,post.nbLikes),
-        ],
-      ),
+    );
+  }
+}
+
+
+class posttitle extends StatelessWidget {
+  final String title;
+  const posttitle(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return AutoSizeText(
+      title,
+      style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: FontSizeManager.s17),
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
@@ -133,10 +156,9 @@ class postContent extends StatelessWidget {
 }
 
 class LikeAndComment extends StatefulWidget {
-  final String postId;
-  final bool isLiked;
-  int nbLikes;
-    LikeAndComment(this.postId,this.isLiked,this.nbLikes);
+  final  Post post;
+  bool isInPostPage;
+    LikeAndComment({required this.post,this.isInPostPage = false});
 
   @override
   State<LikeAndComment> createState() => _LikeAndCommentState();
@@ -144,9 +166,11 @@ class LikeAndComment extends StatefulWidget {
 
 class _LikeAndCommentState extends State<LikeAndComment> {
  late bool isliked;
+ late int nbLikes;
   @override
   void initState() {
-      isliked = widget.isLiked;
+      isliked = widget.post.isLiked;
+      nbLikes = 0;
     super.initState();
   }
   @override
@@ -158,16 +182,16 @@ class _LikeAndCommentState extends State<LikeAndComment> {
         Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
           child: StatefulBuilder(
-              builder: (_,setstate)=>   Row(
+              builder: (_,setstate)=> Row(
                 children: [
                   const SizedBox(
                     width: AppWidth.w10,
                   ),
                   /// comment icon
-                  GestureDetector(
+                  if(!widget.isInPostPage) GestureDetector(
                         // ()=>setState(()=>commentField=!commentField)
                         onTap: (){
-                          comments_view(context,widget.postId,isliked);
+                          comments_view(context,widget.post.id,isliked);
                         },
                         child: SvgPicture.asset(
                           'assets/icons/comment.svg',
@@ -179,23 +203,32 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                     width: AppWidth.w10,
                   ),
                   /// like icon
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: ()async{
-                          widget.nbLikes++;
-                          setstate(() {isliked=!isliked;});
-                          await postsPage_modelView.likePost(widget.postId);
-                          // await postSevices.like(postId: widget.postId);
-                        },
-                        child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
-                      ),
-                      const SizedBox(
-                        width: AppWidth.w10,
-                      ),
-                      Text("${widget.nbLikes}")
-                    ],
-                  )
+                  GestureDetector(
+                    onTap: ()async{
+                       nbLikes++;
+                      setstate(() {isliked=!isliked;});
+                      await postsPage_modelView.likePost(widget.post.id);
+                      // await postSevices.like(postId: widget.postId);
+                    },
+                    child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
+                  ),
+                  const SizedBox(
+                    width: AppWidth.w10,
+                  ),
+                  Text("${widget.post.nbLikes}"),
+                  const Spacer(),
+                  /// share icon
+                  GestureDetector(
+                    onTap: ()async{
+                    await AppUtils.buildDynamicLink(
+                      postId: widget.post.id,
+                      image: widget.post.images.isEmpty ? '' : widget.post.images.first,
+                      title: widget.post.title,
+                      description: widget.post.content,
+                    );
+                    },
+                    child: const Icon(Icons.share),
+                  ),
                 ],
               ),
           ),

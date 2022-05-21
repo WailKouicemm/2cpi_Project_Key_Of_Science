@@ -31,6 +31,7 @@ class comments_service{
 
   static Future<List<Map<String, dynamic>>> getCommentsFromFirebase(int documentLimit,bool setSTARTAFTERtoNull,String postId)async{
     try{
+      print("getCommentsFromFirebasegetCommentsFromFirebasegetCommentsFromFirebase");
       if(setSTARTAFTERtoNull) startAfter=null;
       List<Map<String, dynamic>> list= [];
       final QuerySnapshot<Map<String, dynamic>> res;

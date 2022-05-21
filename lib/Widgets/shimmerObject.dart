@@ -45,15 +45,21 @@ class shimmerPost extends StatelessWidget {
                       width: AppWidth.w10,
                     ),
                     /// the name ad the username
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _greyContainershimmer(  width: width/3, height: 10,),
-                        _greyContainershimmer(  width: width/2, height: 10,),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: _greyContainershimmer(  width: width/3, height: 10,),
+                          ),
+                          Expanded(
+                            child: _greyContainershimmer(  width: width/2, height: 10,),
+                          ),
 
-                      ],
-                    ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -143,7 +149,7 @@ class _greyContainershimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isAvatar ? const Padding(
-      padding:  EdgeInsets.all(10),
+      padding:  EdgeInsets.all(5),
       child:  CircleAvatar(
         maxRadius: 25,
         backgroundColor: ColorManager.shimmerColor1,
@@ -151,7 +157,7 @@ class _greyContainershimmer extends StatelessWidget {
     Container(
       height: height,
       width: width,
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: ColorManager.shimmerColor1,
           borderRadius: BorderRadius.circular(15)
