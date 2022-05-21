@@ -92,3 +92,4 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
 
   }
 }
+

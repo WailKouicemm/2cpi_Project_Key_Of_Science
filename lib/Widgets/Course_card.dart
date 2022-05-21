@@ -63,8 +63,14 @@ class cours_card extends StatelessWidget {
                             style: Theme.of(context).textTheme.subtitle1?.
                             copyWith(fontSize: FontSizeManager.s12),
                           ),
+                          SizedBox(
+                            height: 3,
+                          ),
                           Text(cours.coursesnum ,
                             style: lightStyle(color: ColorManager.grey, fontSize: FontSizeManager.s10),),
+                          SizedBox(
+                            height: 3,
+                          ),
                           GestureDetector(
                             onTap: (){},
                             child: Container(
@@ -74,7 +80,10 @@ class cours_card extends StatelessWidget {
                                 color: ColorManager.pink,
                               ),
                               child: Text(' continue ' ,
-                                style: Theme.of(context).textTheme.subtitle2,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white
+                                ),
                               ),
                             ),
                           )

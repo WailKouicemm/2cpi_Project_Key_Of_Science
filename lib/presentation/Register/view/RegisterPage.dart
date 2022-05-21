@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:keyofscience/commun/Validator.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
@@ -30,15 +31,11 @@ class RegisterPage extends StatelessWidget {
             ChangeNotifierProvider<RegisterUser_viewModel>(create: (_) => RegisterUser_viewModel()),
           ],
           child: Scaffold(
-            backgroundColor: Theme.of(context).primaryColor,
             appBar: AppBar(
-              flexibleSpace: Container(
-                decoration:  const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(images.appBarImage),
-                        fit: BoxFit.cover)),
-              ),
-              title: const Text(app.appName),
+              elevation: 3,
+              centerTitle: false,
+              backgroundColor: Colors.white,
+              title: const Text(app.appName , style: TextStyle(color: ColorManager.defaultColor),),
             ),
             body: CustomScrollView(
               slivers: <Widget>[
@@ -50,9 +47,6 @@ class RegisterPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Padding(
                           padding: EdgeInsets.only(
-                            // top: height * 0.07 ,
-                            // right: width * 0.28 ,
-                            // bottom: height * 0.02 ,
                               top: AppPadding.p20,
                               right: width * 0.28,
                               bottom: AppPadding.p10,
@@ -66,38 +60,23 @@ class RegisterPage extends StatelessWidget {
                                       TextSpan(
                                           text: AppStrings.registertitle1 ,
                                           style: Theme.of(context).textTheme.headline1
-                                        /*
-                              TextStyle(color: Colors.black ,
-                                fontSize: 30 ,
-                                fontWeight: FontWeight.bold,fontFamily: "Montserrat"),
-                               */
                                       ),
                                       TextSpan(
                                           text: AppStrings.registertitle2 ,
-                                          style: Theme.of(context).textTheme.headline3
-                                        // TextStyle(
-                                        //     color: Colors.white ,
-                                        //     backgroundColor: Kdefault.KdefaultColor ,
-                                        //     fontSize: 30 ,
-                                        //     fontWeight: FontWeight.bold,
-                                        //     fontFamily: "Montserrat"
-                                        // ),
+                                          style: Theme.of(context).textTheme.headline1
+
                                       )
                                     ]
                                 ),
                               ),
                               const  SizedBox(height: AppHeight.h10,),
-                              SizedBox(
-                                height: AppHeight.h50,
-                                width: width * 0.5 ,
-                                child: Text(
-                                  AppStrings.registerSubtitle,
-                                  style: Theme.of(context).textTheme.caption,
-                                  // style: TextStyle(
-                                  //     color: Colors.grey ,
-                                  //     fontFamily: "Montserrat"
-                                  // ),
-                                ),
+                              Text(
+                                AppStrings.registerSubtitle,
+                                style: Theme.of(context).textTheme.caption,
+                                // style: TextStyle(
+                                //     color: Colors.grey ,
+                                //     fontFamily: "Montserrat"
+                                // ),
                               ),
                             ],
                           ),
@@ -210,7 +189,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p20) ,
+      padding: const  EdgeInsets.only(right: AppPadding.p20  , left: AppPadding.p20 , top: AppPadding.p30 , ) ,
       child: Form(
         key: _formKey,
         child: Column(
@@ -224,7 +203,16 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 controller: nameTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                  decoration: const InputDecoration(
-                  hintText: " Full name"
+                     border: InputBorder.none,
+                     focusedBorder: InputBorder.none,
+                     enabledBorder: InputBorder.none,
+                     errorBorder: InputBorder.none,
+                     disabledBorder: InputBorder.none,
+                     fillColor: ColorManager.textFieldColor,
+                     hintText: " Full name",
+                   contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                   prefixIcon: Icon(Iconsax.user, color: Colors.grey, ),
+                   hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
                 ),
                 validator: (value)=>validator.nameValidator(value?? ""),
               ),
@@ -237,7 +225,16 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 controller: emailTextEdetingController,
                 cursorColor: ColorManager.defaultColor,
                 decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  fillColor: ColorManager.textFieldColor,
                   hintText: ' E-mail',
+                  contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                  prefixIcon: Icon(Icons.email_outlined, color: Colors.grey, ),
+                  hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
                 ),
                 validator: (value)=>validator.emailValidator(value?? ""),
                 keyboardType: TextInputType.emailAddress,
@@ -256,6 +253,15 @@ class _TextFormFieldsState extends State<TextFormFields> {
                           controller: passwordTextEdetingController,
                           cursorColor: ColorManager.defaultColor,
                           decoration:  InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            fillColor: ColorManager.textFieldColor,
+                            contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                            prefixIcon: Icon(Iconsax.key, color: Colors.grey, ),
+                            hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
                             hintText: ' Password',
                             suffixIcon: GestureDetector(
                                 onTap: () {
@@ -263,7 +269,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                                 },
                                 child: Icon(inVisible
                                     ? Icons.visibility_off
-                                    : Icons.visibility)),
+                                    : Icons.visibility , color: Colors.grey)),
                           ),
                           validator: (value)=>validator.passwordlValidator(value?? ""),
                           obscureText: inVisible,
@@ -278,6 +284,15 @@ class _TextFormFieldsState extends State<TextFormFields> {
                           controller: confirmPasswordTextEdetingController,
                           cursorColor: ColorManager.defaultColor,
                           decoration:  InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            fillColor: ColorManager.textFieldColor,
+                            contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                            prefixIcon: Icon(Iconsax.key, color: Colors.grey, ),
+                            hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
                             hintText: ' Confirm Password',
                             suffixIcon: GestureDetector(
                               onTap: () {
@@ -285,7 +300,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                                 },
                                 child : Icon(inVisible
                                     ? Icons.visibility_off
-                                    : Icons.visibility),
+                                    : Icons.visibility , color: Colors.grey,),
                               ),
 
                           ),
@@ -299,33 +314,37 @@ class _TextFormFieldsState extends State<TextFormFields> {
               },
             ),
             /// privacy text
-            Row(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-               // const  Icon(Icons.check_box , color: Kdefault.KdefaultColor,size: 15,),
-                Checkbox(
-                    value: true,
-                    onChanged: (value){}
-                ),
-                Text(
-                  AppStrings.privacy1,
-                  style: Theme.of(context).textTheme.caption,
-                  //  style: TextStyle(color: Colors.black87 , fontSize: 12,fontFamily: "Montserrat"),
-                ),
-                Expanded(
-                  child: TextButton(
-                    onPressed: (){
-                    },
-                    child: const AutoSizeText(
-                      AppStrings.privacy2,
-                      maxLines: 2,
-                      minFontSize: 10,
-                      maxFontSize: 25,
+                Row(
+                  children: [
+                    Text(
+                      AppStrings.privacy1,
+                        style: TextStyle(color: Colors.black , fontSize: 12,fontFamily: "Montserrat"),
                     ),
-                  ),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: (){
+                        },
+                        child: Text(
+                          AppStrings.privacy2,
+                          style: TextStyle(color: ColorManager.defaultColor , fontSize: 12,fontFamily: "Montserrat" , fontWeight: FontWeight.bold),
+                        )
+                      ),
+                    ),
+                  ],
                 ),
+                GestureDetector(
+                  onTap: (){
+                  },
+                  child:Text(
+                    AppStrings.privacy3,
+                    style: TextStyle(color: ColorManager.defaultColor , fontSize: 12,fontFamily: "Montserrat" , fontWeight: FontWeight.bold),
+                ),),
               ],
             ),
-            const  SizedBox(height: AppHeight.h20,),
+            const  SizedBox(height: 50,),
             SizedBox(
               width: width,
               child: Selector<RegisterUser_viewModel, bool>(

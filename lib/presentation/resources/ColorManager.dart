@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 
 class ColorManager{
+
   static const Color selectColor = Color(0xff051855);
+  static const Color textFieldColor = Color(0xFFEFF2FE) ;
   static const Color selectColor2 = Color(0xff432f9b);
   static const Color defaultColor =  Color(0xFF2958F5);
   static const Color lightDefaultColor =  Color(0xff5B80FA);

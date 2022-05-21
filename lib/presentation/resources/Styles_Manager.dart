@@ -25,3 +25,6 @@ TextStyle semiBoldStyle({required color, fontSize = FontSizeManager.s18, fontWei
 
 TextStyle boldStyle({required color, fontSize = FontSizeManager.s20, fontWeight = FontWeightManager.bold}) =>
     _textStyle(color, fontSize, fontWeight);
+
+TextStyle welcomText =  TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: FontFamilyManager.defaultFamily , fontSize: 23 );
+TextStyle welcomText2 =  TextStyle(color: Colors.white , fontWeight: FontWeight.w200 , fontFamily: FontFamilyManager.defaultFamily , fontSize: 18 );

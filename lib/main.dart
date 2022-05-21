@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
+import 'package:keyofscience/presentation/WelcomScreen/WelcomScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
                //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
                 return const NextPage();
               }
-              return const loginORregister();
+              return const WelcomScreen();
             },
           ),
         )
