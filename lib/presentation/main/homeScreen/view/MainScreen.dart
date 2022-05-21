@@ -7,7 +7,6 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
-import 'package:keyofscience/services/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../models/Models.dart';
@@ -22,23 +21,24 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    return   SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-          children: [
-            profilecard(height: height,),
-            const Title_Text(txt:'   Keyeince features',seAll: false),
-            const Keyeince_features(),
-            const Title_Text(txt:'   Courses for you',seAll: true),
-            const CorsesListViewItems(),
-            const recentlyPoststitle(),
-            const Recentrly_posts(),
-            const SizedBox(
-              height: AppMargin.m10,
-            )
-          ]
-      ),
-    );
+    return  SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+            children: [
+              profilecard(height: height,),
+              const Title_Text(txt:'TreeTech features',seAll: false),
+              const Keyeince_features(),
+              const Title_Text(txt:'Courses',seAll: true),
+              const CorsesListViewItems(),
+            //  const recentlyPoststitle(),
+              const Title_Text(txt:'Books',seAll: true),
+              const CorsesListViewItems(),
+              const SizedBox(
+                height: AppMargin.m10,
+              )
+            ]
+        ),
+      );
   }
 }
 
@@ -52,7 +52,7 @@ class recentlyPoststitle extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:  [
-               Text('   Recently posts',
+               Text('Recently posts',
               style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeightManager.bold),
                ),
              TextButton(
@@ -79,7 +79,7 @@ final bool seAll;
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(AppPadding.p10),
+        padding: const EdgeInsets.symmetric(vertical: AppPadding.p15 , horizontal: AppPadding.p20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -104,9 +104,9 @@ class profilecard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-        padding: const EdgeInsets.all(AppPadding.p25),
-        margin: const EdgeInsets.only(top:AppMargin.m10),
-        height: height * 0.2,
+        padding: const EdgeInsets.all(AppPadding.p40),
+        margin: const EdgeInsets.only(top:AppMargin.m10 ,left: AppMargin.m10 , right: AppMargin.m10 , ),
+        height: height * 0.24,
         width: double.infinity,
         decoration: const BoxDecoration(
           image:  DecorationImage(
@@ -122,13 +122,6 @@ class profilecard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:   [
-                  // FutureBuilder<String?>(
-                  //   future: AuthService.fetchUsername(),
-                  //   builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? "user"),
-                  //       style: boldStyle(color: ColorManager.white)
-                  //   ),
-                  // ),
-
 
 
                   FutureBuilder<String>(
@@ -147,26 +140,6 @@ class profilecard extends StatelessWidget {
               ),
             ),
             /// the percentage circularAvatar
-            Container(
-                decoration: const BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: ColorManager.white,
-                        blurRadius: AppRadius.r70,
-                        offset: Offset(AppOffset.off0_0,AppOffset.off0_75)
-                    )
-                  ],
-                ),
-                child:  CircleAvatar(
-                  backgroundColor: ColorManager.white,
-                  maxRadius: AppRadius.r30,
-                  child: Center(
-                    child: Text('50%',
-                      style: boldStyle(color: ColorManager.black,fontSize: FontSizeManager.s17)
-                    ),
-                  ),
-                )
-            ),
           ],
         )
     );
@@ -195,8 +168,9 @@ class Keyeince_features extends StatelessWidget {
             );
           },
           child: Container(
-            height: AppHeight.h60,
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.all(10),
+            height: 55,
+            margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: ColorManager.defaultColor,
               borderRadius: BorderRadius.circular(7),
@@ -215,12 +189,17 @@ class Keyeince_features extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                    tmp.name,
-                    style: Theme.of(context).textTheme.subtitle1
-                ),
                 Icon(tmp.logo,
                   color: ColorManager.white,),
+                Text(
+                    tmp.name,
+                  //  style: Theme.of(context).textTheme.subtitle1
+                  style: TextStyle(
+                    fontSize: 12 ,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
               ],
             ),
           ),
@@ -261,9 +240,9 @@ class CorsesListViewItems extends StatelessWidget {
   Widget build(BuildContext context) {
     const  List<course> _populaCorses =  [
       course(
-          image: 'assets/images/photoshop.jpg',
-          title: 'complet photoshop course',
-          coursesnum: '29 lesson'),
+    image: 'assets/images/java.jpg',
+    title: 'introduction to Java',
+    coursesnum: '29 lesson'),
       course(
           image: 'assets/images/illustrator.jpeg',
           title: 'Illustrator CC Full Course',
@@ -273,8 +252,8 @@ class CorsesListViewItems extends StatelessWidget {
           title: 'intoduction to ui utilization of after Effects',
           coursesnum: '29 lesson'),
       course(
-          image: 'assets/images/java.jpg',
-          title: 'introduction to Java',
+          image: 'assets/images/photoshop.jpg',
+          title: 'complet photoshop course',
           coursesnum: '29 lesson'),
       course(
           image: 'assets/images/course2.png',
@@ -328,128 +307,6 @@ class CorsesListViewItems extends StatelessWidget {
 
 
 
-class Recentrly_posts extends StatelessWidget {
-  const  Recentrly_posts();
 
-  @override
-  Widget build(BuildContext context) {
-    const List<post> Recentrly_post=[
-      post(poster_image: "assets/images/man.jpg",
-          poster_name: 'Salah Eddine Salhi',
-          poster_username: "sa16",
-          text_of_post: "Hello , i have a www.facebook.com pub.dev about wh"
-              "y we use statebook.com pub.dev about why we use statebook"
-              ".com pub.dev about why we use statebook.com pub.dev about"
-              " why we use stateless and statefull widgets in flutter \n"
-              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-              "Hello , i have a question about why we use stateless and statefull widgets in flutter"
-      ),
-      post(poster_image: "assets/images/man.jpg",
-          poster_name: 'Walid kacemi',
-          poster_username: "wa8",
-          text_of_post: "Hello , i have a question about why we use getters and setters in Java"
-      ),
-    ];
-    double height = MediaQuery.of(context).size.height;
-    double widh = MediaQuery.of(context).size.width;
-    return SizedBox(
-       height: height * 0.25,
-      width: widh,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        controller: ScrollController(),
-        itemCount: Recentrly_post.length,
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        itemBuilder:  (context , index){
-         final post tmp = Recentrly_post[index];
-         // return   SizedBox(
-         //   height: height * 0.25,
-         //   width: widh,
-         //   child: PostItem(Post: tmp,),
-         // );
-
-          return Container(
-            width: widh * 0.8,
-            margin: const EdgeInsets.fromLTRB(AppMargin.m10,AppMargin.m10,AppMargin.m10,AppMargin.m20),
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p15,vertical: AppPadding.p20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(AppRadius.r15),
-              color: ColorManager.white,
-              boxShadow:  <BoxShadow>[
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: AppRadius.r5,
-                  blurRadius: AppRadius.r7,
-                  offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-               // PosterNameAndImage(tmp.poster_name, tmp.poster_username),
-                // Row(
-                //   children: [
-                //     /// the user image
-                //     const UserImage(img: 'assets/images/man.jpg'),
-                //     const SizedBox(
-                //       width: AppWidth.w10,
-                //     ),
-                //     /// the name ad the username
-                //     Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: [
-                //         Text("#"+tmp.poster_username,
-                //           style: Theme.of(context).textTheme.caption,
-                //         ),
-                //         Text(tmp.poster_name,
-                //           style: Theme.of(context).textTheme.headline4!.copyWith(
-                //             fontSize: FontSizeManager.s15
-                //           )
-                //         ),
-                //       ],
-                //     ),
-                //   ],
-                // ),
-                const SizedBox(
-                  height: AppHeight.h10,
-                ),
-                /// the post's content
-                Expanded(
-                  child: postContent(tmp.text_of_post,maxlines: 3,),
-                )
-                // Expanded(
-                //   child: Linkify(
-                //     onOpen: (link) async {
-                //       if (await canLaunch(link.url)) {
-                //         await launch(link.url);
-                //       } else {
-                //         throw 'Could not launch $link';
-                //       }
-                //     },
-                //     text: tmp.text_of_post,
-                //     linkStyle: const TextStyle(color: ColorManager.LinkColor ),
-                //     style: Theme.of(context).textTheme.bodyText1,
-                //     overflow: TextOverflow.fade,
-                //   ),
-                // ),
-                // AutoSizeText(
-                //   tmp.text_of_post,
-                //   maxLines: 3,
-                //   maxFontSize: FontSizeManager.s24,
-                //   minFontSize: FontSizeManager.s15,
-                //   overflow: TextOverflow.ellipsis,
-                //   style: Theme.of(context).textTheme.bodyText1
-                // ),
-              ],
-            ),
-          );
-        }
-      ),
-    );
-  }
-}
 
 

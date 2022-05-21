@@ -5,6 +5,7 @@ import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Login/ViewModel/login_viewModel.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
+import 'package:keyofscience/presentation/WelcomScreen/WelcomScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
                 //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
                 return const NextPage();
               }
-              return const loginORregister();
+              return const WelcomScreen();
             },
           ),
         ));

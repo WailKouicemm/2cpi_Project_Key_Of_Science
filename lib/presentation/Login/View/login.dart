@@ -1,4 +1,7 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -30,81 +33,40 @@ class _LoginState extends State<Login> {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
     return
-      //MaterialApp(
-        // debugShowCheckedModeBanner: false,
-        // theme: getThemeData().copyWith(
-        //     elevatedButtonTheme: ElevatedButtonThemeData(
-        //         style: ElevatedButton.styleFrom(
-        //           elevation: AppElevation.e5,
-        //           padding: const EdgeInsets.all(AppPadding.p12),
-        //           shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
-        //           primary: ColorManager.white,
-        //           // ColorManager.defaultColor
-        //         )
-        //     ),
-        //     textButtonTheme: TextButtonThemeData(
-        //         style: TextButton.styleFrom(
-        //           textStyle: boldStyle(
-        //               color: ColorManager.white,
-        //               fontWeight: FontWeightManager.bold,
-        //               fontSize: 12.0
-        //           ),
-        //         )
-        //     )
-        // ),
-       // home:
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
+          ],
+          child: Scaffold(
+            body: ListView(
+              children: [
+                SizedBox(height: height*0.2,),
+                Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Login' , style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold , fontSize: 30),),
+                        SizedBox(height: 10,),
+                        Text('sign in to your account and  !' , style: TextStyle(color: Colors.black, ),),
+                        Text('enjoy !' , style: TextStyle(color: Colors.black, ),),
 
-     Scaffold(
-            body: SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  /// the background
-                  Container(
-                    height: height * 0.5,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                        app.appName,
-                        style: Theme.of(context).textTheme.headline5
-                    ),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(images.backgroundLogin),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  /// the textfields and buttons
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                        height: height * 0.52,
-                        width: widh,
-                        padding: const EdgeInsets.only(
-                            right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: AppRadius.r8,
-                              blurRadius: AppRadius.r14,
-                              offset: const Offset(AppOffset.off0_0, AppOffset.off3_0),
-                            ),
-                          ],
-                          color: ColorManager.defaultColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(AppRadius.r30),
-                            topRight: Radius.circular(AppRadius.r30),
-                          ),
-                        ),
-                        child:  TextFormFields(widget.pageController)
-                    ),
-                  ),
-                ],
-              ),
+
+                      ],
+                    )
+                ),
+                Container(
+                    height: height * 0.52,
+                    width: widh,
+                    padding: const EdgeInsets.only(
+                        right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
+                    child:  TextFormFields(widget.pageController)
+                ),
+
+
+              ],
             ),
-          ) ;
+          ),
+        );
    // );
   }
 }
@@ -145,139 +107,193 @@ class _TextFormFieldsState extends State<TextFormFields> {
     final double widh = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            /// E-mail
-            Padding(
-              padding: const EdgeInsets.only(bottom: AppPadding.p30),
-              child: TextFormField(
-                style: const TextStyle(color: ColorManager.black),
-                controller: emailTextEdetingController,
-                cursorColor: ColorManager.defaultColor,
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  hintText: " E-mail",
-                  prefixIcon: Icon(Icons.email),
-                ),
-                validator: (value)=>validator.emailValidator(value?? ""),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          /// E-mail
+          Padding(
+            padding: const EdgeInsets.only(bottom: AppPadding.p30),
+            child: TextFormField(
+              style: const TextStyle(color: ColorManager.black),
+              controller: emailTextEdetingController,
+              cursorColor: ColorManager.defaultColor,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical:14 ),
+                filled: true,
+                fillColor: Color(0xFFEFF2FE),
+                hintText: " E-mail ID",
+                hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
+                prefixIcon: Icon(Icons.email_outlined, color: Colors.grey,),
               ),
+              validator: (value)=>validator.emailValidator(value?? ""),
             ),
+          ),
 
-            /// Password
-            StatefulBuilder(
-              builder: (_,setstate){
-                return  Padding(
-                  padding: const EdgeInsets.only(bottom: AppPadding.p30),
-                  child: TextFormField(
-                    style: const TextStyle(color: ColorManager.black),
-                    controller: passwordTextEdetingController,
-                    cursorColor: ColorManager.defaultColor,
-                    decoration:  InputDecoration(
-                      hintText: ' Password',
-                      prefixIcon: const Icon(Icons.password),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setstate(()=>inVisible=!inVisible);
-                          },
-                          icon: Icon(inVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
-                    ),
-                    validator: (value)=>validator.passwordlValidator(value?? ""),
-                    obscureText: inVisible,
-                    keyboardType: TextInputType.visiblePassword,
+          /// Password
+          StatefulBuilder(
+            builder: (_,setstate){
+              return  Padding(
+                padding: const EdgeInsets.only(bottom: 0),
+                child: TextFormField(
+                  style: const TextStyle(color: ColorManager.black),
+                  controller: passwordTextEdetingController,
+                  cursorColor: ColorManager.defaultColor,
+                  decoration:  InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(vertical:14 ),
+                    filled: true,
+                    fillColor: Color(0xFFEFF2FE),
+                    hintText: ' Password',
+                    hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
+                    prefixIcon: Icon(Iconsax.key, color: Colors.grey, ),
+                    suffixIcon: GestureDetector(
+                        onTap: () {
+                          setstate(()=>inVisible=!inVisible);
+                        },
+                        child: Icon(inVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility, color: Colors.grey ,) , ),
                   ),
-                );
-              },
-            ),
-            /// reset Password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "don't remmember password ?",
-                  style: Theme.of(context).textTheme.subtitle2,
+                  validator: (value)=>validator.passwordlValidator(value?? ""),
+                  obscureText: inVisible,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
-                TextButton(
-                  onPressed: (){},
-                  child: const Text(' reset here ',
-                    style: TextStyle(color: ColorManager.white,),
+              );
+            },
+          ),
+          /// reset Password
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: (){},
+                child: const Text(' Forget password  ?',
+                  style: TextStyle(color: ColorManager.blue, fontWeight: FontWeight.w400),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          /// log in button
+          SizedBox(
+              width: widh,
+              child: Selector<loginUser_viewModel , bool>(
+                selector: (_,provider)=>provider.isLoading,
+                builder: (_,isLoading,__)=> isLoading? const Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.white,
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-
-            /// log in button
-            SizedBox(
-                width: widh,
-                child: Selector<loginUser_viewModel , bool>(
-                  selector: (_,provider)=>provider.isLoading,
-                  builder: (_,isLoading,__)=> isLoading? const Center(
-                    child: CircularProgressIndicator(
-                      color: ColorManager.white,
-                    ),
-                  ) :
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                                elevation: AppElevation.e5,
-                                padding: const EdgeInsets.all(AppPadding.p12),
-                                shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
-                                primary: ColorManager.white,
-                                // ColorManager.defaultColor
-                              ),
-                    onPressed: ()async{
-                      if( _formKey.currentState!.validate()){
-                     //   Focus.of(context).unfocus();
-                        await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
-                            email: emailTextEdetingController.text.trim(),
-                            password: passwordTextEdetingController.text.trim(),
-                            context: context);
-                      }
-                    },
-                    child: Text(
-                      'LOG IN',
-                      style: semiBoldStyle(color: ColorManager.defaultColor),
-                    ),
-                  ),
-                )
-            ),
-
-            const SizedBox(
-              height: 20,
-            ),
-
-            /// register now
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const   Text(
-                  "don't have account ?",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                      fontFamily: "Montserrat"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    widget.pageController.nextPage(duration: const Duration(milliseconds: 250), curve: Curves.easeIn);
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //   builder: (_)=>const RegisterPage(),
-                    // ));
+                ) :
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                              elevation: AppElevation.e5,
+                              padding: const EdgeInsets.all(AppPadding.p15),
+                              shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+                              primary: ColorManager.defaultColor,
+                              // ColorManager.defaultColor
+                            ),
+                  onPressed: ()async{
+                    if( _formKey.currentState!.validate()){
+                   //   Focus.of(context).unfocus();
+                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                          email: emailTextEdetingController.text.trim(),
+                          password: passwordTextEdetingController.text.trim(),
+                          context: context);
+                    }
                   },
-                  child: const Text(' register now ',
-                    style: TextStyle(color: ColorManager.white),),
-                )
-              ],
-            ),
-          ],
-        ),
+                  child: Text(
+                    'Login',
+                    style: semiBoldStyle(color: ColorManager.white , fontSize: FontSizeManager.s15),
+                  ),
+                ),
+              )
+          ),
+          OrDivider(),
+
+          SizedBox(
+              width: widh,
+              child: Selector<loginUser_viewModel , bool>(
+                selector: (_,provider)=>provider.isLoading,
+                builder: (_,isLoading,__)=> isLoading? const Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.white,
+                  ),
+                ) :
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: AppElevation.e5,
+                    padding: const EdgeInsets.all(AppPadding.p15),
+                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+                    primary: Colors.red,
+                    // ColorManager.defaultColor
+                  ),
+                  onPressed: ()async{
+                    if( _formKey.currentState!.validate()){
+                      //   Focus.of(context).unfocus();
+                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                          email: emailTextEdetingController.text.trim(),
+                          password: passwordTextEdetingController.text.trim(),
+                          context: context);
+                    }
+                  },
+                  child: Text(
+                    'Continue with Google',
+                    style: semiBoldStyle(color: ColorManager.white , fontSize: FontSizeManager.s15),
+                  ),
+                ),
+              )
+          ),
+
+
+          /// register now
+
+
+        ],
       ),
     );
   }
+}
+
+
+class OrDivider extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: size.height*0.03),
+      width : size.width * 0.8,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+              child: Divider(
+                color: Colors.black,
+                height: 1.5,
+              )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text("OR",style:TextStyle(fontSize: 12,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeightManager.bold , color: Colors.black)),
+          ),
+          Expanded(
+              child: Divider(
+                color: Colors.black,
+                height: 1.5,
+              )),
+        ],
+      ),
+    );
+  }
+
 }

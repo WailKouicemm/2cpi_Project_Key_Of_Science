@@ -127,7 +127,9 @@ class homePage extends StatelessWidget {
       int _index=Provider.of<buttomNavy_viewModel>(context).index;
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
+          padding: EdgeInsets.only(left: 20),
            onPressed: () => ZoomDrawer.of(context)!.toggle(),
           // onPressed: ()async{
           //   for(int i=0;i<5;i++){
@@ -138,8 +140,9 @@ class homePage extends StatelessWidget {
           icon: Image.asset(AppIcons.settings,
             color: ColorManager.defaultColor,),
         ),
-        title: const Text(app.appName),
-        flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
+        backgroundColor: Colors.white,
+        title: const Text("Home"),
+      //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
       ),
       body: PageTransitionSwitcher(
         duration: const Duration(seconds: 1),
