@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/Pages/Schedule.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/Widgets/Post.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
+import '../../notesScreen/notes_page.dart';
 import '../../postsPages/view/Posts_view.dart';
 import '../../postsPages/view/comments_view.dart';
 
@@ -57,11 +59,6 @@ class recentlyPoststitle extends StatelessWidget {
                ),
              TextButton(
               onPressed: ()=> Provider.of<buttomNavy_viewModel>(context,listen: false).goTo(2),
-              //     Navigator.of(context).push(
-              //     MaterialPageRoute(
-              //         builder: (_)=>const PostsPage()
-              //     ),
-              // ),
               child: const Text('SEE ALL'),
             ),
           ],
@@ -153,9 +150,9 @@ class Keyeince_features extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const List<Keyeince_features_item> Keyeince_features_items = [
-      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page:  PostsScreen()),
-      Keyeince_features_item(name: "Study\nresult", logo: Icons.query_stats,page:  PostsScreen()),
+     List<Keyeince_features_item> Keyeince_features_items = [
+      Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page: NotesPage()),
+      Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
       Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page:  PostsScreen()),
     ];
     return Row(
@@ -169,7 +166,7 @@ class Keyeince_features extends StatelessWidget {
           },
           child: Container(
             padding: EdgeInsets.all(10),
-            height: 55,
+            height: 50,
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: ColorManager.defaultColor,
@@ -181,10 +178,6 @@ class Keyeince_features extends StatelessWidget {
                   offset: Offset(AppOffset.off0_0, AppOffset.off0_75),
                 )
               ],
-              // image: const DecorationImage(
-              //   image: AssetImage('assets/images/CARD.png'),
-              //   fit: BoxFit.fill,
-              // ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -209,29 +202,6 @@ class Keyeince_features extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-/*
-List<courses> _webdevloppment =const [
-  courses(path: 'images/backround_appbar.png' , title: 'Full stack', coursesnum: '29'),
-  courses(path: 'images/backround_appbar.png' , title: 'Frontend Course',coursesnum: '29'),
-  courses(path: 'images/backround_appbar.png' , title: 'UI/UX COURSES',coursesnum: '29'),
-  courses(path: 'images/backround_appbar.png' , title: 'UI/UX COURSES',coursesnum: '29'),
-  courses(path: 'images/backround_appbar.png' , title: 'UI/UX Courses',coursesnum: '29'),
-  courses(path: 'images/backround_appbar.png' , title: 'UI/UX COURSES',coursesnum: '29'),
-
-];
-
- */
-
-
-
 
 class CorsesListViewItems extends StatelessWidget {
   const CorsesListViewItems();

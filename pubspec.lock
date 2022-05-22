@@ -16,7 +16,7 @@ packages:
     source: hosted
     version: "2.0.2"
   async:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: async
       url: "https://pub.dartlang.org"
@@ -175,7 +175,7 @@ packages:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.0"
+    version: "4.2.5"
   firebase_core_web:
     dependency: transitive
     description:
@@ -183,13 +183,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
-  firebase_dynamic_links:
-    dependency: "direct main"
-    description:
-      name: firebase_dynamic_links
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.11"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -223,6 +216,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_date_picker_timeline:
+    dependency: "direct main"
+    description:
+      name: flutter_date_picker_timeline
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.3"
   flutter_linkify:
     dependency: "direct main"
     description:
@@ -244,13 +244,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
-  flutter_riverpod:
+  flutter_staggered_grid_view:
     dependency: "direct main"
     description:
-      name: flutter_riverpod
+      name: flutter_staggered_grid_view
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "0.4.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -401,13 +401,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   modal_bottom_sheet:
     dependency: "direct main"
     description:
@@ -527,20 +520,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-  riverpod:
+  scroll_to_index:
     dependency: transitive
     description:
-      name: riverpod
+      name: scroll_to_index
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
-  share:
-    dependency: "direct main"
+    version: "2.1.1"
+  shamsi_date:
+    dependency: transitive
     description:
-      name: share
+      name: shamsi_date
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.4"
+    version: "1.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -616,6 +609,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+  sqflite:
+    dependency: "direct main"
+    description:
+      name: sqflite
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2+1"
+  sqflite_common:
+    dependency: transitive
+    description:
+      name: sqflite_common
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.1+1"
   stack_trace:
     dependency: transitive
     description:
@@ -623,13 +630,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
-  state_notifier:
-    dependency: transitive
-    description:
-      name: state_notifier
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.2+1"
   stream_channel:
     dependency: transitive
     description:
@@ -644,6 +644,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0+2"
   term_glyph:
     dependency: transitive
     description:
