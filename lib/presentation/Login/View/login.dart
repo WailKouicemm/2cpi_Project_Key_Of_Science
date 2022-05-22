@@ -11,6 +11,7 @@ import 'package:keyofscience/commun/Validator.dart';
 import 'package:provider/provider.dart';
 
 
+import '../../main/homeScreen/view/MainScreen.dart';
 import '../../resources/FontsManager.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
@@ -247,6 +248,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                           email: emailTextEdetingController.text.trim(),
                           password: passwordTextEdetingController.text.trim(),
                           context: context);
+
                     }
                   },
                   child: Text(

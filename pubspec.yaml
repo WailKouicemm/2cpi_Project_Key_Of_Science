@@ -57,7 +57,9 @@ dependencies:
   firestore_search: ^0.1.9
   get: 4.6.1
   shimmer: ^2.0.0
-
+  sqflite: ^2.0.2+1
+  flutter_staggered_grid_view: ^0.4.0-nullsafety.3
+  flutter_date_picker_timeline: ^0.3.3
 
 dev_dependencies:
   flutter_test:
