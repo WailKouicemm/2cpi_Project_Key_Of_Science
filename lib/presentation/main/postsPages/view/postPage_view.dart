@@ -109,5 +109,5 @@ class _postPage_viewState extends State<postPage_view> {
         )
       ),
     );
-  }
+   }
 }
