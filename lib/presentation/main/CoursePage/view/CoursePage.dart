@@ -7,7 +7,6 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../../../commun/photoView.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/Styles_Manager.dart';

@@ -142,3 +142,9 @@ class Post {
   }
 
 }
+
+class Book{
+  final String title,description,image,link,creator;
+
+  const Book({required this.title,required this.description,required this.image,required this.link,required this.creator});
+}
