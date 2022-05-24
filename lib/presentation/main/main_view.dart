@@ -127,7 +127,7 @@ class homePage extends StatelessWidget {
       int _index=Provider.of<buttomNavy_viewModel>(context).index;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
+        elevation: 0.0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 20),
            onPressed: () => ZoomDrawer.of(context)!.toggle(),
@@ -140,7 +140,6 @@ class homePage extends StatelessWidget {
           icon: Image.asset(AppIcons.settings,
             color: ColorManager.defaultColor,),
         ),
-        backgroundColor: Colors.white,
         title: Text(_bottomNavyItems[_index].title),
       //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
       ),

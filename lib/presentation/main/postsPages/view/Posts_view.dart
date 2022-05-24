@@ -95,6 +95,7 @@ class _Posts_BodyState extends State<Posts_Body> {
   Widget build(BuildContext context) {
 
     return  Scaffold(
+      backgroundColor: ColorManager.primaryColor,
       body: ListView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),

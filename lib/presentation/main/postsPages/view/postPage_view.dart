@@ -82,7 +82,7 @@ class _postPage_viewState extends State<postPage_view> {
             onPressed: () => Navigator.pop(context),
             icon: AppIcons.back
           ),
-          title: const Text(app.appName),
+          title: const Text("Post"),
           flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
         ),
         body: Column(

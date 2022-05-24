@@ -74,25 +74,21 @@ class coursesScreen extends StatelessWidget {
                   ),
                 ],
               ),
-
-          Padding(
+            Padding(
             padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p25 ),
             child: ListView(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             children: [
-              Expanded(
-                child:
-                Container(
-                  width:size.width *0.5,
-                  margin: const  EdgeInsets.only(bottom: AppMargin.m20,),
-                  child: AutoSizeText(
-                      AppStrings.YourCourses ,
-                      maxLines: 2,
-                      minFontSize: FontSizeManager.s20,
-                      maxFontSize: FontSizeManager.s20,
-                      style: Theme.of(context).textTheme.headline1
-                  ),
+              Container(
+                width:size.width *0.5,
+                margin: const  EdgeInsets.only(bottom: AppMargin.m20,),
+                child: AutoSizeText(
+                    AppStrings.YourCourses ,
+                    maxLines: 2,
+                    minFontSize: FontSizeManager.s20,
+                    maxFontSize: FontSizeManager.s20,
+                    style: Theme.of(context).textTheme.headline1
                 ),
               ),
 

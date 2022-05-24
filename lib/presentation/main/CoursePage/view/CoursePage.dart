@@ -37,7 +37,8 @@ class _CourseScreenState extends State<CourseScreen> {
       ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        // backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: const Color(0xFFF2F2F2),
         appBar: AppBar(
           flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.fill),
           leading: IconButton(

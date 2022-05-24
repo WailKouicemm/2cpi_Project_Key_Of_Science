@@ -22,12 +22,12 @@ class course {
 
   final String title;
 
-  final String coursesnum;
+  final String lessonsNumber;
 
   final String creator;
 
   const course(
-      {required this.image, required this.title, required this.coursesnum, this.creator = "Salah eddine"});
+      {required this.image, required this.title, required this.lessonsNumber, this.creator = "Salah eddine"});
 }
 
 class post {

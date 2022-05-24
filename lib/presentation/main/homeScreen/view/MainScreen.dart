@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:keyofscience/Pages/Schedule.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
-import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
@@ -23,7 +22,9 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    return  SingleChildScrollView(
+    return  Scaffold(
+      backgroundColor: ColorManager.primaryColor,
+      body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
             children: [
@@ -32,15 +33,16 @@ class homeScreen extends StatelessWidget {
               const Keyeince_features(),
               const Title_Text(txt:'Courses',seAll: true),
               const CorsesListViewItems(),
-            //  const recentlyPoststitle(),
+             // const recentlyPoststitle(),
               const Title_Text(txt:'Books',seAll: true),
-              // const CorsesListViewItems(),
+               const CorsesListViewItems(isBook: true,),
               const SizedBox(
                 height: AppMargin.m10,
               )
             ]
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -153,7 +155,15 @@ class Keyeince_features extends StatelessWidget {
      List<Keyeince_features_item>  Keyeince_features_items =const [
       Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page: NotesPage()),
          Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
-          Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: AddPostPage()),
+          Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: BookPage_view(
+            Book(
+                title: "Flutter Complete Reference",
+                description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
+                image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
+                link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
+                creator: "Alberto Miola"
+            )
+          )),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
@@ -204,7 +214,8 @@ class Keyeince_features extends StatelessWidget {
 }
 
 class CorsesListViewItems extends StatelessWidget {
-  const CorsesListViewItems();
+  final isBook;
+  const CorsesListViewItems({this.isBook = false});
 
   @override
   Widget build(BuildContext context) {
@@ -212,62 +223,99 @@ class CorsesListViewItems extends StatelessWidget {
       course(
     image: 'assets/images/java.jpg',
     title: 'introduction to Java',
-    coursesnum: '29 lesson'),
+    lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/illustrator.jpeg',
           title: 'Illustrator CC Full Course',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/ae.jpg',
           title: 'intoduction to ui utilization of after Effects',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/photoshop.jpg',
           title: 'complet photoshop course',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course2.png',
           title: 'UI/UX COURSES',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course.jpg',
           title: 'COURSES OFFRED',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course2.png',
           title: 'UI/UX COURSES',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course2.png',
           title: 'UI/UX COURSES',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course.jpg',
           title: 'UI/UX Courses',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
       course(
           image: 'assets/images/course2.png',
           title: 'UI/UX COURSES',
-          coursesnum: '29 lesson'),
+          lessonsNumber: '29 lesson'),
+    ];
+    List<Book> listOfBooks = const [
+      Book(
+          title: "Flutter Complete Reference",
+          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
+          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
+          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
+          creator: "Alberto Miola"
+      ),
+      Book(
+          title: "Flutter Complete Reference",
+          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
+          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
+          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
+          creator: "Alberto Miola"
+      ),
+      Book(
+          title: "Flutter Complete Reference",
+          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
+          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
+          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
+          creator: "Alberto Miola"
+      ),
+      Book(
+          title: "Flutter Complete Reference",
+          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
+          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
+          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
+          creator: "Alberto Miola"
+      ),
     ];
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height:  height * 0.2,
+      height:  height * 0.22,
       width:  width,
       child: ListView.builder(
           addAutomaticKeepAlives: true,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           controller: ScrollController(),
-          itemCount: _populaCorses.length,
+          itemCount: isBook ? listOfBooks.length : _populaCorses.length,
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
           itemBuilder:  (context , index){
+            if(isBook){
+              final Book tmp = listOfBooks[index];
+              return Padding(
+                padding: const EdgeInsets.only(right: AppPadding.p10),
+                child: book_card(book: tmp),
+              );
+            }
            final course tmp = _populaCorses[index];
             return Padding(
               padding: const EdgeInsets.only(right: AppPadding.p10),
-              child: cours_card(cours: tmp,),
+              child: cours_card(cours: tmp),
             );
           }
       ),

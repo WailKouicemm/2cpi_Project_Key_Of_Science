@@ -18,43 +18,43 @@ import 'models/Models.dart';
   course(
       image: 'assets/images/photoshop.jpg',
       title: 'complet photoshop course',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/illustrator.jpeg',
       title: 'Illustrator CC Full Course',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/ae.jpg',
       title: 'intoduction to ui utilization of after Effects',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/java.jpg',
       title: 'introduction to Java',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course.jpg',
       title: 'COURSES OFFRED',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course.jpg',
       title: 'UI/UX Courses',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/course2.png',
       title: 'UI/UX COURSES',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
 ];
 
 
@@ -63,15 +63,15 @@ import 'models/Models.dart';
   course(
       image: 'assets/images/photoshop.jpg',
       title: 'complet photoshop course',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/illustrator.jpeg',
       title: 'Illustrator CC Full Course',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
   course(
       image: 'assets/images/ae.jpg',
       title: 'intoduction to ui utilization of after Effects',
-      coursesnum: '29 lesson'),
+      lessonsNumber: '29 lesson'),
 ];
 
 

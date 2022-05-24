@@ -11,6 +11,7 @@ ThemeData getThemeData()=>ThemeData(
   splashColor: ColorManager.lightDefaultColor,
   /// apBar theme
   appBarTheme: AppBarTheme(
+    backgroundColor: ColorManager.primaryColor,
     iconTheme: const IconThemeData(
       color: ColorManager.defaultColor,
     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 
@@ -12,8 +13,8 @@ import '../presentation/main/CoursePage/view/CoursePage.dart';
 
 class cours_card extends StatelessWidget {
   final bool onBoarding;
-  final course cours;
-  const cours_card({required this.cours,this.onBoarding=false});
+   final course cours;
+    cours_card({ required this.cours,this.onBoarding=false});
 
 
   @override
@@ -26,11 +27,11 @@ class cours_card extends StatelessWidget {
       child: InkWell(
         onTap: (){
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_)=>CourseScreen(cours: cours),)
+            MaterialPageRoute(builder: (_)=> CourseScreen(cours: cours))
           );
         },
         child: Hero(
-          tag: cours.image+cours.title,
+          tag: cours.image,
           child: Stack(
             children: [
               Container(
@@ -63,12 +64,12 @@ class cours_card extends StatelessWidget {
                             style: Theme.of(context).textTheme.subtitle1?.
                             copyWith(fontSize: FontSizeManager.s12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
-                          Text(cours.coursesnum ,
+                         Text(cours.lessonsNumber,
                             style: lightStyle(color: ColorManager.grey, fontSize: FontSizeManager.s10),),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
                           GestureDetector(
@@ -79,12 +80,13 @@ class cours_card extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(AppRadius.r10),
                                 color: ColorManager.pink,
                               ),
-                              child: Text(' continue ' ,
+                              alignment: Alignment.center,
+                              child: const Text(' continue ' ,
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white
                                 ),
-                              ),
+                              )
                             ),
                           )
                         ],
@@ -99,3 +101,94 @@ class cours_card extends StatelessWidget {
     );
   }
 }
+
+
+class  book_card extends StatelessWidget {
+  final bool onBoarding;
+  final Book book;
+  book_card({ required this.book,this.onBoarding=false});
+
+
+  @override
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final double cardWidth = onBoarding? width * 0.9 : width * 0.8;
+    return Container(
+        padding: EdgeInsets.symmetric(vertical: onBoarding? AppPadding.p8 : 0),
+        alignment: Alignment.center,
+        child: GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_)=> BookPage_view(book))
+              );
+            },
+            child: Hero(
+              tag: book.image,
+              child: Stack(
+                children: [
+                  Container(
+                    width: cardWidth,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      image:   DecorationImage(
+                        image: NetworkImage(book.image),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius:BorderRadius.circular(AppRadius.r15),
+                    ),
+                  ),
+                  Container(
+                      width: cardWidth,
+                      alignment: Alignment.bottomLeft,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(AppRadius.r15),
+                        color: Colors.black.withOpacity(0.4),
+                      ),
+                      child: Container(
+                          padding: const EdgeInsets.only(left: AppPadding.p15 , bottom: AppPadding.p15),
+                          width:  width * 0.25,
+                          child: SingleChildScrollView(
+                            child:  Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(book.title ,
+                                  style: Theme.of(context).textTheme.subtitle1?.
+                                  copyWith(fontSize: FontSizeManager.s12),
+                                ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                      padding: const EdgeInsets.all(AppPadding.p1),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(AppRadius.r10),
+                                        color: ColorManager.pink,
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: const Text(' continue ' ,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white
+                                        ),
+                                      )
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                      )
+                  ),
+                ],
+              ),
+            )
+        )
+    );
+  }
+}
+
