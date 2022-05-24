@@ -30,7 +30,7 @@ class cours_card extends StatelessWidget {
           );
         },
         child: Hero(
-          tag: cours.image,
+          tag: cours.image+cours.title,
           child: Stack(
             children: [
               Container(

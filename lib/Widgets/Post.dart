@@ -16,7 +16,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../models/Models.dart';
 import '../presentation/main/postsPages/view/comments_view.dart';
-import '../presentation/main/postsPages/viewModel/comments_viewModel.dart';
 
 
 class PostItem extends StatelessWidget {
@@ -25,9 +24,6 @@ class PostItem extends StatelessWidget {
    PostItem({required this.post,this.isInPostPage = false});
   @override
   Widget build(BuildContext context) {
-    print('.of<comments_viewModel.of<comments_viewModel  ${
-        Provider.of<comments_viewModel>(context, listen: false).comments.length
-    }');
     return GestureDetector(
       onTap: (){
        if(!isInPostPage){
@@ -68,7 +64,7 @@ class PostItem extends StatelessWidget {
             postContent(post.content),
             if(post.images.isNotEmpty) postImages(post.images),
             /// the icons of like and comment
-            LikeAndComment(post : post,),
+            LikeAndCommentAndShare(post : post,isInPostPage: isInPostPage,),
           ],
         ),
       ),
@@ -140,7 +136,7 @@ class postContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Linkify(
       onOpen: (link) async {
-        if (await canLaunch(link.url)) {
+        if (!await canLaunch(link.url)) {
           await launch(link.url);
         } else {
           throw 'Could not launch $link';
@@ -155,16 +151,16 @@ class postContent extends StatelessWidget {
   }
 }
 
-class LikeAndComment extends StatefulWidget {
+class LikeAndCommentAndShare extends StatefulWidget {
   final  Post post;
   bool isInPostPage;
-    LikeAndComment({required this.post,this.isInPostPage = false});
+    LikeAndCommentAndShare({required this.post,this.isInPostPage = false});
 
   @override
-  State<LikeAndComment> createState() => _LikeAndCommentState();
+  State<LikeAndCommentAndShare> createState() => _LikeAndCommentAndShareState();
 }
 
-class _LikeAndCommentState extends State<LikeAndComment> {
+class _LikeAndCommentAndShareState extends State<LikeAndCommentAndShare> {
  late bool isliked;
  late int nbLikes;
   @override
@@ -203,11 +199,11 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                     width: AppWidth.w10,
                   ),
                   /// like icon
-                  GestureDetector(
+                  if(!widget.isInPostPage)  GestureDetector(
                     onTap: ()async{
                        nbLikes++;
                       setstate(() {isliked=!isliked;});
-                      await postsPage_modelView.likePost(widget.post.id);
+                        Provider.of<postsPage_modelView>(context,listen: false).likePost(widget.post.id);
                       // await postSevices.like(postId: widget.postId);
                     },
                     child: isliked? const Icon(Icons.favorite) : const Icon(Icons.favorite_border),
@@ -215,7 +211,7 @@ class _LikeAndCommentState extends State<LikeAndComment> {
                   const SizedBox(
                     width: AppWidth.w10,
                   ),
-                  Text("${widget.post.nbLikes}"),
+                  if(!widget.isInPostPage) Text("${widget.post.nbLikes}"),
                   const Spacer(),
                   /// share icon
                   GestureDetector(

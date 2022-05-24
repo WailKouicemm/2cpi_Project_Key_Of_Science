@@ -7,6 +7,7 @@ import '../../../model/note.dart';
 import '../../resources/kdefault.dart';
 import '../../resources/note_card_widget.dart';
 class NotesPage extends StatefulWidget {
+  const NotesPage();
   @override
   _NotesPageState createState() => _NotesPageState();
 }

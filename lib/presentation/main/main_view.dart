@@ -5,10 +5,10 @@ import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/Posts_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/postPage_view.dart';
-import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:animations/animations.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -129,7 +129,7 @@ class homePage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          padding: EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20),
            onPressed: () => ZoomDrawer.of(context)!.toggle(),
           // onPressed: ()async{
           //   for(int i=0;i<5;i++){
@@ -141,7 +141,7 @@ class homePage extends StatelessWidget {
             color: ColorManager.defaultColor,),
         ),
         backgroundColor: Colors.white,
-        title: const Text("Home"),
+        title: Text(_bottomNavyItems[_index].title),
       //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
       ),
       body: PageTransitionSwitcher(

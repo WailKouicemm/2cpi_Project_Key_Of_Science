@@ -5,8 +5,8 @@ import 'package:sqflite/sqflite.dart';
 import '../model/datatask.dart';
 class Taskdb {
   static Database? _db;
-  static final int_version = 1;
-  static final String? _tableName = "tasks";
+  static const int_version = 1;
+  static const  String? _tableName = "tasks";
 
   static Future<void> initDb() async{
     if (_db != null) {

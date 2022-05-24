@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:keyofscience/presentation/OnBoarding/ViewModel/OnBoarding_ViewModel.dart';
 class usernameManage {
 
   static String _username =  "-";

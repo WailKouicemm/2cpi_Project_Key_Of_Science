@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
@@ -10,13 +9,11 @@ import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../../Widgets/Post.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
-import '../viewModel/comments_viewModel.dart';
 
 
 // class PostsPage extends StatelessWidget {
@@ -113,7 +110,7 @@ class _Posts_BodyState extends State<Posts_Body> {
                   style: Theme.of(context)
                       .textTheme
                       .headline4!
-                      .copyWith(fontSize: FontSizeManager.s24),
+                      .copyWith(fontSize: FontSizeManager.s24,fontWeight: FontWeightManager.semiBold),
                   //  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),
                 ),
                 ElevatedButton(
@@ -126,6 +123,10 @@ class _Posts_BodyState extends State<Posts_Body> {
             ),
           ),
           Selector<postsPage_modelView,Tuple2<List<Post>,bool>>(
+            shouldRebuild: (prec,next){
+              print("shoud rebuirebuirebuirebuild ");
+              return prec.item1.length!=next.item1.length || prec.item2!=next.item1;
+            },
             selector: (_,provider)=>Tuple2(provider.postsList, provider.isLoading),
             builder: (_,data,__)=>ListView.builder(
               shrinkWrap: true,
@@ -159,6 +160,7 @@ class _Posts_BodyState extends State<Posts_Body> {
                   tag: 'example',
                 );
      */
+                print("$index has rebuilded");
                 return PostItem(post: tmp);
               },
             ),

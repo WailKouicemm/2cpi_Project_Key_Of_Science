@@ -1,11 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:keyofscience/commun/Validator.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
-import 'package:keyofscience/presentation/resources/images.dart';
-import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Register/viewModel/RegisterViewModel.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';

@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/Pages/Schedule.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
-import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
@@ -13,8 +13,7 @@ import 'package:provider/provider.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
 import '../../notesScreen/notes_page.dart';
-import '../../postsPages/view/Posts_view.dart';
-import '../../postsPages/view/comments_view.dart';
+
 
 
 class homeScreen extends StatelessWidget {
@@ -34,7 +33,7 @@ class homeScreen extends StatelessWidget {
               const CorsesListViewItems(),
             //  const recentlyPoststitle(),
               const Title_Text(txt:'Books',seAll: true),
-              const CorsesListViewItems(),
+              // const CorsesListViewItems(),
               const SizedBox(
                 height: AppMargin.m10,
               )
@@ -150,10 +149,10 @@ class Keyeince_features extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     List<Keyeince_features_item> Keyeince_features_items = [
+     List<Keyeince_features_item>  Keyeince_features_items =const [
       Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page: NotesPage()),
-      Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
-      Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page:  PostsScreen()),
+         Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
+          Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: AddPostPage()),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
@@ -165,7 +164,7 @@ class Keyeince_features extends StatelessWidget {
             );
           },
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             height: 50,
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -187,7 +186,7 @@ class Keyeince_features extends StatelessWidget {
                 Text(
                     tmp.name,
                   //  style: Theme.of(context).textTheme.subtitle1
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12 ,
                     color: Colors.white,
                     fontWeight: FontWeight.bold

@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/Widgets/Post.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/comments_view.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/images.dart';
 import '../viewModel/PostsPage_viewModel.dart';
-import '../viewModel/comments_viewModel.dart';
 
 
 class postPage_fromLink extends StatelessWidget {
@@ -87,22 +85,28 @@ class _postPage_viewState extends State<postPage_view> {
           title: const Text(app.appName),
           flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
         ),
-        body: ListView(
-               shrinkWrap: true,
-              controller: scrollController,
-
-              children: [
-                PostItem(post: widget.post,isInPostPage: true,),
-                const Divider(
-                  color: ColorManager.grey1,
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(25, 15, 15, 25),
-                  child:  Text("comments"),
-                ),
-                comments_list(scrollController: scrollController,postId: widget.post.id,isInPostPage: true,),
-          ],
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                controller: scrollController,
+                children: [
+                  PostItem(post: widget.post,isInPostPage: true,),
+                  const Divider(
+                    color: ColorManager.grey1,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(25, 15, 15, 25),
+                    child:  Text("comments"),
+                  ),
+                  comments_list(scrollController: scrollController,postId: widget.post.id,isInPostPage: true,),
+                ],
+              ),
             ),
+            addCommentTextField(widget.post.id),
+          ],
+        )
       ),
     );
   }

@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
                 //  Provider.of<usernameManage>(context,listen: false).fetchUsername();
                 return const NextPage();
               }
-              return const WelcomScreen();
+              return const loginORregister();
             },
           ),
         ));

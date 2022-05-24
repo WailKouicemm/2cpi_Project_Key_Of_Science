@@ -8,9 +8,18 @@ import 'package:keyofscience/services/post_services.dart';
 class postsPage_modelView extends ChangeNotifier{
 
   bool isLoading = false;
-  List<Post> postsList = [];
+   List<Post> postsList = [];
   int documentLimit = 5;
   bool hasMore = true;
+
+
+
+  void _likePostinPostsList(String id ){
+    int index = postsList.indexWhere((element) => element.id == id);
+    postsList[index].isLiked = ! postsList[index].isLiked;
+    print("postsList[index].isLiked ${postsList[index].isLiked}");
+    notifyListeners();
+  }
   Future<void> getPosts()async{
     if(!isLoading && hasMore){
      try{
@@ -37,6 +46,14 @@ class postsPage_modelView extends ChangeNotifier{
     }
   }
 
+  void addPosttoList(Post? post){
+    if(post!=null){
+      print("addPosttoListaddPosttoListaddPosttoList");
+      postsList.insert(0, post);
+      notifyListeners();
+    }
+  }
+
   Future<Post?> getSignelPost(String postId)async{
     try{
       final Post post = await postSevices.getSignelPost(postId);
@@ -56,8 +73,9 @@ class postsPage_modelView extends ChangeNotifier{
   }
 
 
-static Future<void> likePost(String postId)async{
+  Future<void> likePost(String postId)async{
   try{
+    // _likePostinPostsList(postId);
     await postSevices.like(postId: postId);
   }catch (_){}
 }

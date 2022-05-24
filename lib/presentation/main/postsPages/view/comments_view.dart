@@ -195,6 +195,9 @@ class _comments_listState extends State<comments_list> {
   @override
   Widget build(BuildContext context) {
     return Selector<comments_viewModel,Tuple2<List<comment>,bool>>(
+      shouldRebuild: (prec,next){
+        return prec.item1.length!=next.item1.length || prec.item2!=next.item1;
+      },
       selector: (_,provider)=>Tuple2(provider.comments, provider.isLoading),
       builder: (_,data,__)=>ListView.builder(
         shrinkWrap: true,
@@ -268,6 +271,7 @@ class _singleComment extends StatelessWidget {
                             ReadMoreText(
                                 coment.content,
                                 trimLines: 3,
+                                textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText1!
@@ -323,7 +327,7 @@ class _addCommentTextFieldState extends State<addCommentTextField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppPadding.p15),
+      padding: const EdgeInsets.only(bottom: AppPadding.p15,right: 10,left: 10),
       child: TextField(
         key: const ValueKey('Password876'),
         controller: _textcontroller,
@@ -339,6 +343,7 @@ class _addCommentTextFieldState extends State<addCommentTextField> {
               _textcontroller.clear();
               if (content.isNotEmpty) {
                 Provider.of<comments_viewModel>(context, listen: false).addComment(content: content,postId: widget.postId);
+               Focus.of(context).unfocus();
               }
             },
             icon: Image.asset(

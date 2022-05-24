@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/services/Authenctication.dart';
 import 'package:keyofscience/services/comments_services.dart';
@@ -11,10 +12,11 @@ class comments_viewModel extends ChangeNotifier{
   final int documentLimit = 10;
   bool isLoading = false;
   bool hasMore = true;
+  bool isAddingCooment = false;
+
   CancelableOperation? cancellableOperation_getComments;
 
   close(){
-    print("closecloseclosecloseclose called");
     comments.clear();
      isLoading = false;
      hasMore = true;
@@ -26,7 +28,7 @@ class comments_viewModel extends ChangeNotifier{
 
   Future<void> _getcommetns(String postId)async{
     print("_getcommetns_getcommetns_getcommetns_getcommetn !isLoading ${!isLoading} && hasMore $hasMore");
-    if(true){ // !isLoading && hasMore
+    if(!isLoading && hasMore){
       isLoading = true;
       notifyListeners();
       try{
@@ -67,14 +69,26 @@ class comments_viewModel extends ChangeNotifier{
 
   }
 
-
-  bool isAddingCooment = false;
+void _addCommenttoList(String  content ){
+  comment com = comment(
+      userr: user(
+          username: FirebaseAuth.instance.currentUser!.displayName ?? "",
+          email: FirebaseAuth.instance.currentUser!.email ?? "",
+          image: ''),
+      id: FirebaseAuth.instance.currentUser!.email?? '',
+      isLiked: false,
+      content: content
+  );
+  comments.insert(0,com);
+  notifyListeners();
+}
   Future<void> addComment({required String content,required postId}) async{
     if(!isAddingCooment){
       isAddingCooment = true;
       try{
         print("addCommentaddCommentaddComment");
         await comments_service.sendCommentToFirebase(postID: postId,content: content);
+        _addCommenttoList(content);
       }catch (error){
         print("error in addComment $error");
       }

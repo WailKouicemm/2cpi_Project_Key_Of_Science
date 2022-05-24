@@ -116,7 +116,7 @@ class Post {
   List<String> images ;
  final Timestamp date;
   final user userr;
-  final bool isLiked;
+   bool isLiked;
   final int nbLikes;
 
   Post( {required this.title, required this.content, required this.id,

@@ -28,7 +28,7 @@ class WelcomScreen extends StatelessWidget {
             child: Container(
               height: size.height * 0.5,
               width: size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: ColorManager.defaultColor,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20) ,topRight: Radius.circular(20))
               ),

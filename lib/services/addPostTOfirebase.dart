@@ -13,11 +13,11 @@ class addPostTOfirebase{
   static final _storgeInstance =  FirebaseStorage.instance;
   static final _firestoreInstance =  FirebaseFirestore.instance.collection("posts");
 
-  static Future<void> uploadPost(String title,content,List<XFile>  images ) async{
+  static Future<List<String>> uploadPost(String title,content,List<XFile>  images ,String id) async{
     try{
       final List<String> imagesUrl = images.isNotEmpty ? await _uploadImages(images) : [];
-      await _upload_titleETcontent(title, content, imagesUrl);
-
+      await _upload_titleETcontent(title, content, imagesUrl,id);
+      return imagesUrl;
     }catch (e){
       throw e;
     }
@@ -40,9 +40,8 @@ class addPostTOfirebase{
     }
   }
 
-  static Future<void> _upload_titleETcontent(String title,content,List<String> images)async{
+  static Future<void> _upload_titleETcontent(String title,content,List<String> images,String id)async{
     try{
-      final String id = const Uuid().v1();
       await _firestoreInstance.doc(id).set({
         "title": title,
         "content": content,

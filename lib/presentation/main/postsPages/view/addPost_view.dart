@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:ai_awesome_message/ai_awesome_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/addPost_viewModel.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
@@ -11,6 +13,7 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
 
 class AddPostPage extends StatefulWidget {
@@ -24,11 +27,14 @@ class _AddPostPageState extends State<AddPostPage> {
   late TextEditingController _titleController;
   late TextEditingController _contentController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  late addpost_viewModel _appProvider;
   @override
   void initState() {
     _titleController = TextEditingController();
     _contentController = TextEditingController();
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      _appProvider = Provider.of<addpost_viewModel>(context,listen: false);
+    });
     super.initState();
   }
 
@@ -36,6 +42,7 @@ class _AddPostPageState extends State<AddPostPage> {
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
+    _appProvider.close();
     super.dispose();
   }
 
@@ -140,15 +147,17 @@ class _AddPostPageState extends State<AddPostPage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: ElevatedButton(
-                                  onPressed: (){
+                                  onPressed: ()async{
                                      if(_formKey.currentState!.validate()){
 
-                                    Provider.of<addpost_viewModel>(context,listen: false)
-                                        .uploadPost(
+                                   Post? post = await Provider.of<addpost_viewModel>(context,listen: false).uploadPost(
                                       title: _titleController.text.trim(),
                                       content: _contentController.text.trim(),
                                        context: context
                                     );
+                                   if(post!=null){
+                                     Provider.of<postsPage_modelView>(context,listen: false).addPosttoList(post);
+                                   }
                                      }
                                   },
                                   child: const Text(AppStrings.post),
