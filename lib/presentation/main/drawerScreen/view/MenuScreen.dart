@@ -5,6 +5,7 @@ import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import '../../../../services/Authenctication.dart';
 import '../../../resources/Styles_Manager.dart';
 import '../../Courses/view/CoursesScreen.dart';
+import '../../Edit/view/Edit.dart';
 import '../../main_Viewmodel.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -100,7 +101,13 @@ class drawerScreen extends StatelessWidget {
                  Padding(
                   padding: const EdgeInsets.only(bottom:10),
                   child: MaterialButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Edit()),
+                      );
+
+                    },
                     child: Row(
                       children: [
                         Icon(Iconsax.profile_circle, color: Colors.white,),

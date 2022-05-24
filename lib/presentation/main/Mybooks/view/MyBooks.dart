@@ -32,7 +32,6 @@ class Mybooks extends StatelessWidget {
                   height: size.height *0.34,
                   width: double.infinity,
                   color: ColorManager.defaultColor,
-
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -82,18 +81,15 @@ class Mybooks extends StatelessWidget {
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Expanded(
-                    child:
-                    Container(
-                      width:size.width *0.5,
-                      margin: const  EdgeInsets.only(bottom: AppMargin.m20,),
-                      child: AutoSizeText(
-                          AppStrings.YourBooks ,
-                          maxLines: 2,
-                          minFontSize: FontSizeManager.s20,
-                          maxFontSize: FontSizeManager.s20,
-                          style: Theme.of(context).textTheme.headline1
-                      ),
+                  Container(
+                    width:size.width *0.5,
+                    margin: const  EdgeInsets.only(bottom: AppMargin.m20,),
+                    child: AutoSizeText(
+                        AppStrings.YourBooks ,
+                        maxLines: 2,
+                        minFontSize: FontSizeManager.s20,
+                        maxFontSize: FontSizeManager.s20,
+                        style: Theme.of(context).textTheme.headline1
                     ),
                   ),
 
