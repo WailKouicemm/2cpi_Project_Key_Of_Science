@@ -14,6 +14,7 @@ import 'package:tuple/tuple.dart';
 import '../../../../Widgets/Post.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
+import '../../../resources/button.dart';
 
 
 // class PostsPage extends StatelessWidget {
@@ -113,11 +114,12 @@ class _Posts_BodyState extends State<Posts_Body> {
                       .copyWith(fontSize: FontSizeManager.s24,fontWeight: FontWeightManager.semiBold),
                   //  style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),
                 ),
-                ElevatedButton(
-                    onPressed: ()=>Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_)=>const AddPostPage())
-                    ),
-                    child: const Text(AppStrings.addPost)
+
+                Button(label : AppStrings.addPost, onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_)=>const AddPostPage())
+                  );
+                } ,
                 ),
               ],
             ),

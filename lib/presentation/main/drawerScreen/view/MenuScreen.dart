@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import '../../../../services/Authenctication.dart';
 import '../../../resources/Styles_Manager.dart';
+import '../../Courses/view/CoursesScreen.dart';
 import '../../main_Viewmodel.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -11,6 +13,7 @@ class drawerScreen extends StatelessWidget {
   const drawerScreen();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.only(left: 25,top: 50),
@@ -55,7 +58,14 @@ class drawerScreen extends StatelessWidget {
                  Padding(
                    padding: const EdgeInsets.only(bottom: 10),
                    child: MaterialButton(
-                     onPressed: (){},
+                     onPressed: (){
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(builder: (context) =>  coursesScreen()),
+                       );
+
+
+                     },
                      child: Row(
                        children: const [
                          Icon(Iconsax.monitor, color: Colors.white,),
@@ -71,7 +81,13 @@ class drawerScreen extends StatelessWidget {
                  Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: MaterialButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Mybooks()),
+                      );
+
+                    },
                     child: Row(
                       children: [
                         Icon(Iconsax.monitor, color: Colors.white,),

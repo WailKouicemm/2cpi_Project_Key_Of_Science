@@ -33,10 +33,11 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double widh = MediaQuery.of(context).size.width;
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
-        ],
+    return
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider<loginUser_viewModel>(create:(_)=> loginUser_viewModel())
+          ],
           child: Scaffold(
             body: ListView(
               children: [
@@ -44,15 +45,18 @@ class _LoginState extends State<Login> {
                 Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children:const [
+                      children: [
                         Text('Login' , style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold , fontSize: 30),),
                         SizedBox(height: 10,),
                         Text('sign in to your account and  !' , style: TextStyle(color: Colors.black, ),),
                         Text('enjoy !' , style: TextStyle(color: Colors.black, ),),
+
+
                       ],
                     )
                 ),
                 Container(
+                    height: height * 0.52,
                     width: widh,
                     padding: const EdgeInsets.only(
                         right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
@@ -148,12 +152,12 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     enabledBorder: InputBorder.none,
                     errorBorder: InputBorder.none,
                     disabledBorder: InputBorder.none,
-                    contentPadding:const EdgeInsets.symmetric(vertical:14 ),
+                    contentPadding: EdgeInsets.symmetric(vertical:14 ),
                     filled: true,
-                    fillColor: const Color(0xFFEFF2FE),
+                    fillColor: Color(0xFFEFF2FE),
                     hintText: ' Password',
-                    hintStyle:const TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
-                    prefixIcon:const Icon(Iconsax.key, color: Colors.grey, ),
+                    hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
+                    prefixIcon: Icon(Iconsax.key, color: Colors.grey, ),
                     suffixIcon: GestureDetector(
                         onTap: () {
                           setstate(()=>inVisible=!inVisible);
@@ -218,25 +222,41 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 ),
               )
           ),
-
           OrDivider(),
 
           SizedBox(
               width: widh,
-              child:  ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: AppElevation.e5,
-                  padding: const EdgeInsets.all(AppPadding.p15),
-                  shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
-                  primary: Colors.red,
-                  // ColorManager.defaultColor
+              child: Selector<loginUser_viewModel , bool>(
+                selector: (_,provider)=>provider.isLoading,
+                builder: (_,isLoading,__)=> isLoading? const Center(
+                  child: CircularProgressIndicator(
+                    color: ColorManager.white,
+                  ),
+                ) :
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: AppElevation.e5,
+                    padding: const EdgeInsets.all(AppPadding.p15),
+                    shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppMargin.m10)),
+                    primary: Colors.red,
+                    // ColorManager.defaultColor
+                  ),
+                  onPressed: ()async{
+                    if( _formKey.currentState!.validate()){
+                      //   Focus.of(context).unfocus();
+                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
+                          email: emailTextEdetingController.text.trim(),
+                          password: passwordTextEdetingController.text.trim(),
+                          context: context);
+
+                    }
+                  },
+                  child: Text(
+                    'Continue with Google',
+                    style: semiBoldStyle(color: ColorManager.white , fontSize: FontSizeManager.s15),
+                  ),
                 ),
-                onPressed: (){},
-                child: Text(
-                  'Continue with Google',
-                  style: semiBoldStyle(color: ColorManager.white , fontSize: FontSizeManager.s15),
-                ),
-              ),
+              )
           ),
 
 
@@ -258,14 +278,14 @@ class OrDivider extends StatelessWidget{
       margin: EdgeInsets.symmetric(vertical: size.height*0.03),
       width : size.width * 0.8,
       child: Row(
-        children: const[
+        children: <Widget>[
           Expanded(
               child: Divider(
                 color: Colors.black,
                 height: 1.5,
               )),
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text("OR",style:TextStyle(fontSize: 12,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeightManager.bold , color: Colors.black)),
           ),
           Expanded(

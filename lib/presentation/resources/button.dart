@@ -3,7 +3,7 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 class Button extends StatelessWidget {
   final String label;
   final Function()? onTap;
-  const Button({Key? key,required this.label,required this.onTap}) : super(key: key);
+  const Button({Key? key,required this.label,required this.onTap, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

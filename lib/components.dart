@@ -14,7 +14,7 @@ import 'models/Models.dart';
 
 
 
-  const List<course> populaCorses = [
+   List<course> populaCorses = [
   course(
       image: 'assets/images/photoshop.jpg',
       title: 'complet photoshop course',
@@ -57,30 +57,31 @@ import 'models/Models.dart';
       coursesnum: '29 lesson'),
 ];
 
-const List<course> webdevloppment = [
+
+ List<course> Mycourses = [
+
   course(
-      image: 'assets/images/web1.png', title: 'Full stack', coursesnum: '29'),
+      image: 'assets/images/photoshop.jpg',
+      title: 'complet photoshop course',
+      coursesnum: '29 lesson'),
   course(
-      image: 'assets/images/web2.jpeg',
-      title: 'Frontend Course',
-      coursesnum: '29'),
+      image: 'assets/images/illustrator.jpeg',
+      title: 'Illustrator CC Full Course',
+      coursesnum: '29 lesson'),
   course(
-      image: 'assets/images/web3.jpeg',
-      title: 'UI/UX COURSES',
-      coursesnum: '29'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      coursesnum: '29'),
-  course(
-      image: 'assets/images/course.jpg',
-      title: 'UI/UX Courses',
-      coursesnum: '29'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      coursesnum: '29'),
+      image: 'assets/images/ae.jpg',
+      title: 'intoduction to ui utilization of after Effects',
+      coursesnum: '29 lesson'),
 ];
+
+
+
+
+
+
+
+
+
 
 class CorsesListView extends StatelessWidget {
   CorsesListView({required this.coursess, required this.ontap});
@@ -94,78 +95,13 @@ class CorsesListView extends StatelessWidget {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: populaCorses.length,
+        itemCount: coursess.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) => SizedBox(
           height:  height * 0.22,
-          child:  cours_card(cours: populaCorses[index],onBoarding: true,),
+          child:  cours_card(cours: coursess[index],onBoarding: true,),
         )
-        //     Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     InkWell(
-        //       onTap: ontap,
-        //       child: Stack(
-        //         children: [
-        //           Container(
-        //             width: widh * 0.9,
-        //             height: 175,
-        //             alignment: Alignment.center,
-        //             decoration: BoxDecoration(
-        //               image: DecorationImage(
-        //                   image: AssetImage(coursess[index].path),
-        //                   fit: BoxFit.cover),
-        //               borderRadius: BorderRadius.circular(15),
-        //             ),
-        //           ),
-        //           Container(
-        //             padding: const EdgeInsets.only(left: AppPadding.p10, bottom: AppPadding.p10),
-        //             width: widh * 0.9,
-        //             height: 175,
-        //             margin: const  EdgeInsets.only(bottom: AppPadding.p20),
-        //             alignment: Alignment.bottomLeft,
-        //             decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(AppRadius.r15),
-        //                 color: Colors.black.withOpacity(0.7)),
-        //             child: SizedBox(
-        //               width: widh * 0.25,
-        //               child: Column(
-        //                 mainAxisAlignment: MainAxisAlignment.end,
-        //                 crossAxisAlignment: CrossAxisAlignment.start,
-        //                 children: [
-        //                   Text(
-        //                       coursess[index].title,
-        //                       style: Theme.of(context).textTheme.subtitle2
-        //                     // const TextStyle(
-        //                     //     color: Colors.white, fontFamily: "Montserrat"),
-        //                   ),
-        //                   Text(
-        //                     coursess[index].coursesnum,
-        //                     style: Theme.of(context).textTheme.bodyText2,
-        //                     // style: const  TextStyle(
-        //                     //     color: Colors.grey,
-        //                     //     fontSize: 10,
-        //                     //     fontFamily: "Montserrat"),
-        //                   ),
-        //                   Container(
-        //                     child: const contuniueText(),
-        //                     decoration: BoxDecoration(
-        //                         borderRadius: BorderRadius.circular(20),
-        //                         color: ColorManager.pink
-        //                     ),
-        //                     alignment: Alignment.center,
-        //                     padding: const  EdgeInsets.symmetric(
-        //                         horizontal: 8, vertical: 2),
-        //                   )
-        //                 ],
-        //               ),
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
+
       );
   }
 }

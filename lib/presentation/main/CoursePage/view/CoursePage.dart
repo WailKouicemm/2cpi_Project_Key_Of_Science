@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/components.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
@@ -11,10 +12,15 @@ import '../../../../models/Models.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/Styles_Manager.dart';
 
-class CourseScreen extends StatelessWidget {
+class CourseScreen extends StatefulWidget {
   final course cours;
   const CourseScreen({required this.cours});
 
+  @override
+  State<CourseScreen> createState() => _CourseScreenState();
+}
+
+class _CourseScreenState extends State<CourseScreen> {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -38,7 +44,7 @@ class CourseScreen extends StatelessWidget {
           leading: IconButton(
               onPressed: ()=>Navigator.pop(context),
               icon: const Icon(Icons.arrow_back),),
-          title: Text(cours.title,),
+          title: Text(widget.cours.title,),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -53,7 +59,7 @@ class CourseScreen extends StatelessWidget {
                     children: [
                       /// cours image
                       Hero(
-                        tag: cours.image,
+                        tag: widget.cours.image,
                         child: GestureDetector(
                           onTap: (){
                             // Navigator.of(context).push(
@@ -67,7 +73,7 @@ class CourseScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(AppRadius.r15),
                                 image: DecorationImage(
-                                  image: AssetImage(cours.image),
+                                  image: AssetImage(widget.cours.image),
                                   fit: BoxFit.fill,
                                 ),
                                 boxShadow:  <BoxShadow>[
@@ -95,7 +101,7 @@ class CourseScreen extends StatelessWidget {
                                   style: Theme.of(context).textTheme.bodyText2,
                                   children: [
                                     TextSpan(
-                                        text:cours.creator,
+                                        text:widget.cours.creator,
                                         style: Theme.of(context).textTheme.caption
                                       //     const TextStyle(
                                       //       fontWeight: FontWeight.w900, fontSize: 9.0),
@@ -120,7 +126,7 @@ class CourseScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: AppPadding.p10),
-                        child: Text(cours.title,
+                        child: Text(widget.cours.title,
                           style: Theme.of(context).textTheme.headline1!.copyWith(fontSize: FontSizeManager.s24),),
                       )
                     ]
@@ -176,7 +182,12 @@ class CourseScreen extends StatelessWidget {
                 height: 45.0,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    setState(() {
+                      if(!Mycourses.contains(widget.cours))
+                      Mycourses.add(widget.cours);
+                    });
+                  },
                   child: const Text("Start"),
                 ),
               ),
