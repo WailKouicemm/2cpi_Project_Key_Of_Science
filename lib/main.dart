@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
                 return const NextPage();
               }
               return const loginORregister();
-            },
+             },
           ),
         ));
   }
