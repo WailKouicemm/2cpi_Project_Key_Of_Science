@@ -1,8 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/Pages/Schedule.dart';
 import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
-import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
@@ -12,6 +10,7 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../Pages/home_page.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
 import '../../notesScreen/notes_page.dart';
