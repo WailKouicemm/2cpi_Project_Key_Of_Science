@@ -14,7 +14,6 @@ import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_vie
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-
 import 'db/tasks_database.dart';
 
 void main() async {
