@@ -28,7 +28,7 @@ List<String> categories = const [
   "Web development",
   "Design UI/UX",
   "Mobile developement",
-  "Data Structure"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
+  "Data Structure"
 ];
 class coursesScreen extends StatelessWidget {
   const coursesScreen();
