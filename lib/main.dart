@@ -15,9 +15,12 @@ import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+import 'db/tasks_database.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Taskdb.initDb();
 
   /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(

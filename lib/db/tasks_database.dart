@@ -1,26 +1,33 @@
 import 'dart:async';
 import 'dart:core';
+import 'package:keyofscience/controllers/task_controller.dart';
 import 'package:sqflite/sqflite.dart';
+import '../model/task.dart';
 
-import '../model/datatask.dart';
 class Taskdb {
   static Database? _db;
-  static const int_version = 1;
-  static const  String? _tableName = "tasks";
+  static final int _version = 1;
+  static final String _tableName = "tasks";
 
-  static Future<void> initDb() async{
+  static Future<void> initDb()async{
     if (_db != null) {
       return;
     }
     try {
-      String _path = await getDatabasesPath() + "tasks.db";
+      String _path = await getDatabasesPath() + 'tasks.db';
       _db = await openDatabase(
           _path,
-        version: int_version,
+        version: _version,
         onCreate: (db,version){
             print("Creating a new one");
              return db.execute(
-"CREATE TABLE $_tableName(""id INTEGER,""title String ,""startTime STRING,""endTime STRING,""remind INTEGER,""repeat INTEGER,""color COLORS",
+                "CREATE TABLE $_tableName("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "title STRING, note TEXT, date STRING,"
+                "startTime STRING, endTime STRING,"
+                "remind INTEGER, repeat STRING,"
+                "color INTEGER,"
+                "isCompleted INTEGER)",
             );
         }
       );
@@ -28,13 +35,26 @@ class Taskdb {
       print(e);
     }
   }
-  static Future <int> insert(Datatask? datatask) async{
+
+  static Future<int> insert(Taskk? task) async{
     print("insert function called");
-    return await _db?.insert(_tableName!,datatask!.toJson())??1;
+    return await _db?.insert(_tableName, task!.toJson())??1;
   }
 
-  /*static Future<List<Map><String , dynamic>>> query() async {
+  static Future<List<Map<String , dynamic>>> query() async {
     print("query function called");
     return await _db!.query(_tableName);
-  }*/
+  }
+
+  static delete(Taskk task)async{
+   return  await _db!.delete(_tableName , where:'id=?', whereArgs: [task.id]);
+  }
+
+  static update(int? id) async{
+    return await _db!.rawUpdate('''
+        UPDATE tasks
+        SET isCompleted = ?
+        WHERE id =?
+     ''', [1, id]);
+  }
 }

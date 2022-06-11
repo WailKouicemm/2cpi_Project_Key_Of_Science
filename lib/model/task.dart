@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Datatask {
+class Taskk{
   int? id;
   String?title;
   String? note;
@@ -12,10 +12,10 @@ class Datatask {
   int? remind;
   String? repeat;
 
-  Datatask({this.id, this.title, this.note, this.isCompleted, this.date,
+  Taskk({this.id, this.title, this.note, this.isCompleted, this.date,
     this.startTime, this.endTime, this.color, this.remind, this.repeat});
 
-  Datatask.fromJson(Map<String, dynamic> json){
+  Taskk.fromJson(Map<String, dynamic> json){
     id = json['id'];
     title = json['title'];
     note = json['note'];

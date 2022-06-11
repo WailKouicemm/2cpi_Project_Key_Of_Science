@@ -21,7 +21,7 @@ class inputTask extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(titleField),
+          Text(titleField , style: TextStyle(color: Colors.black , fontWeight: FontWeight.w600),),
           Container(
             height: 48,
             padding: const EdgeInsets.only(left: 15),
@@ -37,6 +37,9 @@ class inputTask extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextField(
+                  style: TextStyle(
+                    color: Colors.black
+                  ),
                   readOnly: widget==null?false:true,
                   autofocus: false,
                   controller: conroller,
