@@ -19,15 +19,35 @@ class user {
 }
 class course {
   final String image;
-
+  final String category;
   final String title;
-
+  final String content;
   final String lessonsNumber;
-
   final String creator;
+  final String id;
+  final int views;
+  final int clicks;
+
 
   const course(
-      {required this.image, required this.title, required this.lessonsNumber, this.creator = "Salah eddine"});
+      {required this.image, required this.title, required this.lessonsNumber, this.creator = "Salah eddine", this.category="any",
+      required this.id, required this.content,
+      required this.views, required this.clicks,
+      });
+
+  factory course.fromJson(Map<String,dynamic> json){
+    return course(
+        image: json["images"] ?? "",
+        title: json["title"]?? "",
+        lessonsNumber: json["lessonsNumber"]?? "",
+        creator: json['creator']?? "",
+        category: json["category"] ?? "",
+        id: json['id'] ?? '',
+        content: json['content'] ?? '',
+        clicks: json['clicks'] ?? 0,
+        views: json['views'] ?? 0
+    );
+  }
 }
 
 class post {
@@ -144,7 +164,22 @@ class Post {
 }
 
 class Book{
-  final String title,description,image,link,creator;
+  final String title, description, image, link, creator,id;
+  final int views,clicks;
 
-  const Book({required this.title,required this.description,required this.image,required this.link,required this.creator});
+  const Book({required this.title,required this.description,required this.image,required this.link,required this.creator,
+  required this.clicks,required this.views,required this.id});
+
+  factory Book.fromJson(Map<String,dynamic> json){
+    return Book(
+        title: json['title'] ?? '',
+        description: json['description'] ?? '',
+        image: json['image'] ?? '',
+        link: json['link'] ?? '',
+        creator: json['creator'] ?? '',
+        clicks: json['clicks'] ?? 0,
+        views: json['views'] ?? 0,
+        id: json['id'] ?? "",
+    );
+  }
 }

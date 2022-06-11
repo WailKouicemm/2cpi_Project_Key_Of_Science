@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/courses_service.dart';
 
 import '../presentation/main/CoursePage/view/CoursePage.dart';
 import '../presentation/resources/FontsManager.dart';
@@ -24,8 +25,8 @@ class cours_card extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: onBoarding? AppPadding.p8 : 0),
       alignment: Alignment.center,
-      child: InkWell(
-        onTap: (){
+      child: GestureDetector(
+        onTap: ()async{
           Navigator.of(context).push(
             MaterialPageRoute(builder: (_)=> CourseScreen(cours: cours))
           );
@@ -103,27 +104,37 @@ class cours_card extends StatelessWidget {
 }
 
 
-class  book_card extends StatelessWidget {
+class  book_card extends StatefulWidget {
   final bool onBoarding;
   final Book book;
   book_card({ required this.book,this.onBoarding=false});
 
+  @override
+  State<book_card> createState() => _book_cardState();
+}
 
+class _book_cardState extends State<book_card> {
+  @override
+  void initState() async{
+    await courses_service.IncerementViews(widget.book.id,isBooks: true);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final double cardWidth = onBoarding? width * 0.9 : width * 0.8;
+    final double cardWidth = widget.onBoarding? width * 0.9 : width * 0.8;
     return Container(
-        padding: EdgeInsets.symmetric(vertical: onBoarding? AppPadding.p8 : 0),
+        padding: EdgeInsets.symmetric(vertical: widget.onBoarding? AppPadding.p8 : 0),
         alignment: Alignment.center,
         child: GestureDetector(
-            onTap: (){
+            onTap: ()async{
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_)=> BookPage_view(book))
+                  MaterialPageRoute(builder: (_)=> BookPage_view(widget.book)),
               );
+              await courses_service.IncerementClicks(widget.book.id,isBooks: true);
             },
             child: Hero(
-              tag: book.image,
+              tag: widget.book.image,
               child: Stack(
                 children: [
                   Container(
@@ -131,7 +142,7 @@ class  book_card extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       image:   DecorationImage(
-                        image: NetworkImage(book.image),
+                        image: NetworkImage(widget.book.image),
                         fit: BoxFit.cover,
                       ),
                       borderRadius:BorderRadius.circular(AppRadius.r15),
@@ -152,7 +163,7 @@ class  book_card extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(book.title ,
+                                Text(widget.book.title ,
                                   style: Theme.of(context).textTheme.subtitle1?.
                                   copyWith(fontSize: FontSizeManager.s12),
                                 ),

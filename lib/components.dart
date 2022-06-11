@@ -15,63 +15,64 @@ import 'models/Models.dart';
 
 
    List<course> populaCorses = [
-  course(
-      image: 'assets/images/photoshop.jpg',
-      title: 'complet photoshop course',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/illustrator.jpeg',
-      title: 'Illustrator CC Full Course',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/ae.jpg',
-      title: 'intoduction to ui utilization of after Effects',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/java.jpg',
-      title: 'introduction to Java',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course.jpg',
-      title: 'COURSES OFFRED',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course.jpg',
-      title: 'UI/UX Courses',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/course2.png',
-      title: 'UI/UX COURSES',
-      lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/photoshop.jpg',
+  //     title: 'complet photoshop course',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/illustrator.jpeg',
+  //     title: 'Illustrator CC Full Course',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/ae.jpg',
+  //     title: 'intoduction to ui utilization of after Effects',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/java.jpg',
+  //     title: 'introduction to Java',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course2.png',
+  //     title: 'UI/UX COURSES',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course.jpg',
+  //     title: 'COURSES OFFRED',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course2.png',
+  //     title: 'UI/UX COURSES',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course2.png',
+  //     title: 'UI/UX COURSES',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course.jpg',
+  //     title: 'UI/UX Courses',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/course2.png',
+  //     title: 'UI/UX COURSES',
+  //     lessonsNumber: '29 lesson'),
 ];
 
 
  List<course> Mycourses = [
 
-  course(
-      image: 'assets/images/photoshop.jpg',
-      title: 'complet photoshop course',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/illustrator.jpeg',
-      title: 'Illustrator CC Full Course',
-      lessonsNumber: '29 lesson'),
-  course(
-      image: 'assets/images/ae.jpg',
-      title: 'intoduction to ui utilization of after Effects',
-      lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/photoshop.jpg',
+  //     title: 'complet photoshop course',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/illustrator.jpeg',
+  //     title: 'Illustrator CC Full Course',
+  //     lessonsNumber: '29 lesson'),
+  // course(
+  //     image: 'assets/images/ae.jpg',
+  //     title: 'intoduction to ui utilization of after Effects',
+  //     lessonsNumber: '29 lesson'),
+
 ];
 
 

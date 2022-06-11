@@ -78,7 +78,7 @@ class _CourseScreenState extends State<CourseScreen> {
                                 ),
                                 boxShadow:  <BoxShadow>[
                                   BoxShadow(
-                                    color: ColorManager.black26.withOpacity(0.1),
+                                    color: ColorManager.grey.withOpacity(0.05),
                                     spreadRadius: 5,
                                     blurRadius: 7,
                                     offset: const Offset(0, 3),
@@ -109,18 +109,46 @@ class _CourseScreenState extends State<CourseScreen> {
                                   ]
                               ),
                             ),
-                            Row(
-                              children: const  [
-                                Icon(Icons.star_border, size: 13.8, color: ColorManager.blue,),
-                                Text(
-                                  '4.5',
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
+                           Column(
+                             children: [
+                               Row(
+                                 children: const  [
+                                   Icon(Icons.star_border, size: 13.8, color: ColorManager.blue,),
+                                   Text(
+                                     '4.5',
+                                     style: TextStyle(
+                                         color: Colors.grey,
+                                         fontSize: 9,
+                                         fontWeight: FontWeight.bold),
+                                   ),
+                                 ],
+                               ),
+                               Row(
+                                 children:   [
+                                   const Icon(Icons.remove_red_eye_outlined, size: 13.8, color: ColorManager.blue,),
+                                   Text(
+                                     " "+widget.cours.views.toString(),
+                                     style: const TextStyle(
+                                         color: Colors.grey,
+                                         fontSize: 9,
+                                         fontWeight: FontWeight.bold),
+                                   ),
+                                 ],
+                               ),
+                               Row(
+                                 children:   [
+                                   const Icon(Icons.ads_click, size: 13.8, color: ColorManager.blue,),
+                                   Text(
+                                     " "+widget.cours.clicks.toString(),
+                                     style: const TextStyle(
+                                         color: Colors.grey,
+                                         fontSize: 9,
+                                         fontWeight: FontWeight.bold),
+                                   ),
+                                 ],
+                               ),
+                             ],
+                           )
                           ],
                         ),
                       ),

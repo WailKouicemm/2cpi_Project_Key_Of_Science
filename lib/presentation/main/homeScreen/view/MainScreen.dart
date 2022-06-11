@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/Pages/home_page.dart';
+import 'package:keyofscience/Pages/Schedule.dart';
+import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
+import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
@@ -32,10 +34,11 @@ class homeScreen extends StatelessWidget {
               const Title_Text(txt:'TreeTech features',seAll: false),
               const Keyeince_features(),
               const Title_Text(txt:'Courses',seAll: true),
-              const CorsesListViewItems(),
+              // const CorsesListViewItems(),
+              const courses_listview("all"),
              // const recentlyPoststitle(),
               const Title_Text(txt:'Books',seAll: true),
-               const CorsesListViewItems(isBook: true,),
+              const courses_listview("all",isBook: true,),
               const SizedBox(
                 height: AppMargin.m10,
               )
@@ -155,15 +158,7 @@ class Keyeince_features extends StatelessWidget {
      List<Keyeince_features_item>  Keyeince_features_items =const [
       Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page: NotesPage()),
          Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
-          Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: BookPage_view(
-            Book(
-                title: "Flutter Complete Reference",
-                description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
-                image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
-                link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
-                creator: "Alberto Miola"
-            )
-          )),
+          Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: AddPostPage()),
     ];
     return Row(
       children:  Keyeince_features_items.map((tmp) => Expanded(
@@ -219,78 +214,8 @@ class CorsesListViewItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const  List<course> _populaCorses =  [
-      course(
-    image: 'assets/images/java.jpg',
-    title: 'introduction to Java',
-    lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/illustrator.jpeg',
-          title: 'Illustrator CC Full Course',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/ae.jpg',
-          title: 'intoduction to ui utilization of after Effects',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/photoshop.jpg',
-          title: 'complet photoshop course',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course2.png',
-          title: 'UI/UX COURSES',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course.jpg',
-          title: 'COURSES OFFRED',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course2.png',
-          title: 'UI/UX COURSES',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course2.png',
-          title: 'UI/UX COURSES',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course.jpg',
-          title: 'UI/UX Courses',
-          lessonsNumber: '29 lesson'),
-      course(
-          image: 'assets/images/course2.png',
-          title: 'UI/UX COURSES',
-          lessonsNumber: '29 lesson'),
-    ];
-    List<Book> listOfBooks = const [
-      Book(
-          title: "Flutter Complete Reference",
-          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
-          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
-          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
-          creator: "Alberto Miola"
-      ),
-      Book(
-          title: "Flutter Complete Reference",
-          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
-          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
-          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
-          creator: "Alberto Miola"
-      ),
-      Book(
-          title: "Flutter Complete Reference",
-          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
-          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
-          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
-          creator: "Alberto Miola"
-      ),
-      Book(
-          title: "Flutter Complete Reference",
-          description: "Create beautiful, fast and native apps for any device. You’ll learn about the Dart programming language (version 2.10, with null safety support) and the Flutter framework (version 1.20).While reading the chapters, you’ll find a lot of good practices, tips and performance advices to build high quality products.",
-          image: "https://docs.flutter.dev/assets/images/docs/cover/flutter-complete-reference.png",
-          link: "https://www.ency-education.com/uploads/3/0/9/3/309326/sciences-se-bac2020.pdf",
-          creator: "Alberto Miola"
-      ),
-    ];
+    const  List<course> _populaCorses =  [];
+    List<Book> listOfBooks = const [];
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return SizedBox(

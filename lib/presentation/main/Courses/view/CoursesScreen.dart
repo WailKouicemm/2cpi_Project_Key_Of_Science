@@ -1,9 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:keyofscience/presentation/main/homeScreen/view/MainScreen.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:tuple/tuple.dart';
 
+import '../../../../Widgets/Course_card.dart';
+import '../../../../Widgets/shimmerObject.dart';
 import '../../../../components.dart';
+import '../../../../models/Models.dart';
 import '../../../resources/FontsManager.dart';
 import '../../../resources/Styles_Manager.dart';
 
@@ -11,94 +20,265 @@ import '../../../resources/appStrings.dart';
 import '../../../resources/values_manager.dart';
 import '../../main_Viewmodel.dart';
 import '../../main_view.dart';
+import '../viewModel/courses_page_viwModel.dart';
+
+
+List<String> categories = const [
+  "Ai",
+  "Web development",
+  "Design UI/UX",
+  "Mobile developement",
+  "Data Structure"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
+];
 class coursesScreen extends StatelessWidget {
   const coursesScreen();
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+
+    return  Scaffold(
         backgroundColor: ColorManager.primaryColor,
         body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column (
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: size.height *0.34,
-                    width: double.infinity,
-                    color: ColorManager.defaultColor,
+            children:
+              categories.map((cateogry) =>
+              courses_category_part(cateogry),
+              ).toList()
 
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 57,
-                          backgroundColor: Colors.white,
-                          child: CircleAvatar(
-                            maxRadius: 55,
-                            backgroundColor: Colors.transparent,
-                            backgroundImage: AssetImage('assets/images/man.jpg'),
-                          ),
-                        ),
-                        FutureBuilder<String>(
-                          future: usernameManage.getUsername(),
-                          builder: (_,snapshot)=> Text( (snapshot.data ?? ''),
-                              style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeight.w700)
-                          ),
-                        ),
-                        SizedBox(
-                          height: 35,
-                        )
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -15,
-                    right: -35,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(0.2),
-                      minRadius: 60,
-                    ),
-                  ),
-                  Positioned(
-                    left: -100,
-                    top: 50 ,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(0.2),
-                      minRadius: 60,
-                    ),
-                  ),
-                ],
-              ),
-            Padding(
-            padding: const  EdgeInsets.symmetric(horizontal: AppPadding.p25 ),
-            child: ListView(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              Container(
-                width:size.width *0.5,
-                margin: const  EdgeInsets.only(bottom: AppMargin.m20,),
-                child: AutoSizeText(
-                    AppStrings.YourCourses ,
-                    maxLines: 2,
-                    minFontSize: FontSizeManager.s20,
-                    maxFontSize: FontSizeManager.s20,
-                    style: Theme.of(context).textTheme.headline1
-                ),
-              ),
-
-              CorsesListView(coursess: Mycourses,ontap: (){},),
-            ],
           ),
+        ),
+      ) ;
+  }
+}
 
+
+
+class courses_category_part extends StatelessWidget {
+  final String cateogry;
+  const courses_category_part(this.cateogry);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Title_Text(txt: cateogry, seAll: false),
+        courses_listview(cateogry),
+        const SizedBox(
+          height: 20,
         )
-            ],
-          ),
+      ],
+    );
+  }
+}
+
+class courses_listview extends StatelessWidget {
+  final String category;
+  final bool isBook;
+  const courses_listview(this.category,{this.isBook=false});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<courses_viewmodel>(create: (_) => courses_viewmodel()),
+      ],
+      child: isBook? _booksListview(category) : _courses_listView(category),
+    );
+  }
+}
+
+class _courses_listView extends StatefulWidget {
+  final String category;
+  const _courses_listView(this.category);
+
+  @override
+  State<_courses_listView> createState() => _courses_listViewState();
+}
+
+class _courses_listViewState extends State<_courses_listView> {
+  late ScrollController _scrollController;
+  @override
+  void initState() {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category);
+    });
+    _scrollController = ScrollController()..addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if ((_scrollController.position.pixels+50)>=_scrollController.position.maxScrollExtent) {
+      print("hellwo addPostFrameCallback");
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
+        Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category);
+      });
+
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      height:  height * 0.22,
+      width:  width,
+      child: Selector<courses_viewmodel,Tuple2<List<course>,bool>>(
+        shouldRebuild: (prec,next){
+          return prec.item1.length!=next.item1.length || prec.item2!=next.item1;
+        },
+        selector: (_,provider)=>Tuple2(provider.courses[widget.category] ?? [], provider.isLoading),
+        builder: (_,data,__)=>ListView.builder(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: data.item1.length+2,
+          itemBuilder: (context,index){
+            if(index >= data.item1.length){
+              if(data.item2) {
+                return const coyurse_shimmer();
+              }
+              if(index > data.item1.length) {
+                return const Center();
+              }
+              return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(AppPadding.p20),
+                    child: Text(
+                        "no more courses",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: FontSizeManager.s10,
+                        )
+                    ),
+                  )
+              );
+            }
+            course tmp = data.item1[index];
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: cours_card(cours: tmp),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class coyurse_shimmer extends StatelessWidget {
+  const coyurse_shimmer();
+
+  Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final double cardWidth = width * 0.8;
+    return  Shimmer.fromColors(
+      baseColor: ColorManager.shimmerColor1,
+      highlightColor: const Color(0xffe3e3e3).withOpacity(0.5),
+      child:  Container(
+        width: cardWidth,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius:BorderRadius.circular(AppRadius.r15),
+        ),
+      )
+    );
+
+  }
+  }
+
+class _booksListview extends StatefulWidget {
+  final String category;
+  const _booksListview(this.category);
+
+  @override
+  State<_booksListview> createState() => _booksListviewState();
+}
+
+class _booksListviewState extends State<_booksListview> {
+  late ScrollController _scrollController;
+  @override
+  void initState() {
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category,isBook: true);
+    });
+    _scrollController = ScrollController()..addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if ((_scrollController.position.pixels+50)>=_scrollController.position.maxScrollExtent) {
+      SchedulerBinding.instance!.addPostFrameCallback((_) {
+        Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category,isBook: true);
+      });
+
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return SizedBox(
+      height:  height * 0.22,
+      width:  width,
+      child: Selector<courses_viewmodel,Tuple2<List<Book>,bool>>(
+        shouldRebuild: (prec,next){
+          return prec.item1.length!=next.item1.length || prec.item2!=next.item1;
+        },
+        selector: (_,provider)=>Tuple2(provider.books[widget.category] ?? [], provider.isLoading),
+        builder: (_,data,__)=>ListView.builder(
+          controller: _scrollController,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: data.item1.length+2,
+          itemBuilder: (context,index){
+            if(index >= data.item1.length){
+              if(data.item2) {
+                return const coyurse_shimmer();
+              }
+              if(index > data.item1.length) {
+                return const Center();
+              }
+              return const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(AppPadding.p20),
+                    child: Text(
+                        "no more courses",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: FontSizeManager.s10,
+                        )
+                    ),
+                  )
+              );
+            }
+            Book tmp = data.item1[index];
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: book_card(book: tmp,)
+            );
+          },
         ),
       ),
     );
