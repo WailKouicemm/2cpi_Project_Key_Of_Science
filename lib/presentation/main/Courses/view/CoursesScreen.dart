@@ -1,7 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:keyofscience/presentation/main/homeScreen/view/MainScreen.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -10,16 +7,9 @@ import 'package:shimmer/shimmer.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../../Widgets/Course_card.dart';
-import '../../../../Widgets/shimmerObject.dart';
-import '../../../../components.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/FontsManager.dart';
-import '../../../resources/Styles_Manager.dart';
-
-import '../../../resources/appStrings.dart';
 import '../../../resources/values_manager.dart';
-import '../../main_Viewmodel.dart';
-import '../../main_view.dart';
 import '../viewModel/courses_page_viwModel.dart';
 
 

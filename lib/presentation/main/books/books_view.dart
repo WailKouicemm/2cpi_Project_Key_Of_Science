@@ -107,18 +107,47 @@ class BookPage_view extends StatelessWidget {
                                           ]
                                       ),
                                     ),
-                                    Row(
-                                      children: const  [
-                                        Icon(Icons.star_border, size: 13.8, color: ColorManager.blue,),
-                                        Text(
-                                          '4.5',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.bold),
-                                        )
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: const  [
+                                            Icon(Icons.star_border, size: 13.8, color: ColorManager.blue,),
+                                            Text(
+                                              '4.5',
+                                              style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children:   [
+                                            const Icon(Icons.remove_red_eye_outlined, size: 13.8, color: ColorManager.blue,),
+                                            Text(
+                                              " "+book.views.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children:   [
+                                            const Icon(Icons.ads_click, size: 13.8, color: ColorManager.blue,),
+                                            Text(
+                                              " "+book.clicks.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
+
                                   ],
                                 ),
                               ),

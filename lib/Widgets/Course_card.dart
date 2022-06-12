@@ -115,8 +115,8 @@ class  book_card extends StatefulWidget {
 
 class _book_cardState extends State<book_card> {
   @override
-  void initState() async{
-    await courses_service.IncerementViews(widget.book.id,isBooks: true);
+  void initState() {
+     courses_service.IncerementViews(widget.book.id,isBooks: true);
     super.initState();
   }
   @override
