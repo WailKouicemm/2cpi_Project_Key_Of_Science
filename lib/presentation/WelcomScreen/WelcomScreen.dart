@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 
 import '../../main.dart';
@@ -87,7 +88,7 @@ class WelcomScreen extends StatelessWidget {
                     ),
                      onPressed: ()=> Navigator.push(context,
                        MaterialPageRoute(
-                         builder: (context) => const loginORregister(),
+                         builder: (context) => const onBoardingScreen(),
                        ),
                      ),
                     child: Text(

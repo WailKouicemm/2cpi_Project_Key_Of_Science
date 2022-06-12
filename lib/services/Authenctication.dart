@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/Models.dart';
 
 
@@ -46,6 +45,18 @@ class AuthService {
       throw e;
     }
   }
+
+
+  static Future<void> SignInWithGmail(String email, String password) async {
+    try{
+      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      // _getUsernameFromFirebase(email);
+    } catch (error){
+      print("SignInWithEmailPasssword error $error");
+      throw error;
+    }
+  }
+
 
   static Future<void> SignInWithEmailPasssword(String email, String password) async {
     try{
