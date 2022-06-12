@@ -5,6 +5,7 @@ import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Login/ViewModel/login_viewModel.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
+import 'package:keyofscience/presentation/WelcomScreen/WelcomScreen.dart';
 import 'package:keyofscience/presentation/main/Courses/viewModel/courses_page_viwModel.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
@@ -15,13 +16,13 @@ import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:keyofscience/services/courses_service.dart';
 import 'package:provider/provider.dart';
-
+import 'package:http/http.dart' as http ;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // for(int i = 1;i<5;i++){
-  //   await trySErvice.set(i);
-  // }
+
+
+
    /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -41,6 +42,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp();
 
   @override
@@ -112,7 +114,7 @@ class NextPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool goToOnBoarding = Provider.of<nextPage_viewModel>(context, listen: false).goToOnBoarding;
     return  goToOnBoarding
-          ? const onBoardingScreen()
+          ? const WelcomScreen()
           :  const HomePage();
 
   }

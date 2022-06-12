@@ -55,12 +55,9 @@ class _LoginState extends State<Login> {
                       ],
                     )
                 ),
-                Container(
-                    height: height * 0.52,
-                    width: widh,
-                    padding: const EdgeInsets.only(
-                        right: AppPadding.p20, left: AppPadding.p20, top: AppPadding.p40),
-                    child:  TextFormFields(widget.pageController)
+                Padding(
+                  padding: const EdgeInsets.only(top: AppPadding.p40 , right: AppPadding.p20 , left: AppPadding.p20),
+                  child: TextFormFields(widget.pageController),
                 ),
 
 
@@ -195,7 +192,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 selector: (_,provider)=>provider.isLoading,
                 builder: (_,isLoading,__)=> isLoading? const Center(
                   child: CircularProgressIndicator(
-                    color: ColorManager.white,
+                    color: ColorManager.defaultColor,
                   ),
                 ) :
                 ElevatedButton(
@@ -230,7 +227,7 @@ class _TextFormFieldsState extends State<TextFormFields> {
                 selector: (_,provider)=>provider.isLoading,
                 builder: (_,isLoading,__)=> isLoading? const Center(
                   child: CircularProgressIndicator(
-                    color: ColorManager.white,
+                    color: ColorManager.defaultColor,
                   ),
                 ) :
                 ElevatedButton(
@@ -241,15 +238,8 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     primary: Colors.red,
                     // ColorManager.defaultColor
                   ),
-                  onPressed: ()async{
-                    if( _formKey.currentState!.validate()){
-                      //   Focus.of(context).unfocus();
-                      await Provider.of<loginUser_viewModel>(context,listen: false).loginUser(
-                          email: emailTextEdetingController.text.trim(),
-                          password: passwordTextEdetingController.text.trim(),
-                          context: context);
+                  onPressed: (){
 
-                    }
                   },
                   child: Text(
                     'Continue with Google',

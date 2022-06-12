@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
@@ -123,15 +124,9 @@ class profilecard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:   [
-
-
-                  FutureBuilder<String>(
-                    future: usernameManage.getUsername(),
-                    builder: (_,snapshot)=> Text('Hi , ' + (snapshot.data ?? 'HIHIHI'),
-                        style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeightManager.w800)
-                    ),
+                  Text( (FirebaseAuth.instance.currentUser!.displayName?? ''),
+                      style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeight.w700)
                   ),
-
                   const SizedBox(height: AppHeight.h14,),
                   AutoSizeText(
                     'Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00',
