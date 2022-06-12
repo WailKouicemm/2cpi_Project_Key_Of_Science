@@ -59,7 +59,7 @@ class courses_viewmodel extends ChangeNotifier{
 
 
 
-  Future<void> getCoursees({required String category,bool isBook=false}) async{
+  Future<void> getCoursees({required String category,bool isBook=false,bool popular = false}) async{
     print("entered to get courses viewModel");
 
     if(!isLoading && hasMore){
@@ -67,7 +67,8 @@ class courses_viewmodel extends ChangeNotifier{
       notifyListeners();
       try{
         final QuerySnapshot<Map<String, dynamic>> list  = await _service.getCourses(
-            documentLimit: documentLimit, category: category,startAfter : startAfter,books:isBook);
+            documentLimit: documentLimit, category: category,startAfter : startAfter,books:isBook,
+            popular:popular);
 
         if(list.size<documentLimit) {
           hasMore = false;

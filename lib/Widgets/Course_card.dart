@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
@@ -51,17 +52,19 @@ class cours_card extends StatelessWidget {
                   alignment: Alignment.bottomLeft,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(AppRadius.r15),
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withOpacity(0.2),
                   ),
                   child: Container(
                     padding: const EdgeInsets.only(left: AppPadding.p15 , bottom: AppPadding.p15),
-                    width:  width * 0.25,
+                    width:  width * 0.35,
                     child: SingleChildScrollView(
                       child:  Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(cours.title ,
+                          AutoSizeText(cours.title ,
+                            maxLines: 3,
+                            maxFontSize: 12,
                             style: Theme.of(context).textTheme.subtitle1?.
                             copyWith(fontSize: FontSizeManager.s12),
                           ),
@@ -73,23 +76,8 @@ class cours_card extends StatelessWidget {
                           const SizedBox(
                             height: 3,
                           ),
-                          GestureDetector(
-                            onTap: (){},
-                            child: Container(
-                              padding: const EdgeInsets.all(AppPadding.p1),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(AppRadius.r10),
-                                color: ColorManager.pink,
-                              ),
-                              alignment: Alignment.center,
-                              child: const Text(' continue ' ,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white
-                                ),
-                              )
-                            ),
-                          )
+                          const _continue_text()
+
                         ],
                       ),
                     )
@@ -153,43 +141,26 @@ class _book_cardState extends State<book_card> {
                       alignment: Alignment.bottomLeft,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppRadius.r15),
-                        color: Colors.black.withOpacity(0.4),
+                        color: Colors.black.withOpacity(0.2),
                       ),
                       child: Container(
                           padding: const EdgeInsets.only(left: AppPadding.p15 , bottom: AppPadding.p15),
-                          width:  width * 0.25,
+                          width:  width * 0.35,
                           child: SingleChildScrollView(
                             child:  Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(widget.book.title ,
+                                AutoSizeText(widget.book.title ,
+                                  maxLines: 3,
+                                  maxFontSize: 12,
                                   style: Theme.of(context).textTheme.subtitle1?.
                                   copyWith(fontSize: FontSizeManager.s12),
                                 ),
                                 const SizedBox(
-                                  height: 3,
+                                  height: 6,
                                 ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                GestureDetector(
-                                  onTap: (){},
-                                  child: Container(
-                                      padding: const EdgeInsets.all(AppPadding.p1),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(AppRadius.r10),
-                                        color: ColorManager.pink,
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: const Text(' continue ' ,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white
-                                        ),
-                                      )
-                                  ),
-                                )
+                                const _continue_text()
                               ],
                             ),
                           )
@@ -203,3 +174,27 @@ class _book_cardState extends State<book_card> {
   }
 }
 
+
+
+class _continue_text extends StatelessWidget {
+  const _continue_text({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(AppPadding.p1),
+        margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadius.r10),
+          color: ColorManager.pink,
+        ),
+        alignment: Alignment.center,
+        child: const Text(' continue ' ,
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.white
+          ),
+        )
+    );
+  }
+}

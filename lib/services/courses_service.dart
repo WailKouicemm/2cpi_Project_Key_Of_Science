@@ -47,17 +47,17 @@ class courses_service{
     courses_service();
    static final  _firestoreInstance =  FirebaseFirestore.instance;
    Future<QuerySnapshot<Map<String, dynamic>>> getCourses({required int documentLimit,
-   required String category,required startAfter,books=false})async{
+   required String category,required startAfter,books=false,popular=false})async{
     try{
       String collectionName = books? "books" : "coursesss";
-
+      String ordreby = popular? "clicks" : "date";
       final QuerySnapshot<Map<String, dynamic>> res;
       var instance = category=="all" ? _firestoreInstance.collection(collectionName) :
       _firestoreInstance.collection(collectionName).where("category",isEqualTo: category);
       if(startAfter == null){
-        res = await instance.orderBy("date",descending: true).limit(documentLimit).get();
+        res = await instance.orderBy(ordreby,descending: true).limit(documentLimit).get();
       }else{
-        res = await instance.orderBy("date",descending: true).startAfterDocument(startAfter!).limit(documentLimit).get();
+        res = await instance.orderBy(ordreby,descending: true).startAfterDocument(startAfter!).limit(documentLimit).get();
       }
 
       // for(int i=0;i<res.docs.length;i++){

@@ -176,7 +176,7 @@ class Book{
         description: json['description'] ?? '',
         image: json['image'] ?? '',
         link: json['link'] ?? '',
-        creator: json['creator'] ?? '',
+        creator: json['leader'] ?? '',
         clicks: json['clicks'] ?? 0,
         views: json['views'] ?? 0,
         id: json['id'] ?? "",

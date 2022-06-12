@@ -20,8 +20,20 @@ List<String> categories = const [
   "Mobile developement",
   "Data Structure"
 ];
+
+
+class booksScreen extends StatelessWidget {
+  const booksScreen();
+
+  @override
+  Widget build(BuildContext context) {
+    return coursesScreen(isBook: true,);
+  }
+}
+
 class coursesScreen extends StatelessWidget {
-  const coursesScreen();
+  final bool isBook;
+  const coursesScreen({this.isBook = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +46,7 @@ class coursesScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:
               categories.map((cateogry) =>
-              courses_category_part(cateogry),
+              courses_category_part(cateogry,isBook: isBook,),
               ).toList()
 
           ),
@@ -47,14 +59,15 @@ class coursesScreen extends StatelessWidget {
 
 class courses_category_part extends StatelessWidget {
   final String cateogry;
-  const courses_category_part(this.cateogry);
+  final bool isBook;
+  const courses_category_part(this.cateogry,{this.isBook = false});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Title_Text(txt: cateogry, seAll: false),
-        courses_listview(cateogry),
+        courses_listview(cateogry,isBook:isBook),
         const SizedBox(
           height: 20,
         )
@@ -66,7 +79,8 @@ class courses_category_part extends StatelessWidget {
 class courses_listview extends StatelessWidget {
   final String category;
   final bool isBook;
-  const courses_listview(this.category,{this.isBook=false});
+  final bool popular;
+  const courses_listview(this.category,{this.isBook=false,this.popular = false});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +88,7 @@ class courses_listview extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<courses_viewmodel>(create: (_) => courses_viewmodel()),
       ],
-      child: isBook? _booksListview(category) : _courses_listView(category),
+      child: isBook? _booksListview(category,popular:popular) : _courses_listView(category),
     );
   }
 }
@@ -191,7 +205,8 @@ class coyurse_shimmer extends StatelessWidget {
 
 class _booksListview extends StatefulWidget {
   final String category;
-  const _booksListview(this.category);
+  final bool popular;
+  const _booksListview(this.category,{this.popular=false});
 
   @override
   State<_booksListview> createState() => _booksListviewState();
@@ -202,7 +217,7 @@ class _booksListviewState extends State<_booksListview> {
   @override
   void initState() {
     SchedulerBinding.instance!.addPostFrameCallback((_) {
-      Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category,isBook: true);
+      Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category,isBook: true,popular:widget.popular);
     });
     _scrollController = ScrollController()..addListener(_scrollListener);
     super.initState();

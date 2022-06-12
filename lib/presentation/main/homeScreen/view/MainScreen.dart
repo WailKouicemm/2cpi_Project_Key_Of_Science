@@ -37,9 +37,9 @@ class homeScreen extends StatelessWidget {
               const courses_listview("all"),
              // const recentlyPoststitle(),
               const Title_Text(txt:'Books',seAll: true),
-              const courses_listview("all",isBook: true,),
+              const courses_listview("all",isBook: true,popular: true,),
               const SizedBox(
-                height: AppMargin.m10,
+                height: AppMargin.m20,
               )
             ]
         ),

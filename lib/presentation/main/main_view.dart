@@ -8,9 +8,7 @@ import 'package:keyofscience/presentation/main/postsPages/view/postPage_view.dar
 import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:animations/animations.dart';
-import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:provider/provider.dart';
@@ -122,6 +120,7 @@ class homePage extends StatelessWidget {
       bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: scheduleScreen()),
       bottomNavyItem(title: "POSTS", icon_asset: AppIcons.post,page: PostsScreen()),
       bottomNavyItem(title: "COURSES", icon_asset: AppIcons.courses,page: coursesScreen()),
+      bottomNavyItem(title: "BOOKS", icon_asset: AppIcons.books,page: booksScreen()),
 //  bottomNavyItem(title: "STATISTICS", icon_asset: "icon"),
     ];
       int _index=Provider.of<buttomNavy_viewModel>(context).index;

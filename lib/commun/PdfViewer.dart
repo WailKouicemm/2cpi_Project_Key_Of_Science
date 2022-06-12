@@ -43,7 +43,7 @@ class networPdfViewer extends StatelessWidget {
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: SfPdfViewer.network(
-           'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf')
+           'http://www.africau.edu/images/default/sample.pdf')
         ),
       ),
     );
