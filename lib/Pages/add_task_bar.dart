@@ -168,7 +168,7 @@ class Tasks extends StatefulWidget {
     if(_titleController.text.isNotEmpty && _noteController.text.isNotEmpty){
       //ajouter dans database
     _addTaskToDataBase();
-    Navigator.of(context).push(
+    Navigator.of(context).pop(
     MaterialPageRoute(builder: (context) => const Schedule()),);
     }else if(_titleController.text.isEmpty || _noteController.text.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(snackerror("Required!", "all field mustn't be empty !",context) );
