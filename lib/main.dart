@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keyofscience/db/tasks_database.dart';
 import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Login/ViewModel/login_viewModel.dart';
 import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
@@ -20,6 +21,7 @@ import 'package:http/http.dart' as http ;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Taskdb.initDb();
 
 
 

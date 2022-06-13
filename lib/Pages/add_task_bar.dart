@@ -40,7 +40,7 @@ class Tasks extends StatefulWidget {
     ];
     final _random = new Random();
   DateTime _date = DateTime.now();
-  String _startTime = DateFormat("hh::mm a").format(DateTime.now()).toString();
+  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "11:30 PM";
   int _remindSelection = 5;
   List<int> remindList=[

@@ -15,6 +15,7 @@ import '../../main/homeScreen/view/MainScreen.dart';
 import '../../resources/FontsManager.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
+import '../Resetpwd/resetpassword.dart';
 import '../ViewModel/login_viewModel.dart';
 
 
@@ -175,7 +176,10 @@ class _TextFormFieldsState extends State<TextFormFields> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ResetPasswordPage()),);
+                },
                 child: const Text(' Forget password  ?',
                   style: TextStyle(color: ColorManager.blue, fontWeight: FontWeight.w400),
                 ),

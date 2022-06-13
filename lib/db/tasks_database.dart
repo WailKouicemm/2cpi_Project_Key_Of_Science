@@ -14,7 +14,7 @@ class Taskdb {
       return;
     }
     try {
-      String _path = await getDatabasesPath() + 'tasks.db';
+      String _path = await getDatabasesPath() + 'tasks1.db';
       _db = await openDatabase(
           _path,
         version: _version,
