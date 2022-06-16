@@ -26,7 +26,7 @@ void main() async {
    /// this is used to remove the color of the status bar of the phone
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark));
+       statusBarIconBrightness: Brightness.dark));
   runApp( MultiProvider(
       providers: [
         ChangeNotifierProvider<postsPage_modelView>(create: (_) => postsPage_modelView()),
