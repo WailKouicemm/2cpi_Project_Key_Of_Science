@@ -23,7 +23,7 @@ class NotifyHelper{
          onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
     final AndroidInitializationSettings initializationSettingsAndroid =
-     AndroidInitializationSettings("appicon");
+     AndroidInitializationSettings("apicon");
 
   final InitializationSettings initializationSettings =
         InitializationSettings(

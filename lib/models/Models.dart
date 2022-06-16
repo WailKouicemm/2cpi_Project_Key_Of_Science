@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:math';
 
 
 class user {
@@ -18,7 +18,7 @@ class user {
 
 }
 class course {
-  final String image;
+    String image;
   final String category;
   final String title;
   final String content;
@@ -29,7 +29,7 @@ class course {
   final int clicks;
 
 
-  const course(
+    course(
       {required this.image, required this.title, required this.lessonsNumber, this.creator = "Salah eddine", this.category="any",
       required this.id, required this.content,
       required this.views, required this.clicks,
@@ -37,15 +37,15 @@ class course {
 
   factory course.fromJson(Map<String,dynamic> json){
     return course(
-        image: json["images"] ?? "",
-        title: json["title"]?? "",
-        lessonsNumber: json["lessonsNumber"]?? "",
-        creator: json['creator']?? "",
-        category: json["category"] ?? "",
-        id: json['id'] ?? '',
-        content: json['content'] ?? '',
-        clicks: json['clicks'] ?? 0,
-        views: json['views'] ?? 0
+        image: json["image"]?? "",
+        title: json["Title"]?? "",
+        lessonsNumber: "10",
+        creator: "salah eddine",
+        category: "category",
+        id: json['Enrollment'].toString(),
+        content: json['Summary'] ?? '',
+        clicks: 0,
+        views:  0
     );
   }
 }
@@ -98,11 +98,6 @@ class VideoModel {
 }
 
 
-class categories {
-  final String title;
-
-  categories({required this.title});
-}
 
 class courses {
   final String path, title, coursesnum;
@@ -137,7 +132,7 @@ class Post {
  final Timestamp date;
   final user userr;
    bool isLiked;
-  final int nbLikes;
+   int nbLikes;
 
   Post( {required this.title, required this.content, required this.id,
     required this.email,required this.date, required this.images,
@@ -164,6 +159,7 @@ class Post {
 }
 
 class Book{
+
   final String title, description, image, link, creator,id;
   final int views,clicks;
 

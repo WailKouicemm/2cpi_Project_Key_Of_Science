@@ -48,7 +48,8 @@ class addPostTOfirebase{
         "images": images,
         "date": Timestamp.now(),
         "email": FirebaseAuth.instance.currentUser!.email,
-        "id": id
+        "id": id,
+        "nblikes":0
       });
       print("end _upload_titleETcontent");
     }catch (e){

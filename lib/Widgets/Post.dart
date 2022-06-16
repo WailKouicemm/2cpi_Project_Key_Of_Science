@@ -201,8 +201,15 @@ class _LikeAndCommentAndShareState extends State<LikeAndCommentAndShare> {
                   /// like icon
                   if(!widget.isInPostPage)  GestureDetector(
                     onTap: ()async{
-                       nbLikes++;
+                      if(isliked){
+                        widget.post.nbLikes=widget.post.nbLikes-1;
+                        widget.post.isLiked=false;
+                      }else{
+                        widget.post.nbLikes++;
+                        widget.post.isLiked=true;
+                      }
                       setstate(() {isliked=!isliked;});
+
                         Provider.of<postsPage_modelView>(context,listen: false).likePost(widget.post.id);
                       // await postSevices.like(postId: widget.postId);
                     },

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:keyofscience/Pages/home_page.dart';
 import 'package:keyofscience/controllers/task_controller.dart';
 import 'package:get/get.dart';
-import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
 import '../Widgets/ErrorSnackbar.dart';
 import '../model/task.dart';
 import 'dart:math';
@@ -14,6 +13,8 @@ import '../presentation/resources/button.dart';
 import '../presentation/resources/inputTask.dart';
 import '../presentation/resources/kdefault.dart';
 class Tasks extends StatefulWidget {
+  final bool fromHome;
+  const Tasks({this.fromHome=false});
 
   @override
   _TaskState createState() => _TaskState();
@@ -40,7 +41,7 @@ class Tasks extends StatefulWidget {
     ];
     final _random = new Random();
   DateTime _date = DateTime.now();
-  String _startTime = DateFormat("hh::mm a").format(DateTime.now()).toString();
+  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "11:30 PM";
   int _remindSelection = 5;
   List<int> remindList=[
@@ -152,7 +153,7 @@ class Tasks extends StatefulWidget {
         padding: const EdgeInsets.only(top: 20.0),
         child: Button(label: "Create Task", 
         onTap: (){ 
-        _validateDate();
+        _validateDate(fromHome:widget.fromHome);
         _taskController.getTasks();
         }),
       )
@@ -164,12 +165,13 @@ class Tasks extends StatefulWidget {
 }
 
 
-  _validateDate(){
+  _validateDate({bool fromHome = false}){
     if(_titleController.text.isNotEmpty && _noteController.text.isNotEmpty){
       //ajouter dans database
     _addTaskToDataBase();
-    Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => const Schedule()),);
+    fromHome?
+    Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (context) => const Schedule_page()),) : Navigator.pop(context);
     }else if(_titleController.text.isEmpty || _noteController.text.isEmpty){
       ScaffoldMessenger.of(context).showSnackBar(snackerror("Required!", "all field mustn't be empty !",context) );
     }
@@ -232,4 +234,22 @@ class Tasks extends StatefulWidget {
     );
     print("My id is " + "$value");
   }
+  }
+
+
+
+  class Schedule_page extends StatelessWidget {
+    const Schedule_page({Key? key}) : super(key: key);
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar:  AppBar(
+          elevation: 0.0,
+          title: Text("SCHEDULE")
+          //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
+        ),
+        body: Schedule(),
+      );
+    }
   }

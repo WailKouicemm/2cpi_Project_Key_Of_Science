@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/components.dart';
+import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
+import '../../../../main.dart';
 import '../../../../services/Authenctication.dart';
 import '../../../resources/Styles_Manager.dart';
 import '../../Courses/view/CoursesScreen.dart';
@@ -71,7 +74,7 @@ class _drawerScreenState extends State<drawerScreen> {
                        onPressed: (){
                          Navigator.push(
                            context,
-                           MaterialPageRoute(builder: (context) =>  coursesScreen()),
+                           MaterialPageRoute(builder: (context) =>  my_courses()),
                          );
 
 
@@ -88,25 +91,25 @@ class _drawerScreenState extends State<drawerScreen> {
                        ),
                      ),
                    ),
-                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: MaterialButton(
-                      onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>  Mybooks()),
-                        );
-
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Iconsax.monitor, color: Colors.white,),
-                          const SizedBox(width: 10,),
-                          const Text('My books',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
-                        ],
-                      ),
-                    ),
-                  ),
+                  //  Padding(
+                  //   padding: const EdgeInsets.only(bottom: 10),
+                  //   child: MaterialButton(
+                  //     onPressed: (){
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(builder: (context) =>  Mybooks()),
+                  //       );
+                  //
+                  //     },
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(Iconsax.monitor, color: Colors.white,),
+                  //         const SizedBox(width: 10,),
+                  //         const Text('My books',style: TextStyle(color: Colors.white , fontSize: 15,fontFamily: FontFamilyManager.defaultFamily,fontWeight: FontWeight.w400)),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                    Padding(
                     padding: const EdgeInsets.only(bottom:10),
                     child: MaterialButton(
@@ -157,6 +160,8 @@ class _drawerScreenState extends State<drawerScreen> {
                     child: MaterialButton(
                       onPressed: ()async {
                         await AuthService.SignOut();
+                        Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context)=>loginORregister()));
                       },
                       child: Row(
                         children: [

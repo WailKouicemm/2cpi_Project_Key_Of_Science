@@ -28,7 +28,7 @@ class postSevices {
       for(var item in res.docs){
         final user userr = await AuthService.getUser(item.data()['email'] ?? '');
         final bool isLiked = await isLike(postId: item.data()['id']);
-        final int nbLikes = 0; // await NbLikes(item.data()['id']);
+        final int nbLikes = item.data()['nblikes'] ?? 0 ;
         lists.add(
           Post.fromJson(item.data(),userr,isLiked,nbLikes)
         );
@@ -47,7 +47,7 @@ class postSevices {
       if(res!=null){
         final user userr = await AuthService.getUser(res.data()!['email'] ?? '');
         final bool isLiked = await isLike(postId: res.data()!['id']);
-        final int nbLikes = 0; // await NbLikes(item.data()['id']);
+        final int nbLikes = int.parse(res.data()!['nblikes']).remainder(0);
           post = Post.fromJson(res.data()!, userr, isLiked, nbLikes);
         return post;
       }
@@ -72,8 +72,10 @@ class postSevices {
       final likesCollection = _firestoreInstance.collection('likes').doc(postId).collection('likes');
       if(islike){
         await likesCollection.doc(email).delete();
+        await _firestoreInstance.collection("posts").doc(postId).update({"nblikes": FieldValue.increment(-1)});
       }else{
         await likesCollection.doc(email).set({});
+        await _firestoreInstance.collection("posts").doc(postId).update({"nblikes": FieldValue.increment(1)});
       }
     }catch (e){rethrow;}
    }

@@ -2,12 +2,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:keyofscience/main.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
+import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/resources/App.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/commun/Validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 
@@ -15,6 +18,7 @@ import '../../main/homeScreen/view/MainScreen.dart';
 import '../../resources/FontsManager.dart';
 import '../../resources/Styles_Manager.dart';
 import '../../resources/values_manager.dart';
+import '../Resetpwd/resetpassword.dart';
 import '../ViewModel/login_viewModel.dart';
 
 
@@ -175,7 +179,10 @@ class _TextFormFieldsState extends State<TextFormFields> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ResetPasswordPage()),);
+                },
                 child: const Text(' Forget password  ?',
                   style: TextStyle(color: ColorManager.blue, fontWeight: FontWeight.w400),
                 ),
@@ -238,7 +245,9 @@ class _TextFormFieldsState extends State<TextFormFields> {
                     primary: Colors.red,
                     // ColorManager.defaultColor
                   ),
-                  onPressed: (){
+                  onPressed: ()async{
+
+
 
                   },
                   child: Text(

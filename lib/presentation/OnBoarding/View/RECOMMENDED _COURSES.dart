@@ -1,10 +1,13 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/OnBoarding/ViewModel/OnBoarding_ViewModel.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
+import 'package:provider/provider.dart';
 
 import '../../../components.dart';
+import '../../main/Courses/view/CoursesScreen.dart';
 import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';
 import '../../resources/values_manager.dart';
@@ -29,14 +32,13 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Container(
-                      width: widh*0.5,
-                      margin: const  EdgeInsets.symmetric(vertical: AppMargin.m20,),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Expanded(
                       child: AutoSizeText(
                           AppStrings.recommanded_courses ,
                           maxLines: 2,
-                          minFontSize: FontSizeManager.s30,
+                          minFontSize: FontSizeManager.s20,
                           maxFontSize: FontSizeManager.s50,
                           style: Theme.of(context).textTheme.headline1
                         // TextStyle(
@@ -62,8 +64,18 @@ class _RECOMMANDED_COURSESState extends State<RECOMMANDED_COURSES> {
                   ),
                 ],
               ),
+            SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column (
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:
+                  Provider.of<selectedItemProvier>(context).selectedItems.map((cateogry) =>
+                      courses_category_part(cateogry),
+                  ).toList()
 
-            CorsesListView(coursess: populaCorses,ontap: (){},),
+              ),
+            ),
+            // CorsesListView(coursess: populaCorses,ontap: (){},),
           ],
         ),
 

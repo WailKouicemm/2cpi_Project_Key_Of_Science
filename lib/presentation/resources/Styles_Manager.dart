@@ -28,3 +28,4 @@ TextStyle boldStyle({required color, fontSize = FontSizeManager.s20, fontWeight 
 
 TextStyle welcomText =  TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: FontFamilyManager.defaultFamily , fontSize: 23 );
 TextStyle welcomText2 =  TextStyle(color: Colors.white , fontWeight: FontWeight.w200 , fontFamily: FontFamilyManager.defaultFamily , fontSize: 18 );
+

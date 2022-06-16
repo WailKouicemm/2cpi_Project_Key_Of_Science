@@ -5,22 +5,34 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tuple/tuple.dart';
-
 import '../../../../Widgets/Course_card.dart';
 import '../../../../models/Models.dart';
 import '../../../resources/FontsManager.dart';
 import '../../../resources/values_manager.dart';
+import '../../searchPage/search_view.dart';
 import '../viewModel/courses_page_viwModel.dart';
 
 
-List<String> categories = const [
+List<String> course_categories = const [
+  "Artificial intelligence",
+  "Web",
+  "Python",
+  "Flutter",
+  "deep learning",
+  "dev ops",
+  "blockchain",
+  "cloud computing",
+  "Data mining",
+  "Database security",
+];
+
+List<String> book_categories = const [
   "Ai",
   "Web development",
   "Design UI/UX",
   "Mobile developement",
   "Data Structure"
-];
-
+  ];
 
 class booksScreen extends StatelessWidget {
    const booksScreen();
@@ -31,10 +43,26 @@ class booksScreen extends StatelessWidget {
   }
 }
 
-class coursesScreen extends StatelessWidget {
+class coursesScreen extends StatefulWidget {
   final bool isBook;
   const coursesScreen({this.isBook = false});
 
+  @override
+  State<coursesScreen> createState() => _coursesScreenState();
+}
+
+class _coursesScreenState extends State<coursesScreen> {
+  late  TextEditingController searchcontroller;
+  @override
+  void initState() {
+    searchcontroller = TextEditingController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    searchcontroller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -44,11 +72,61 @@ class coursesScreen extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           child: Column (
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:
-              categories.map((cateogry) =>
-              courses_category_part(cateogry,isBook: isBook,),
-              ).toList()
+            children: [
+             if(!widget.isBook) Padding(
+                padding: const EdgeInsets.only(top:AppMargin.m10 ,left: 15 , right: 15 , ),
+                child: TextField(
+                  style: const TextStyle(color: Colors.black),
+                  controller: searchcontroller,
+                  cursorColor: ColorManager.defaultColor,
+                  decoration:   InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    fillColor: Color(0xffe3e8fc),
+                    hintText: 'search for course...',
+                    contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                    suffixIcon: GestureDetector(
+                        onTap: (){
+                          final String text = searchcontroller.text;
+                          if(text.isNotEmpty){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder : (context)=>search_page(text)
+                                )
+                            );
+                          }
+                        },
+                        child: Icon(Icons.search, color: Colors.grey, )
+                    ),
+                    hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
+                  ),
+                  onSubmitted: (text){
+                    if(text.isNotEmpty){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder : (context)=>search_page(text)
+                          )
+                      );
+                    }
 
+                  },
+                ),
+              ),
+
+               Column(
+                 mainAxisSize: MainAxisSize.min,
+                 children: widget.isBook ?
+                 book_categories.map((cateogry) =>
+                     courses_category_part(cateogry,isBook: widget.isBook,),
+                 ).toList() : course_categories.map((cateogry) =>
+                     courses_category_part(cateogry,isBook: widget.isBook,),
+                 ).toList(),
+               )
+
+]
           ),
         ),
       ) ;
@@ -80,7 +158,8 @@ class courses_listview extends StatelessWidget {
   final String category;
   final bool isBook;
   final bool popular;
-  const courses_listview(this.category,{this.isBook=false,this.popular = false});
+  final bool vertical;
+  const courses_listview(this.category,{this.isBook=false,this.popular = false,this.vertical=false});
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +167,16 @@ class courses_listview extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<courses_viewmodel>(create: (_) => courses_viewmodel()),
       ],
-      child: isBook? _booksListview(category,popular:popular) : _courses_listView(category),
+      child: isBook? _booksListview(category,popular:popular) : _courses_listView(category,vertical: vertical,),
     );
   }
 }
 
 class _courses_listView extends StatefulWidget {
   final String category;
-  const _courses_listView(this.category);
+  final bool vertical;
+
+  const _courses_listView(this.category,{this.vertical=false});
 
   @override
   State<_courses_listView> createState() => _courses_listViewState();
@@ -120,7 +201,6 @@ class _courses_listViewState extends State<_courses_listView> {
 
   void _scrollListener() {
     if ((_scrollController.position.pixels+50)>=_scrollController.position.maxScrollExtent) {
-      print("hellwo addPostFrameCallback");
       SchedulerBinding.instance!.addPostFrameCallback((_) {
         Provider.of<courses_viewmodel>(context,listen: false).getCoursees(category: widget.category);
       });
@@ -132,7 +212,7 @@ class _courses_listViewState extends State<_courses_listView> {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
     return SizedBox(
-      height:  height * 0.22,
+      height:  widget.vertical? height : height * 0.22,
       width:  width,
       child: Selector<courses_viewmodel,Tuple2<List<course>,bool>>(
         shouldRebuild: (prec,next){
@@ -141,13 +221,14 @@ class _courses_listViewState extends State<_courses_listView> {
         selector: (_,provider)=>Tuple2(provider.courses[widget.category] ?? [], provider.isLoading),
         builder: (_,data,__)=>ListView.builder(
           controller: _scrollController,
-          scrollDirection: Axis.horizontal,
+          scrollDirection: widget.vertical ? Axis.vertical : Axis.horizontal,
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
           itemCount: data.item1.length+2,
           itemBuilder: (context,index){
             if(index >= data.item1.length){
               if(data.item2) {
+                print("====================================================");
                 return const coyurse_shimmer();
               }
               if(index > data.item1.length) {
@@ -170,8 +251,9 @@ class _courses_listViewState extends State<_courses_listView> {
             course tmp = data.item1[index];
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: cours_card(cours: tmp),
+              padding: EdgeInsets.symmetric(horizontal: !widget.vertical? 10 : 0,
+              vertical: widget.vertical? 10 : 0),
+              child: cours_card(cours: tmp,onBoarding: widget.vertical,),
             );
           },
         ),

@@ -1,12 +1,13 @@
+
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keyofscience/db/tasks_database.dart';
 import 'package:keyofscience/presentation/Login/View/login.dart';
 import 'package:keyofscience/presentation/Login/ViewModel/login_viewModel.dart';
-import 'package:keyofscience/presentation/OnBoarding/View/onBoearingScreen.dart';
 import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
-import 'package:keyofscience/presentation/WelcomScreen/WelcomScreen.dart';
-import 'package:keyofscience/presentation/main/Courses/viewModel/courses_page_viwModel.dart';
+import 'package:keyofscience/presentation/WelcomScreen/EmailSucc.dart';
+
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/main_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/viewModel/PostsPage_viewModel.dart';
@@ -14,12 +15,30 @@ import 'package:keyofscience/presentation/main/postsPages/viewModel/addPost_view
 import 'package:keyofscience/presentation/main/postsPages/viewModel/comments_viewModel.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:keyofscience/services/courses_service.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http ;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Taskdb.initDb();
+
+
+
+ // var request = http.Request('GET', Uri.parse('https://fastapicrs.herokuapp.com/recommand/1'));
+
+
+
+
+// http.StreamedResponse response = await request.send();
+//
+//   if (response.statusCode == 200) {
+//     print("*****************************************");
+//     print(await json.decode(response.stream.bytesToString().toString()));
+//    //  print(await response.stream.bytesToString());
+//   }
+//   else {
+//     print("");
+//     print(response.reasonPhrase);
+//   }
 
 
 
@@ -114,7 +133,7 @@ class NextPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool goToOnBoarding = Provider.of<nextPage_viewModel>(context, listen: false).goToOnBoarding;
     return  goToOnBoarding
-          ? const WelcomScreen()
+          ? const EmailSucc()
           :  const HomePage();
 
   }

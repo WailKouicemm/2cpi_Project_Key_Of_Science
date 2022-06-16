@@ -17,12 +17,18 @@ class WelcomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        elevation: 3,
+        centerTitle: false,
+        backgroundColor: Colors.white,
+        title: const Text(app.appName , style: TextStyle(color: ColorManager.defaultColor),),
+      ),
       body: Stack(
         children: [
         Positioned(
-          top: 100,
+          top: 0,
           right: size.width /2 - size.width * 0.7 * 0.5,
-          child: Image.asset('assets/images/welcom.png' ,width: size.width * 0.7,),
+          child: Image.asset('assets/images/Welcom.png' ,width: size.width * 0.7,),
         ),
           Positioned(
             bottom: 0,
@@ -86,7 +92,7 @@ class WelcomScreen extends StatelessWidget {
                       primary: Colors.white,
                       // ColorManager.defaultColor
                     ),
-                     onPressed: ()=> Navigator.push(context,
+                     onPressed: ()=> Navigator.pushReplacement(context,
                        MaterialPageRoute(
                          builder: (context) => const onBoardingScreen(),
                        ),

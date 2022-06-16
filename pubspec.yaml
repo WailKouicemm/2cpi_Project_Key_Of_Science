@@ -72,16 +72,21 @@ dependencies:
   dio:
   http:
   permission_handler:
+  double_back_to_close: ^2.0.0
+  better_player:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_native_splash:
 
+flutter_native_splash:
+  color: "#ffffff"
 
-flutter_native_splash: 
+
+#flutter_native_splash:
   #color: "#0043D8"
-  background_image: assets/images/logo3.png
+  #background_image: assets/images/logo3.png
   #image: assets/images/logo3.png
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

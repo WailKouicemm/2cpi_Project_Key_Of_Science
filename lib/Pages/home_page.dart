@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:keyofscience/Pages/add_task_bar.dart';
 import 'package:keyofscience/model/task.dart';
 import 'package:keyofscience/notification/notifications.dart';
+import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/kdefault.dart';
 import '../Widgets/tasktile.dart';
 import '../controllers/task_controller.dart';
@@ -34,313 +35,315 @@ var notifyHelper;
   @override
   Widget build(BuildContext context) {
     _taskController.getTasks();
-    return Scaffold(
-      appBar: buildAppBar("Schedule"),
-      body: Column(
-        children: [
-          _addTask(),
-          _addDateBar(),
-          const SizedBox(height: 10.0,),
-           Expanded(
-      child: Obx((){
-        return SizedBox(
-          height: double.infinity,
-          child: ListView.builder(
-            itemCount: _taskController.taskList.length,
-            itemBuilder: (context,index){
-                Taskk task = _taskController.taskList[index];
-                String a =_selecteddate.toString().split(" ")[0].split("-")[2];
-                int b = int.parse(task.date!.split('/')[1].split('/')[0].toString()); 
-                int c = int.parse(a);              
-                if(task.repeat == "Weekly"){
-                  for (int i = 0; i<=4 ; i++){
-                    if((c == b+(i*7)) || ( c == b-(i*7))){
-                   notifyHelper.scheduledNotification(
-                    int.parse(task.startTime.toString().split(":")[0]),
-                    int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
-                    task
-                  );
-                    return AnimationConfiguration.staggeredList(
-                  position: index, 
-                  child: SlideAnimation(
-                    child:FadeInAnimation(
-                      child:Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                             showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                 return Container(
-                                 height: _taskController.taskList[index].isCompleted==1?
-                                 MediaQuery.of(context).size.height*0.20:
-                                 MediaQuery.of(context).size.height*0.32 ,
-                                 color: Colors.white,
-                                 child: Column(
-                                     children: [
-                                      const SizedBox(height: 10.0,),
-                                      Container(
-                                       height: 6.0,
-                                       width: 80.0,
-                                       decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       color: Colors.grey[300]
-                                       ),
-                                      ),
-                                    _taskController.taskList[index].isCompleted==1?Container(
-                                    ):
-                                     const SizedBox(height: 20.0,),
-                                    _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
-                                      _taskController.markTaskCompleted(_taskController.taskList[index].id);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, const Color.fromARGB(255, 52, 70, 206) ,const Color.fromARGB(255, 52, 70, 206), Colors.white):
-                                   Container(),
-                                   
-                                    buttonsheet("Delete Task", () {
-                                      _taskController.delete(_taskController.taskList[index]);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, Colors.red , Colors.red, Colors.white),
-                                    const SizedBox(height: 15.0,),            
-                                    buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)           
-                                   ],
-                                 )
-                                );
-                               },
-                              );
-                            },
-                            child: TaskTile(_taskController.taskList[index]),
-                          )
-                        ],) ,
-                       ) 
-                      )
-                  );
-                  }
-                }
-                    }
-          
-                if(task.repeat == "Monthly"){
-                  if(a == task.date!.split('/')[1].split('/')[0]){
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorManager.primaryColor,
+        body: Column(
+          children: [
+            _addTask(),
+            _addDateBar(),
+            const SizedBox(height: 10.0,),
+             Expanded(
+        child: Obx((){
+          return SizedBox(
+            height: double.infinity,
+            child: ListView.builder(
+              itemCount: _taskController.taskList.length,
+              itemBuilder: (context,index){
+                  Taskk task = _taskController.taskList[index];
+                  String a =_selecteddate.toString().split(" ")[0].split("-")[2];
+                  int b = int.parse(task.date!.split('/')[1].split('/')[0].toString()); 
+                  int c = int.parse(a);              
+                  if(task.repeat == "Weekly"){
+                    for (int i = 0; i<=4 ; i++){
+                      if((c == b+(i*7)) || ( c == b-(i*7))){
                      notifyHelper.scheduledNotification(
-                    int.parse(task.startTime.toString().split(":")[0]),
-                    int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
-                    task
-                  );
-                    return AnimationConfiguration.staggeredList(
-                  position: index, 
-                  child: SlideAnimation(
-                    child:FadeInAnimation(
-                      child:Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                             showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                 return Container(
-                                 height: _taskController.taskList[index].isCompleted==1?
-                                 MediaQuery.of(context).size.height*0.20:
-                                 MediaQuery.of(context).size.height*0.32 ,
-                                 color: Colors.white,
-                                 child: Column(
-                                     children: [
-                                      const SizedBox(height: 10.0,),
-                                      Container(
-                                       height: 6.0,
-                                       width: 80.0,
-                                       decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       color: Colors.grey[300]
-                                       ),
-                                      ),
-                                    _taskController.taskList[index].isCompleted==1?Container(
-                                    ):
-                                      const SizedBox(height: 20.0,),
-          
-          
-                                    _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
-                                      _taskController.markTaskCompleted(_taskController.taskList[index].id);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, const Color.fromARGB(255, 52, 70, 206) ,const Color.fromARGB(255, 52, 70, 206), Colors.white):
-                                   Container(),
-                                   
-                                    buttonsheet("Delete Task", () {
-                                      _taskController.delete(_taskController.taskList[index]);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, Colors.red , Colors.red, Colors.white),
-                                    const SizedBox(height: 15.0,), 
-                                    buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)
-                                        ],
-                                       )
-                                     );
-                                    },
+                      int.parse(task.startTime.toString().split(":")[0]),
+                      int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
+                      task
+                    );
+                      return AnimationConfiguration.staggeredList(
+                    position: index, 
+                    child: SlideAnimation(
+                      child:FadeInAnimation(
+                        child:Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                               showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                   return Container(
+                                   height: _taskController.taskList[index].isCompleted==1?
+                                   MediaQuery.of(context).size.height*0.20:
+                                   MediaQuery.of(context).size.height*0.32 ,
+                                   color: Colors.white,
+                                   child: Column(
+                                       children: [
+                                        const SizedBox(height: 10.0,),
+                                        Container(
+                                         height: 6.0,
+                                         width: 80.0,
+                                         decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         color: Colors.grey[300]
+                                         ),
+                                        ),
+                                      _taskController.taskList[index].isCompleted==1?Container(
+                                      ):
+                                       const SizedBox(height: 20.0,),
+                                      _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
+                                        _taskController.markTaskCompleted(_taskController.taskList[index].id);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, const Color.fromARGB(255, 52, 70, 206) ,const Color.fromARGB(255, 52, 70, 206), Colors.white):
+                                     Container(),
+                                     
+                                      buttonsheet("Delete Task", () {
+                                        _taskController.delete(_taskController.taskList[index]);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, Colors.red , Colors.red, Colors.white),
+                                      const SizedBox(height: 15.0,),            
+                                      buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)           
+                                     ],
+                                   )
                                   );
-                            },
-                            child: TaskTile(_taskController.taskList[index]),
-                          )
-                        ],) ,
-                       ) 
-                      )
-                  );
+                                 },
+                                );
+                              },
+                              child: TaskTile(_taskController.taskList[index]),
+                            )
+                          ],) ,
+                         ) 
+                        )
+                    );
+                    }
                   }
-                }
-                if(task.repeat == "Daily"){
-                  notifyHelper.scheduledNotification(
-                    int.parse(task.startTime.toString().split(":")[0]),
-                    int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
-                    task
-                  );
-                  return AnimationConfiguration.staggeredList(
-                  position: index, 
-                  child: SlideAnimation(
-                    child:FadeInAnimation(
-                      child:Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                             showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                 return Container(
-                                 height: _taskController.taskList[index].isCompleted==1?
-                                 MediaQuery.of(context).size.height*0.20:
-                                 MediaQuery.of(context).size.height*0.32 ,
-                                 color: Colors.white,
-                                 child: Column(
-                                     children: [
-                                     const   SizedBox(height: 10.0,),
-                                      Container(
-                                       height: 6.0,
-                                       width: 80.0,
-                                       decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       color: Colors.grey[300]
-                                       ),
-                                      ),
-                                    _taskController.taskList[index].isCompleted==1?Container(
-                                    ):
-                                    const SizedBox(height: 20.0,),
-                                    _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
-                                      _taskController.markTaskCompleted(_taskController.taskList[index].id);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => Schedule()),);
-                                    }, context,const Color.fromARGB(255, 52, 70, 206) , const Color.fromARGB(255, 52, 70, 206), Colors.white):
-                                   Container(),
-                                   
-                                    buttonsheet("Delete Task", () {
-                                      _taskController.delete(_taskController.taskList[index]);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, Colors.red , Colors.red, Colors.white),
-                                    const SizedBox(height: 15.0,),
-                                    buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)
-                                   
+                      }
+            
+                  if(task.repeat == "Monthly"){
+                    if(a == task.date!.split('/')[1].split('/')[0]){
+                       notifyHelper.scheduledNotification(
+                      int.parse(task.startTime.toString().split(":")[0]),
+                      int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
+                      task
+                    );
+                      return AnimationConfiguration.staggeredList(
+                    position: index, 
+                    child: SlideAnimation(
+                      child:FadeInAnimation(
+                        child:Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                               showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                   return Container(
+                                   height: _taskController.taskList[index].isCompleted==1?
+                                   MediaQuery.of(context).size.height*0.20:
+                                   MediaQuery.of(context).size.height*0.32 ,
+                                   color: Colors.white,
+                                   child: Column(
+                                       children: [
+                                        const SizedBox(height: 10.0,),
+                                        Container(
+                                         height: 6.0,
+                                         width: 80.0,
+                                         decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         color: Colors.grey[300]
+                                         ),
+                                        ),
+                                      _taskController.taskList[index].isCompleted==1?Container(
+                                      ):
+                                        const SizedBox(height: 20.0,),
+            
+            
+                                      _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
+                                        _taskController.markTaskCompleted(_taskController.taskList[index].id);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, const Color.fromARGB(255, 52, 70, 206) ,const Color.fromARGB(255, 52, 70, 206), Colors.white):
+                                     Container(),
+                                     
+                                      buttonsheet("Delete Task", () {
+                                        _taskController.delete(_taskController.taskList[index]);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, Colors.red , Colors.red, Colors.white),
+                                      const SizedBox(height: 15.0,), 
+                                      buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)
                                           ],
-                                        )
-                                      );
-                                    },
-                                  );
-                            },
-                            child: TaskTile(_taskController.taskList[index]),
-                          )
-                        ],) ,
-                       ) 
-                      )
-                  );
-               }
-               if(task.date == DateFormat.yMd().format(_selecteddate)){
+                                         )
+                                       );
+                                      },
+                                    );
+                              },
+                              child: TaskTile(_taskController.taskList[index]),
+                            )
+                          ],) ,
+                         ) 
+                        )
+                    );
+                    }
+                  }
+                  if(task.repeat == "Daily"){
+                    notifyHelper.scheduledNotification(
+                      int.parse(task.startTime.toString().split(":")[0]),
+                      int.parse(task.startTime.toString().split(":")[1].split(" ")[0])-int.parse(task.remind.toString()),
+                      task
+                    );
+                    return AnimationConfiguration.staggeredList(
+                    position: index, 
+                    child: SlideAnimation(
+                      child:FadeInAnimation(
+                        child:Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                               showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                   return Container(
+                                   height: _taskController.taskList[index].isCompleted==1?
+                                   MediaQuery.of(context).size.height*0.20:
+                                   MediaQuery.of(context).size.height*0.32 ,
+                                   color: Colors.white,
+                                   child: Column(
+                                       children: [
+                                       const   SizedBox(height: 10.0,),
+                                        Container(
+                                         height: 6.0,
+                                         width: 80.0,
+                                         decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         color: Colors.grey[300]
+                                         ),
+                                        ),
+                                      _taskController.taskList[index].isCompleted==1?Container(
+                                      ):
+                                      const SizedBox(height: 20.0,),
+                                      _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completedd", () {
+                                        _taskController.markTaskCompleted(_taskController.taskList[index].id);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => Schedule()),);
+                                      }, context,const Color.fromARGB(255, 52, 70, 206) , const Color.fromARGB(255, 52, 70, 206), Colors.white):
+                                     Container(),
+                                     
+                                      buttonsheet("Delete Task", () {
+                                        _taskController.delete(_taskController.taskList[index]);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, Colors.red , Colors.red, Colors.white),
+                                      const SizedBox(height: 15.0,),
+                                      buttonsheet("Close", (){}, context, Colors.white, Colors.black, Colors.black)
+                                     
+                                            ],
+                                          )
+                                        );
+                                      },
+                                    );
+                              },
+                              child: TaskTile(_taskController.taskList[index]),
+                            )
+                          ],) ,
+                         ) 
+                        )
+                    );
+                 }
+                 if(task.date == DateFormat.yMd().format(_selecteddate)){
+                    
+                  notifyHelper.scheduledNotification(
+                      int.parse(task.startTime.toString().split(":")[0]),
+                      int.parse(task.startTime.toString().split(":")[1].split(" ")[0]) - int.parse(task.remind.toString()),
+                      task
+                    );
+                     return AnimationConfiguration.staggeredList(
+                    position: index, 
+                    child: SlideAnimation(
+                      child:FadeInAnimation(
+                        child:Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                               showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                   return Container(
+                                   height: _taskController.taskList[index].isCompleted==1?
+                                   MediaQuery.of(context).size.height*0.20:
+                                   MediaQuery.of(context).size.height*0.32 ,
+                                   color: Colors.white,
+                                   child: Column(
+                                       children: [
+                                        const SizedBox(height: 10.0,),
+                                        Container(
+                                         height: 6.0,
+                                         width: 80.0,
+                                         decoration: BoxDecoration(
+                                         borderRadius: BorderRadius.circular(10),
+                                         color: Colors.grey[300]
+                                         ),
+                                        ),
+                                      _taskController.taskList[index].isCompleted==1?Container(
+                                      ):
+                                       const SizedBox(height: 20.0,),
+            
+            
+                                      _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completed", () {
+                                        _taskController.markTaskCompleted(_taskController.taskList[index].id);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, const Color.fromARGB(255, 52, 70, 206) , const Color.fromARGB(255, 52, 70, 206), Colors.white):
+                                     Container(),
+                                     
+                                      buttonsheet("Delete Task", () {
+                                        _taskController.delete(_taskController.taskList[index]);
+                                        _taskController.getTasks();
+                                        Navigator.of(context).pop(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, Colors.red , Colors.red, Colors.white),
+                                      const SizedBox(height: 15.0,),
+                                    
+                                    
+                                      buttonsheet("Close", (){
+                                        Navigator.of(context).push(
+                                         MaterialPageRoute(builder: (context) => const Schedule()),);
+                                      }, context, Colors.white, Colors.black, Colors.black)
+                                     
+                                           ],
+                                         )
+                                       );
+                                     },
+                                   );
+                              },
+                              child: TaskTile(_taskController.taskList[index]),
+                            )
+                          ],) ,
+                         ) 
+                        )
+                    );
+                 }else{
+                   return Container();
+                 }
                   
-                notifyHelper.scheduledNotification(
-                    int.parse(task.startTime.toString().split(":")[0]),
-                    int.parse(task.startTime.toString().split(":")[1].split(" ")[0]) - int.parse(task.remind.toString()),
-                    task
-                  );
-                   return AnimationConfiguration.staggeredList(
-                  position: index, 
-                  child: SlideAnimation(
-                    child:FadeInAnimation(
-                      child:Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                             showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                 return Container(
-                                 height: _taskController.taskList[index].isCompleted==1?
-                                 MediaQuery.of(context).size.height*0.20:
-                                 MediaQuery.of(context).size.height*0.32 ,
-                                 color: Colors.white,
-                                 child: Column(
-                                     children: [
-                                      const SizedBox(height: 10.0,),
-                                      Container(
-                                       height: 6.0,
-                                       width: 80.0,
-                                       decoration: BoxDecoration(
-                                       borderRadius: BorderRadius.circular(10),
-                                       color: Colors.grey[300]
-                                       ),
-                                      ),
-                                    _taskController.taskList[index].isCompleted==1?Container(
-                                    ):
-                                     const SizedBox(height: 20.0,),
-          
-          
-                                    _taskController.taskList[index].isCompleted==0?buttonsheet("Task Completed", () {
-                                      _taskController.markTaskCompleted(_taskController.taskList[index].id);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, const Color.fromARGB(255, 52, 70, 206) , const Color.fromARGB(255, 52, 70, 206), Colors.white):
-                                   Container(),
-                                   
-                                    buttonsheet("Delete Task", () {
-                                      _taskController.delete(_taskController.taskList[index]);
-                                      _taskController.getTasks();
-                                      Navigator.of(context).pop(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, Colors.red , Colors.red, Colors.white),
-                                    const SizedBox(height: 15.0,),
-                                  
-                                  
-                                    buttonsheet("Close", (){
-                                      Navigator.of(context).push(
-                                       MaterialPageRoute(builder: (context) => const Schedule()),);
-                                    }, context, Colors.white, Colors.black, Colors.black)
-                                   
-                                         ],
-                                       )
-                                     );
-                                   },
-                                 );
-                            },
-                            child: TaskTile(_taskController.taskList[index]),
-                          )
-                        ],) ,
-                       ) 
-                      )
-                  );
-               }else{
-                 return Container();
-               }
-                
-          }),
-        );
+            }),
+          );
   }),
   )
 
-            ],
-          )
+              ],
+            )
+      ),
     );
   }
 
