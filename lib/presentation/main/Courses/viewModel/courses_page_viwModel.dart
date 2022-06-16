@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/services/api_recomondation.dart';
 import 'package:keyofscience/services/courses_service.dart';
 
 import '../../../../models/Models.dart';
@@ -66,33 +67,32 @@ class courses_viewmodel extends ChangeNotifier{
       isLoading = true;
       notifyListeners();
       try{
-        final QuerySnapshot<Map<String, dynamic>> list  = await _service.getCourses(
-            documentLimit: documentLimit, category: category,startAfter : startAfter,books:isBook,
-            popular:popular);
 
-        if(list.size<documentLimit) {
-          hasMore = false;
-        }
-        startAfter = list.docs.last;
-        for(int i=0;i<list.size;i++){
-          final element = list.docs[i];
-          if(isBook){
+        if(isBook){
+          final QuerySnapshot<Map<String, dynamic>> list  = await _service.getCourses(
+              documentLimit: documentLimit, category: category,startAfter : startAfter,books:isBook,
+              popular:popular);
+
+          if(list.size<documentLimit) {
+            hasMore = false;
+          }
+          startAfter = list.docs.last;
+          for(int i=0;i<list.size;i++){
+            final element = list.docs[i];
             if(books[category]==null){
               books[category] = [Book.fromJson(element.data())];
             }else{
               books[category]!.add(Book.fromJson(element.data()));
             }
-          }else{
-            if(courses[category]==null){
-              courses[category] = [course.fromJson(element.data())];
-            }else{
-              courses[category]!.add(course.fromJson(element.data()));
-            }
+
           }
+        }else{
+          courses[category]=await api_service().getCourse(category);
+
+          notifyListeners();
 
         }
 
-        notifyListeners();
 
       }catch (error){
         print("error in get courses $error");

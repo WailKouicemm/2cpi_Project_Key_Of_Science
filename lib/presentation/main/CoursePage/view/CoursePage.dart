@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/Widgets/Course_card.dart';
 import 'package:keyofscience/components.dart';
+import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
@@ -8,6 +10,7 @@ import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../models/Models.dart';
+import '../../../Video/CourseDetail.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/Styles_Manager.dart';
 
@@ -73,7 +76,7 @@ class _CourseScreenState extends State<CourseScreen> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(AppRadius.r15),
                                 image: DecorationImage(
-                                  image: AssetImage(widget.cours.image),
+                                  image: NetworkImage(widget.cours.image),
                                   fit: BoxFit.fill,
                                 ),
                                 boxShadow:  <BoxShadow>[
@@ -175,7 +178,8 @@ class _CourseScreenState extends State<CourseScreen> {
                     ),
                     const SizedBox(height: AppHeight.h10,),
                     ReadMoreText(
-                        'Flutter is Gt) interfaces for iOS and Andaces for iOS and Andaces for iOS and Andaces for iOS and Android apps with the unified Andaces for iOS and Android apps with the unified Andaces for iOS and Android apps with the unified Andaces for iOS and Android apps with the unified Andaces for iOS and Android apps with the unified codebase.',
+                      widget.cours.content
+                        ,
                         trimLines: 3,
                         style: Theme.of(context).textTheme.caption,
                         colorClickableText: ColorManager.defaultColor,
@@ -210,11 +214,15 @@ class _CourseScreenState extends State<CourseScreen> {
                 height: 45.0,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (){
+                  onPressed: ()async{
                     setState(() {
-                      if(!Mycourses.contains(widget.cours))
-                      Mycourses.add(widget.cours);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CourseDetail(courseId: widget.cours.id,)),
+                      );
                     });
+                    await myCourses_service.add_myCoursese(widget.cours);
+                    await verifyIFregistered_in_cours.register(widget.cours.id);
                   },
                   child: const Text("Start"),
                 ),

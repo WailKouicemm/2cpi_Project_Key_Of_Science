@@ -7,9 +7,11 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Widgets/AwesomeMessag.dart';
 import '../../../kdefault.dart';
 import '../../main/main_Viewmodel.dart';
 import '../../resources/ThemeManager.dart';
+import '../../resources/appStrings.dart';
 import '../ViewModel/OnBoarding_ViewModel.dart';
 
 
@@ -53,13 +55,12 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
               builder: (BuildContext context, value, Widget? child)=> Scaffold(
                   backgroundColor: ColorManager.primaryColor,
                   appBar: AppBar(
-                    flexibleSpace: Container(
-                      decoration:  const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(images.appBarImage),
-                              fit: BoxFit.cover)),
+                    centerTitle: false,
+                    elevation: 0,
+                    title: Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: const Text(app.appName , style: TextStyle(color: ColorManager.defaultColor),),
                     ),
-                    title: const Text(app.appName),
                     actions: [
                       for(int i=0;i<2;i++) Padding(
                         padding: const EdgeInsets.all(AppPadding.p2),
@@ -71,17 +72,26 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
                     ],
                   ),
                   body: PageView.builder(
+                      pageSnapping: false,
+                      physics: NeverScrollableScrollPhysics(),
                       controller: _pageController,
                       itemCount: _onBoardingPages.length,
                       onPageChanged: (index)=>Provider.of<pageIndexProvider>(context,listen: false).onPageChanges(index),
                       itemBuilder: (_,index)=> _onBoardingPages[index]
                   ),
                   floatingActionButton: value==0? FloatingActionButton(
-                    onPressed: ()=>_pageController.animateToPage(
-                      1,
-                      duration: const Duration(milliseconds: AppDuration.pageViewDelay),
-                      curve: Curves.easeIn,
-                    ),
+                    onPressed: (){
+                      if(Provider.of<selectedItemProvier>(context,listen: false).selectedItems.length<3){
+                        AwesomeMessag(context: context, title: AppStrings.errorTitle,
+                        message: "Please enter at least 3 category");
+                      }else{
+                        _pageController.animateToPage(
+                          1,
+                          duration: const Duration(milliseconds: AppDuration.pageViewDelay),
+                          curve: Curves.easeIn,
+                        );
+                      }
+                    },
                     child: const Icon(Icons.navigate_next_rounded),
                   ) : null
               )

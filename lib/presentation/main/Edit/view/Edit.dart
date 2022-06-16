@@ -61,7 +61,7 @@ class _EditState extends State<Edit> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           maxRadius: 57,
                           backgroundColor: Colors.white,
                           child: CircleAvatar(

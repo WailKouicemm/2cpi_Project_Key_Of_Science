@@ -1,3 +1,4 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
@@ -5,7 +6,6 @@ import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/Posts_view.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/postPage_view.dart';
-import 'package:keyofscience/presentation/main/sheduleScreen/view/scheduleScreen.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 
 import '../../../../models/Models.dart';
+import '../../Pages/home_page.dart';
 import '../../models/Models.dart';
 import '../resources/images.dart';
 import 'drawerScreen/view/MenuScreen.dart';
@@ -43,25 +44,27 @@ class _HomePageState extends State<HomePage> {
 
   ///Retreive dynamic link firebase.
   void initDynamicLinks() async {
-    print("initDynamicLinksinitDynamicLinks");
-    /// https://keyofscience.page.link/QecatCsNcjGNKPbc7
-    final PendingDynamicLinkData? data =
-    await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri? deepLink = data?.link;
+try{
+  print("initDynamicLinksinitDynamicLinks");
+  /// https://keyofscience.page.link/QecatCsNcjGNKPbc7
+  final PendingDynamicLinkData? data =
+  await FirebaseDynamicLinks.instance.getInitialLink();
+  final Uri? deepLink = data?.link;
 
-    if (deepLink != null) {
-      handleDynamicLink(deepLink);
-    }
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
-          final Uri? deepLink = dynamicLink?.link;
+  if (deepLink != null) {
+    handleDynamicLink(deepLink);
+  }
+  FirebaseDynamicLinks.instance.onLink(
+      onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+        final Uri? deepLink = dynamicLink?.link;
 
-          if (deepLink != null) {
-            handleDynamicLink(deepLink);
-          }
-        }, onError: (OnLinkErrorException e) async {
-      print(e.message);
-    });
+        if (deepLink != null) {
+          handleDynamicLink(deepLink);
+        }
+      }, onError: (OnLinkErrorException e) async {
+    print(e.message);
+  });
+}catch (e){}
   }
 
   handleDynamicLink(Uri url) {
@@ -117,52 +120,50 @@ class homePage extends StatelessWidget {
   Widget build(BuildContext context) {
       const List<bottomNavyItem> _bottomNavyItems = [
       bottomNavyItem(title: "Home", icon_asset: AppIcons.home,page: homeScreen()),
-      bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: scheduleScreen()),
+      bottomNavyItem(title: "SCHEDULE", icon_asset: AppIcons.schedule,page: Schedule()),
       bottomNavyItem(title: "POSTS", icon_asset: AppIcons.post,page: PostsScreen()),
       bottomNavyItem(title: "COURSES", icon_asset: AppIcons.courses,page: coursesScreen()),
-      bottomNavyItem(title: "BOOKS", icon_asset: AppIcons.books,page: booksScreen()),
+      bottomNavyItem(title: "BOOKS", icon_asset: AppIcons.books ,page: booksScreen()),
 //  bottomNavyItem(title: "STATISTICS", icon_asset: "icon"),
     ];
       int _index=Provider.of<buttomNavy_viewModel>(context).index;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        leading: IconButton(
-          padding: const EdgeInsets.only(left: 20),
-           onPressed: () => ZoomDrawer.of(context)!.toggle(),
-          // onPressed: ()async{
-          //   for(int i=0;i<5;i++){
-          //     await addPostTOfirebase.uploadPost("$i$i$i$i$i$i$i$i$i$i","What is Lorem Ipsum?"
-          //         " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", []);
-          //   }
-          // },
-          icon: Image.asset(AppIcons.settings,
-            color: ColorManager.defaultColor,),
-        ),
-        title: Text(_bottomNavyItems[_index].title),
-      //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
-      ),
-      body: PageTransitionSwitcher(
-        duration: const Duration(seconds: 1),
-        transitionBuilder: (child,primaryAnimation,secondaryAnimation)=>SharedAxisTransition(
-          animation: primaryAnimation,
-          secondaryAnimation: secondaryAnimation,
-          transitionType: SharedAxisTransitionType.horizontal,
-          child: child,
-        ),
-        child: _bottomNavyItems[_index].page,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _bottomNavyItems.map((item) => BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            item.icon_asset,
-            color: _index==_bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
+    return DoubleBack(
+      message : "click again to exit",
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            padding: const EdgeInsets.only(left: 20),
+            onPressed: () => ZoomDrawer.of(context)!.toggle(),
+
+            icon: Image.asset(AppIcons.settings,
+              color: ColorManager.defaultColor,),
           ),
-          label: item.title,
+          title: Text(_bottomNavyItems[_index].title),
+          //  flexibleSpace: Image.asset(images.appBarImage,fit: BoxFit.cover,),
         ),
-        ).toList(),
-        currentIndex: _index,
-        onTap: (index)=>Provider.of<buttomNavy_viewModel>(context,listen: false).goTo(index),
+        body: PageTransitionSwitcher(
+          duration: const Duration(seconds: 1),
+          transitionBuilder: (child,primaryAnimation,secondaryAnimation)=>SharedAxisTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            transitionType: SharedAxisTransitionType.horizontal,
+            child: child,
+          ),
+          child: _bottomNavyItems[_index].page,
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: _bottomNavyItems.map((item) => BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              item.icon_asset,
+              color: _index==_bottomNavyItems.indexOf(item)? ColorManager.defaultColor : ColorManager.grey,
+            ),
+            label: item.title,
+          ),
+          ).toList(),
+          currentIndex: _index,
+          onTap: (index)=>Provider.of<buttomNavy_viewModel>(context,listen: false).goTo(index),
+        ),
       ),
     );
   }

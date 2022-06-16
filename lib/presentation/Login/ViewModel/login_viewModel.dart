@@ -1,9 +1,11 @@
 
+
 import 'package:async/async.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../Widgets/AwesomeMessag.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../services/Authenctication.dart';
 import '../../resources/appStrings.dart';
 
@@ -12,6 +14,9 @@ class loginUser_viewModel extends ChangeNotifier {
   void close(){
 
   }
+
+
+
 
   bool isLoading = false;
   Future<void> loginUser({required String email,required String password,required BuildContext context})async{

@@ -1,9 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:keyofscience/Widgets/Course_card.dart';
+import 'package:keyofscience/models/Models.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
+import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 
 import '../../../../components.dart';
 import '../../../resources/FontsManager.dart';
@@ -11,7 +15,75 @@ import '../../../resources/Styles_Manager.dart';
 
 import '../../../resources/appStrings.dart';
 import '../../../resources/values_manager.dart';
+import '../../homeScreen/view/MainScreen.dart';
 import '../../main_Viewmodel.dart';
+
+
+
+class my_courses extends StatelessWidget {
+  const my_courses({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: getThemeData(),
+      home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        body: ListView(
+          children: [
+            Title_Text(txt: "My courses", seAll: false),
+            _my_courses_listView()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _my_courses_listView extends StatelessWidget {
+  const _my_courses_listView();
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<course>>(
+      future: myCourses_service.getMycourses(),
+      builder: (context, snapshot)=>snapshot.hasData?
+      (snapshot.data!.isEmpty? SizedBox(
+        height: MediaQuery.of(context).size.height/2,
+        child: Center(
+          child: Text("you have no courses yet"),
+        )
+      ) : ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: snapshot.data!.length,
+        itemBuilder: (context,index){
+          course tmp = snapshot.data![index];
+          return Padding(
+            padding: EdgeInsets.all(10),
+            child: cours_card(cours: tmp,onBoarding: true,registerIn: true,),
+          );
+        },
+      )
+      ): SizedBox(
+        height: MediaQuery.of(context).size.height/2,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      )
+    );
+  }
+}
 
 
 
@@ -93,7 +165,34 @@ class Mybooks extends StatelessWidget {
                     ),
                   ),
 
-                  CorsesListView(coursess: Mycourses,ontap: (){},),
+              FutureBuilder<List<Book>>(
+                  future: myCourses_service.get_myBooks(),
+                  builder: (context, snapshot)=>snapshot.hasData?
+                  (snapshot.data!.isEmpty? SizedBox(
+                      height: MediaQuery.of(context).size.height/2,
+                      child: Center(
+                        child: Text("you have no courses yet"),
+                      )
+                  ) : ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context,index){
+                      Book tmp = snapshot.data![index];
+                      return Padding(
+                        padding: EdgeInsets.all(10),
+                        child: book_card(book: tmp,onBoarding: true,),
+                      );
+                    },
+                  )
+                  ): SizedBox(
+                    height: MediaQuery.of(context).size.height/2,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+              ),
+                  // CorsesListView(coursess: Mycourses,ontap: (){},),
                 ],
               ),
 
@@ -106,6 +205,80 @@ class Mybooks extends StatelessWidget {
 }
 
 
+class myCourses_service{
+  static final String email = FirebaseAuth.instance.currentUser!.email ?? '';
+  static Future<List<course>> getMycourses()async{
+    try{
+      List<course> myList = [];
+      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_courses");
+      var res = await inst.orderBy("date",descending: true).get();
+      if(res.docs.isNotEmpty){
+        for (var element in res.docs) {
+          myList.add(course.fromJson(element.data()));
+        }
+      }
+      return myList;
+    }catch (_){
+      return [];
+    }
+  }
+  
+  static Future<void> add_myCoursese(course cours)async{
+    try{
+       final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_courses");
+       await inst.add({
+        'Title' : cours.title,
+         'Enrollment' : cours.id,
+         'Summary' : cours.content,
+         'image' : cours.image,
+         'date' : Timestamp.now(),
+      });
+ 
+     }catch (_){
+     }
+  }
+
+
+  static Future<void> add_mmyBooks(String id)async{
+    try{
+      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_books");
+      await inst.add({
+        "id" : id,
+        "date" : Timestamp.now()
+      });
+
+    }catch (_){
+    }
+  }
+
+  static Future<List<Book>> get_myBooks()async{
+    try{
+      List<Book> myList = [];
+      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_books");
+      var res = await inst.orderBy("date",descending: true).get();
+      if(res.docs.isNotEmpty){
+        for (var element in res.docs) {
+          Book book = await getBook(element.data()['id']);
+          myList.add(Book.fromJson(element.data()));
+        }
+      }
+      return myList;
+    }catch (_){
+      return [];
+    }
+  }
+
+  static Future<Book> getBook(String id)async{
+
+      final inst = FirebaseFirestore.instance.collection("books").where("id",isEqualTo: id);
+      var res = await inst.get();
+      Book book = Book.fromJson(res.docs[0].data());
+      print(book);
+      return book;
+
+  }
+
+}
 
 
 

@@ -6,7 +6,7 @@ void AwesomeMessag({required BuildContext context,required String title,required
     context,
     AwesomeMessageRoute(
       awesomeMessage: AwesomeHelper.createAwesome(
-          title: "Error", message: message,
+          title: type==TipType.ERROR?  "Error" : "Success", message: message,
           tipType: type
       ),
       settings: const RouteSettings(name: "/messageRouteName"),

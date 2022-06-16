@@ -1,9 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:keyofscience/presentation/Video/CourseDetail.dart';
+import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:keyofscience/services/courses_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../presentation/main/CoursePage/view/CoursePage.dart';
 import '../presentation/resources/FontsManager.dart';
@@ -16,20 +19,26 @@ import '../presentation/main/CoursePage/view/CoursePage.dart';
 class cours_card extends StatelessWidget {
   final bool onBoarding;
    final course cours;
-    cours_card({ required this.cours,this.onBoarding=false});
+   final bool registerIn;
+    cours_card({ required this.cours,this.onBoarding=false,this.registerIn=false});
 
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     final double cardWidth = onBoarding? width * 0.9 : width * 0.8;
     return Container(
       padding: EdgeInsets.symmetric(vertical: onBoarding? AppPadding.p8 : 0),
       alignment: Alignment.center,
-      child: GestureDetector(
+        height: height * 0.24,
+        child: GestureDetector(
         onTap: ()async{
+
+          bool isRegistered = await verifyIFregistered_in_cours.isRegistered(cours.id);
+          print("isRegisteredisRegistered $isRegistered");
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_)=> CourseScreen(cours: cours))
+            MaterialPageRoute(builder: (_)=>   isRegistered? CourseDetail(courseId: cours.id) : CourseScreen(cours: cours))
           );
         },
         child: Hero(
@@ -41,7 +50,7 @@ class cours_card extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   image:   DecorationImage(
-                    image: AssetImage(cours.image),
+                    image: NetworkImage(cours.image),
                     fit: BoxFit.cover,
                   ),
                   borderRadius:BorderRadius.circular(AppRadius.r15),
@@ -173,6 +182,50 @@ class _book_cardState extends State<book_card> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class verifyIFregistered_in_cours{
+ static Future<bool> isRegistered(String id)async{
+    try{
+      SharedPreferences inst = await SharedPreferences.getInstance();
+      bool? registered = inst.getBool(id);
+      if(registered==null) {
+        return false;
+      }
+      return true;
+
+    }catch (_){
+      return false;
+    }
+  }
+
+ static Future<void> register(String id)async{
+    try{
+      SharedPreferences inst = await SharedPreferences.getInstance();
+      inst.setBool(id, true);
+    }catch (_){}
+  }
+
+}
+
+
+
 
 
 

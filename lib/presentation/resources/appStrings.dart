@@ -17,11 +17,10 @@ static const String privacy3 =  '  Acknowledgent';
 
 
 /// onBoarding texts
-static const String onBoardingTitle1 = "lastly";
-static const String onBoardingTitle2 = " searsh for courses";
-static const String onBoardingSubTitle = "select what do you want to learn";
+static const String onBoardingTitle2 = "lastly searsh for courses";
+static const String onBoardingSubTitle = "select what do you want to\n learn";
 static const String skip = "Skip";
-static const String recommanded_courses = "Recommanded courses";
+static const String recommanded_courses = "Recommanded \ncourses";
 static const String YourCourses = "Your courses :";
 static const String YourBooks = "Your Books :";
 

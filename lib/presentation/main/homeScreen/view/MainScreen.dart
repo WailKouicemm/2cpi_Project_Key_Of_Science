@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/main/Courses/view/CoursesScreen.dart';
 import 'package:keyofscience/presentation/main/main_Viewmodel.dart';
 import 'package:keyofscience/presentation/main/postsPages/view/addPost_view.dart';
+import 'package:keyofscience/presentation/main/searchPage/search_view.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
@@ -11,6 +12,7 @@ import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../Pages/add_task_bar.dart';
 import '../../../../Pages/home_page.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
@@ -18,9 +20,25 @@ import '../../notesScreen/notes_page.dart';
 
 
 
-class homeScreen extends StatelessWidget {
+class homeScreen extends StatefulWidget {
   const homeScreen();
 
+  @override
+  State<homeScreen> createState() => _homeScreenState();
+}
+
+class _homeScreenState extends State<homeScreen> {
+  late  TextEditingController searchcontroller;
+  @override
+  void initState() {
+    searchcontroller = TextEditingController();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    searchcontroller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -30,15 +48,61 @@ class homeScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.only(top:AppMargin.m10 ,left: 25 , right: 25 , ),
+                child: TextField(
+                  style: const TextStyle(color: Colors.black),
+                  controller: searchcontroller,
+                  cursorColor: ColorManager.defaultColor,
+                  decoration:   InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    fillColor: Color(0xffe3e8fc),
+                    hintText: 'search for...',
+                    contentPadding: EdgeInsets.symmetric(vertical:14 ,horizontal: 14),
+                    suffixIcon: GestureDetector(
+                            onTap: (){
+                              final String text = searchcontroller.text;
+                          if(text.isNotEmpty){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder : (context)=>search_page(text)
+                                )
+                            );
+                          }
+                        },
+                        child: Icon(Icons.search, color: Colors.grey, )
+                    ),
+                    hintStyle: TextStyle(color: Colors.grey , fontSize: 12 , fontWeight: FontWeight.w600),
+                  ),
+                  onSubmitted: (text){
+                    if(text.isNotEmpty){
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder : (context)=>search_page(text)
+                          )
+                      );
+                    }
+
+                  },
+                ),
+              ),
               profilecard(height: height,),
               const Title_Text(txt:'TreeTech features',seAll: false),
               const Keyeince_features(),
-              const Title_Text(txt:'Courses',seAll: true),
-              // const CorsesListViewItems(),
-              const courses_listview("all"),
-             // const recentlyPoststitle(),
-              const Title_Text(txt:'Books',seAll: true),
-              const courses_listview("all",isBook: true,popular: true,),
+                Title_Text(txt:'Courses',seAll: true,
+              ontap: (){
+                Provider.of<buttomNavy_viewModel>(context,listen:false).goTo(3);
+              },),
+              const courses_listview("Flutter"),
+              Title_Text(txt:'Books',seAll: true,
+              ontap: (){
+                Provider.of<buttomNavy_viewModel>(context,listen:false).goTo(4);
+              },),
+              const courses_listview("Mobile developement",isBook: true,),
               const SizedBox(
                 height: AppMargin.m20,
               )
@@ -76,7 +140,8 @@ class recentlyPoststitle extends StatelessWidget {
 class Title_Text extends StatelessWidget {
 final String txt;
 final bool seAll;
-  const Title_Text({required  this.txt,required  this.seAll});
+final Function()? ontap;
+  const Title_Text({required  this.txt,required  this.seAll,this.ontap});
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +152,8 @@ final bool seAll;
           children: [
             Text(txt, style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeightManager.bold)),
             if(seAll)
-               const TextButton(
-                onPressed: null,
+                 TextButton(
+                onPressed: ontap,
                 child: Text('SEE ALL'),
               ),
           ],
@@ -151,7 +216,7 @@ class Keyeince_features extends StatelessWidget {
   Widget build(BuildContext context) {
      List<Keyeince_features_item>  Keyeince_features_items =const [
       Keyeince_features_item(name: "Add\nnote", logo: Icons.note_add_outlined, page: NotesPage()),
-         Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Schedule()),
+         Keyeince_features_item(name: "Add\ntask", logo: Icons.query_stats,page:  Tasks(fromHome: true,)),
           Keyeince_features_item(name: 'Add\npost', logo: Icons.add,page: AddPostPage()),
     ];
     return Row(

@@ -7,6 +7,7 @@ import 'package:keyofscience/presentation/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 
 import '../../../models/Models.dart';
+import '../../main/Courses/view/CoursesScreen.dart';
 import '../ViewModel/OnBoarding_ViewModel.dart';
 
 class PreferredCourses extends StatelessWidget {
@@ -23,19 +24,10 @@ class PreferredCourses extends StatelessWidget {
                 right: AppPadding.p8,
                 bottom: AppPadding.p5
                 ,top: AppPadding.p20),
-            child: RichText(
-              text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: AppStrings.onBoardingTitle1,
-                        style: Theme.of(context).textTheme.headline3
-                    ),
-                    TextSpan(
-                        text: AppStrings.onBoardingTitle2,
-                        style: Theme.of(context).textTheme.headline1
-                    ),
-                  ]
-              ),
+            child:
+            Text(
+                AppStrings.onBoardingTitle2,
+                style: Theme.of(context).textTheme.headline1
             ),
           ),
           Padding(
@@ -49,7 +41,7 @@ class PreferredCourses extends StatelessWidget {
           ),
           GridList(
             ontap: () {},
-            list: categries,
+            list: course_categories,
           ),
         ],
       );
@@ -58,7 +50,7 @@ class PreferredCourses extends StatelessWidget {
 
 class GridList extends StatefulWidget {
   final Function() ontap;
-  final List<categories> list;
+  final List<String> list;
 
   const GridList({required this.list, required this.ontap}) : super();
 
@@ -83,9 +75,9 @@ class _GridListState extends State<GridList> {
             maxCrossAxisExtent: 170, crossAxisSpacing: 20, mainAxisSpacing: 20),
         itemCount: widget.list.length,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: ()=>Provider.of<selectedItemProvier>(context,listen: false).onItemSelected(widget.list[index].title),
+          onTap: ()=>Provider.of<selectedItemProvier>(context,listen: false).onItemSelected(widget.list[index]),
           child: Selector<selectedItemProvier,bool>(
-            selector: (context,provider)=>provider.selectedItems.contains(widget.list[index].title),
+            selector: (context,provider)=>provider.selectedItems.contains(widget.list[index]),
            shouldRebuild: (prev,next)=> prev!=next,
            builder: (context,selected,_)=> AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
@@ -95,7 +87,7 @@ class _GridListState extends State<GridList> {
                   borderRadius: BorderRadius.circular(AppRadius.r30),
                 ),
                 child: Text(
-                  widget.list[index].title,
+                  widget.list[index],
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
                 ),
@@ -106,13 +98,4 @@ class _GridListState extends State<GridList> {
     );
   }
 }
-
-List<categories> categries = [
-  categories(title: 'DESIGN UI UX'),
-  categories(title: 'WEB DEVLOPMENT'),
-  categories(title: 'CYBER ECURETY'),
-  categories(title: 'MOBILE DEVLOPMENT'),
-  categories(title: 'GRAPHICMOYION'),
-  categories(title: 'AI & MACHINE LEARNING'),
-];
 
