@@ -168,7 +168,7 @@ class _book_cardState extends State<book_card> {
                   ),
                 ],
               ),
-            )
+             )
         )
     );
   }
