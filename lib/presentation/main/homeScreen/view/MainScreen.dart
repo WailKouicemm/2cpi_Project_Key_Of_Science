@@ -10,12 +10,15 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/Styles_Manager.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/course_service.dart';
+
 import 'package:provider/provider.dart';
 
 import '../../../../Pages/add_task_bar.dart';
 import '../../../../Pages/home_page.dart';
 import '../../../../models/Models.dart';
 import '../../../../Widgets/Course_card.dart';
+import '../../CoursePage/view/CoursePage.dart';
 import '../../notesScreen/notes_page.dart';
 
 
@@ -170,38 +173,22 @@ class profilecard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-        padding: const EdgeInsets.all(AppPadding.p40),
-        margin: const EdgeInsets.only(top:AppMargin.m10 ,left: AppMargin.m10 , right: AppMargin.m10 , ),
-        height: height * 0.24,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image:  DecorationImage(
-              image: AssetImage(images.card),
-              fit: BoxFit.fill
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:   [
-                  Text( (FirebaseAuth.instance.currentUser!.displayName?? ''),
-                      style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeight.w700)
-                  ),
-                  const SizedBox(height: AppHeight.h14,),
-                  AutoSizeText(
-                    'Your reacently coursz : JAVA BASICS \n\nNext lesson : Monday,18 at 13:00',
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                ],
-              ),
-            ),
-            /// the percentage circularAvatar
-          ],
+    return FutureBuilder<List<course>>(
+      future: myCourses_service.getMycourses(),
+        builder: (context, snapshot)=>snapshot.hasData ?
+
+        (snapshot.data!.isEmpty? GestureDetector(
+
+            child: UserCard(message: "you don t have any course yet  " ,height: height / 3,)
+        )
+            : GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_)=> next_coursePage(snapshot.data![0]),
+                ),);
+            },
+            child: UserCard(message: "Your recently course is : "+snapshot.data![0].title,height: height,)) ): Container(
+          child: Text("djcdhckj"),
         )
     );
   }
@@ -303,6 +290,54 @@ class CorsesListViewItems extends StatelessWidget {
             );
           }
       ),
+    );
+  }
+}
+
+
+
+class UserCard extends StatelessWidget {
+  UserCard({required this.message ,required this.height});
+
+  final String message ;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+        padding: const EdgeInsets.all(AppPadding.p40),
+        margin: const EdgeInsets.only(top:AppMargin.m10 ,left: AppMargin.m10 , right: AppMargin.m10 , ),
+        height: height * 0.24,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          image:  DecorationImage(
+              image: AssetImage(images.card),
+              fit: BoxFit.fill
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children:   [
+                  Text("Hi "  +((FirebaseAuth.instance.currentUser!.displayName)?? ''),
+                      style: boldStyle(color: ColorManager.white,fontSize: FontSizeManager.s20,fontWeight: FontWeight.w700)
+                  ),
+                  const SizedBox(height: AppHeight.h14,),
+                  AutoSizeText(
+                    message,
+                    style: Theme.of(context).textTheme.subtitle2,
+                  ),
+                ],
+              ),
+            ),
+            /// the percentage circularAvatar
+          ],
+        )
     );
   }
 }
