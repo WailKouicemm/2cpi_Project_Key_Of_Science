@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:tuple/tuple.dart';
 
-import '../../../../components.dart';
+import '../../../../theme/components.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/FontsManager.dart';
 import '../../../resources/appStrings.dart';

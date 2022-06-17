@@ -6,7 +6,6 @@ import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:provider/provider.dart';
 
-import '../../../components.dart';
 import '../../main/Courses/view/CoursesScreen.dart';
 import '../../main/main_view.dart';
 import '../../resources/FontsManager.dart';

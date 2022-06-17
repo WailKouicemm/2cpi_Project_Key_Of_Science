@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
  import 'package:flutter/services.dart';
 import 'package:keyofscience/Widgets/Course_card.dart';
 
-import 'models/Models.dart';
+import '../models/Models.dart';
+
 
 
 

@@ -19,11 +19,13 @@ class _CourseDetailState extends State<CourseDetail> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-
+      backgroundColor: ColorManager.white,
+      appBar: AppBar(
           title: Text('Course content'),
+          elevation: 0.0,
+          backgroundColor: ColorManager.white,
         ),
-        body:     FutureBuilder<List<String>>(
+        body: FutureBuilder<List<String>>(
             future: course_service.getCourseMap(widget.courseId),
             builder: (context,snapshot)=> Column(
               children: [

@@ -20,7 +20,10 @@ class api_service{
       var data = json.decode(res.body);
       for(int i=0;i<math.min(data.length, 10);i++){
          course tmp =  course.fromJson(data[i]);
-         tmp.image=category_images[category]==null? "" : category_images[category]![i];
+         if(category_images[category]!=null){
+          tmp.image =  category_images[category]![i];
+         }
+
          list.add(tmp);
       }
       return list;

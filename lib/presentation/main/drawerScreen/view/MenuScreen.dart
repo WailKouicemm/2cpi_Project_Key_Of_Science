@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:keyofscience/components.dart';
-import 'package:keyofscience/presentation/Register/view/RegisterPage.dart';
 import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';

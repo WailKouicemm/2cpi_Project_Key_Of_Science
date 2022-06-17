@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:keyofscience/presentation/Video/CourseDetail.dart';
 import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/main/books/books_view.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/course_service.dart';
 import 'package:keyofscience/services/courses_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,18 +41,18 @@ class cours_card extends StatelessWidget {
           bool isRegistered = await verifyIFregistered_in_cours.isRegistered(cours.id);
           print("isRegisteredisRegistered $isRegistered");
           Navigator.of(context).push(
-            MaterialPageRoute(builder: (_)=>   isRegistered? CourseDetail(courseId: cours.id) : CourseScreen(cours: cours))
+            MaterialPageRoute(builder: (_)=> next_coursePage(cours)
+           // isRegistered? CourseDetail(courseId: cours.id) : CourseScreen(cours: cours)
+            )
           );
         },
-        child: Hero(
-          tag: cours.image,
-          child: Stack(
+        child:  Stack(
             children: [
               Container(
                 width: cardWidth,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  image:   DecorationImage(
+                   image:   DecorationImage(
                     image: NetworkImage(cours.image),
                     fit: BoxFit.cover,
                   ),
@@ -85,7 +88,21 @@ class cours_card extends StatelessWidget {
                           const SizedBox(
                             height: 3,
                           ),
-                          const _continue_text()
+                          Container(
+                              padding: const EdgeInsets.all(AppPadding.p1),
+                              margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(AppRadius.r10),
+                                color: ColorManager.pink,
+                              ),
+                              alignment: Alignment.center,
+                              child: const Text(' continue ' ,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white
+                                ),
+                              )
+                          ),
 
                         ],
                       ),
@@ -94,7 +111,7 @@ class cours_card extends StatelessWidget {
               ),
             ],
           ),
-        )
+
       )
     );
   }
@@ -169,7 +186,21 @@ class _book_cardState extends State<book_card> {
                                 const SizedBox(
                                   height: 6,
                                 ),
-                                const _continue_text()
+                                  Container(
+                                    padding: const EdgeInsets.all(AppPadding.p1),
+                                    margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(AppRadius.r10),
+                                      color: ColorManager.pink,
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: const Text(' continue ' ,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white
+                                      ),
+                                    )
+                                ),
                               ],
                             ),
                           )
@@ -200,54 +231,7 @@ class _book_cardState extends State<book_card> {
 
 
 
-class verifyIFregistered_in_cours{
- static Future<bool> isRegistered(String id)async{
-    try{
-      SharedPreferences inst = await SharedPreferences.getInstance();
-      bool? registered = inst.getBool(id);
-      if(registered==null) {
-        return false;
-      }
-      return true;
-
-    }catch (_){
-      return false;
-    }
-  }
-
- static Future<void> register(String id)async{
-    try{
-      SharedPreferences inst = await SharedPreferences.getInstance();
-      inst.setBool(id, true);
-    }catch (_){}
-  }
-
-}
 
 
 
 
-
-
-class _continue_text extends StatelessWidget {
-  const _continue_text({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(AppPadding.p1),
-        margin: const EdgeInsets.symmetric(horizontal: AppPadding.p10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.r10),
-          color: ColorManager.pink,
-        ),
-        alignment: Alignment.center,
-        child: const Text(' continue ' ,
-          style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: Colors.white
-          ),
-        )
-    );
-  }
-}

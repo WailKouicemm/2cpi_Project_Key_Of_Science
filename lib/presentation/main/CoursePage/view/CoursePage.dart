@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:keyofscience/Widgets/Course_card.dart';
-import 'package:keyofscience/components.dart';
 import 'package:keyofscience/presentation/main/Mybooks/view/MyBooks.dart';
 import 'package:keyofscience/presentation/resources/FontsManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
 import 'package:keyofscience/presentation/resources/appStrings.dart';
 import 'package:keyofscience/presentation/resources/images.dart';
 import 'package:keyofscience/presentation/resources/values_manager.dart';
+import 'package:keyofscience/services/course_service.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../models/Models.dart';
 import '../../../Video/CourseDetail.dart';
 import '../../../resources/ColorManager.dart';
 import '../../../resources/Styles_Manager.dart';
+
+
+class next_coursePage extends StatelessWidget {
+  final course cours;
+  const next_coursePage(this.cours);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: course_service.isRegistered(cours.id),
+      builder: (context,snapshot){
+        if(snapshot.hasData){
+          return snapshot.data!? CourseDetail(courseId: cours.id) : CourseScreen(cours: cours);
+        }
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+}
+
 
 class CourseScreen extends StatefulWidget {
   final course cours;
@@ -25,6 +49,12 @@ class CourseScreen extends StatefulWidget {
 class _CourseScreenState extends State<CourseScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.cours.image);
+    print(widget.cours.image);
+    print(widget.cours.image);
+    print(widget.cours.image);
+    print(widget.cours.image);
+    print(widget.cours.image);
     final double height = MediaQuery.of(context).size.height;
     return MaterialApp(
       theme: getThemeData().copyWith(
@@ -61,35 +91,32 @@ class _CourseScreenState extends State<CourseScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       /// cours image
-                      Hero(
-                        tag: widget.cours.image,
-                        child: GestureDetector(
-                          onTap: (){
-                            // Navigator.of(context).push(
-                            //     MaterialPageRoute(
-                            //         builder: (_)=>ImagePage(imagesList: [cours.image],
-                            //           currentpage: 0,))
-                            // );
-                          },
-                          child: Container(
-                              height: height/4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(AppRadius.r15),
-                                image: DecorationImage(
-                                  image: NetworkImage(widget.cours.image),
-                                  fit: BoxFit.fill,
-                                ),
-                                boxShadow:  <BoxShadow>[
-                                  BoxShadow(
-                                    color: ColorManager.grey.withOpacity(0.05),
-                                    spreadRadius: 5,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              margin: const EdgeInsets.only(bottom: AppMargin.m4),
+                      GestureDetector(
+                        onTap: (){
+                          // Navigator.of(context).push(
+                          //     MaterialPageRoute(
+                          //         builder: (_)=>ImagePage(imagesList: [cours.image],
+                          //           currentpage: 0,))
+                          // );
+                        },
+                        child: Container(
+                          height: height/4,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(AppRadius.r15),
+                            image: DecorationImage(
+                              image: NetworkImage(widget.cours.image),
+                              fit: BoxFit.fill,
                             ),
+                            boxShadow:  <BoxShadow>[
+                              BoxShadow(
+                                color: ColorManager.grey.withOpacity(0.05),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          margin: const EdgeInsets.only(bottom: AppMargin.m4),
                         ),
                       ),
                       /// cours creatoe and rating
@@ -216,7 +243,7 @@ class _CourseScreenState extends State<CourseScreen> {
                 child: ElevatedButton(
                   onPressed: ()async{
                     setState(() {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => CourseDetail(courseId: widget.cours.id,)),
                       );

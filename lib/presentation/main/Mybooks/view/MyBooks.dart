@@ -8,8 +8,8 @@ import 'package:keyofscience/Widgets/Course_card.dart';
 import 'package:keyofscience/models/Models.dart';
 import 'package:keyofscience/presentation/resources/ColorManager.dart';
 import 'package:keyofscience/presentation/resources/ThemeManager.dart';
+import 'package:keyofscience/services/course_service.dart';
 
-import '../../../../components.dart';
 import '../../../resources/FontsManager.dart';
 import '../../../resources/Styles_Manager.dart';
 
@@ -204,81 +204,6 @@ class Mybooks extends StatelessWidget {
   }
 }
 
-
-class myCourses_service{
-  static final String email = FirebaseAuth.instance.currentUser!.email ?? '';
-  static Future<List<course>> getMycourses()async{
-    try{
-      List<course> myList = [];
-      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_courses");
-      var res = await inst.orderBy("date",descending: true).get();
-      if(res.docs.isNotEmpty){
-        for (var element in res.docs) {
-          myList.add(course.fromJson(element.data()));
-        }
-      }
-      return myList;
-    }catch (_){
-      return [];
-    }
-  }
-  
-  static Future<void> add_myCoursese(course cours)async{
-    try{
-       final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_courses");
-       await inst.add({
-        'Title' : cours.title,
-         'Enrollment' : cours.id,
-         'Summary' : cours.content,
-         'image' : cours.image,
-         'date' : Timestamp.now(),
-      });
- 
-     }catch (_){
-     }
-  }
-
-
-  static Future<void> add_mmyBooks(String id)async{
-    try{
-      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_books");
-      await inst.add({
-        "id" : id,
-        "date" : Timestamp.now()
-      });
-
-    }catch (_){
-    }
-  }
-
-  static Future<List<Book>> get_myBooks()async{
-    try{
-      List<Book> myList = [];
-      final inst = FirebaseFirestore.instance.collection("mine_books_corses").doc(email).collection("my_books");
-      var res = await inst.orderBy("date",descending: true).get();
-      if(res.docs.isNotEmpty){
-        for (var element in res.docs) {
-          Book book = await getBook(element.data()['id']);
-          myList.add(Book.fromJson(element.data()));
-        }
-      }
-      return myList;
-    }catch (_){
-      return [];
-    }
-  }
-
-  static Future<Book> getBook(String id)async{
-
-      final inst = FirebaseFirestore.instance.collection("books").where("id",isEqualTo: id);
-      var res = await inst.get();
-      Book book = Book.fromJson(res.docs[0].data());
-      print(book);
-      return book;
-
-  }
-
-}
 
 
 

@@ -37,7 +37,7 @@ class course {
 
   factory course.fromJson(Map<String,dynamic> json){
     return course(
-        image: json["image"]?? "",
+        image: json["image"]?? "https://startcenteromaha.org/wp-content/uploads/2014/12/courses-background.png",
         title: json["Title"]?? "",
         lessonsNumber: "10",
         creator: "salah eddine",
