@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:keyofscience/pages/Checkmail/checkmail.dart';
 import 'package:keyofscience/pages/login.dart';
 import 'package:keyofscience/pages/signin.dart';
 import 'kdefault.dart';
-import 'components.dart';
+//import 'components.dart';
 
 
 void main() {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: KdefaultColor,
         primarySwatch: Colors.grey,
       ),
-      home: const RegisterPage()
+      home: const CheckMail()
     );
   }
 }
